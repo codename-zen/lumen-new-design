@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "html-css-guide": {
+      "source": "ar4mirez/samuel",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/html-css-guide/SKILL.md",
+      "computedHash": "2aac93d0112138c8f748028ecb81046007b09f54f0690e9388be7b0a903e12df"
+    }
+  }
+}

@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumen — AI Knowledge Base (v2 Design)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Phosphor Icons: bold + fill + regular -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<div class="app">
+
+  <!-- ═══════════ SIDEBAR ═══════════ -->
+  <aside class="sidebar" id="sidebar">
+
+    <!-- Brand Header — when expanded shows brand icon + name + toggle -->
+    <!-- When collapsed shows toggle icon (hover brand area to expand) -->
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-icon">
+          <i class="ph ph-fill ph-cube"></i>
+        </div>
+        <span class="sidebar-brand-name">Lumen</span>
+      </div>
+      <button type="button" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle sidebar" title="Toggle sidebar">
+        <i class="ph ph-bold ph-sidebar-simple"></i>
+      </button>
+    </div>
+
+    <!-- Search -->
+    <div class="sidebar-search-wrap">
+      <div class="ui-search">
+        <i class="ph ph-bold ph-magnifying-glass"></i>
+        <input type="text" placeholder="Search..." aria-label="Search threads">
+      </div>
+    </div>
+
+    <!-- Nav Links -->
+    <nav class="sidebar-nav">
+      <!-- New chat — blue accent, plus icon in blue circle -->
+      <a href="#" class="nav-link-new-chat" data-tooltip="New chat" onclick="navigateTo('chat', this)">
+        <div class="new-chat-icon-circle">
+          <i class="ph ph-bold ph-plus"></i>
+        </div>
+        <span class="nav-link-text">New chat</span>
+      </a>
+      <!-- Projects — inactive -->
+      <a href="#" class="nav-link" data-tooltip="Projects" onclick="navigateTo('projects', this)">
+        <i class="ph ph-fill ph-folder"></i>
+        <span class="nav-link-text">Projects</span>
+      </a>
+      <!-- Library — inactive, gray icon -->
+      <a href="#" class="nav-link" data-tooltip="Library" onclick="navigateTo('library', this)">
+        <i class="ph ph-fill ph-books"></i>
+        <span class="nav-link-text">Library</span>
+      </a>
+      <!-- Search (icon-only in collapsed mode) -->
+      <a href="#" class="nav-link nav-link-search" data-tooltip="Search" onclick="document.querySelector('.ui-search input').focus()">
+        <i class="ph ph-bold ph-magnifying-glass"></i>
+        <span class="nav-link-text">Search</span>
+      </a>
+    </nav>
+
+    <!-- Sections -->
+    <div class="sidebar-sections">
+
+      <!-- Pinned -->
+      <div class="sidebar-section">
+        <div class="sidebar-divider-section"></div>
+        <div class="sidebar-section-header">
+          <span class="sidebar-section-title">Pinned</span>
+        </div>
+        <a href="#" class="section-item active" data-tooltip="Research & Analysis" onclick="navigateTo('research', this)">
+          <i class="ph ph-fill ph-folder"></i>
+          <span class="nav-link-text">Research &amp; Analysis</span>
+        </a>
+        <a href="#" class="section-item" data-tooltip="Web Search" onclick="navigateTo('websearch', this)">
+          <i class="ph ph-fill ph-folder"></i>
+          <span class="nav-link-text">Web Search</span>
+        </a>
+        <a href="#" class="section-item" data-tooltip="Knowledge Base" onclick="navigateTo('knowledge', this)">
+          <i class="ph ph-fill ph-folder"></i>
+          <span class="nav-link-text">Knowledge Base</span>
+        </a>
+      </div>
+
+      <!-- Recents -->
+      <div class="sidebar-section">
+        <div class="sidebar-divider-section"></div>
+        <div class="sidebar-section-header">
+          <span class="sidebar-section-title">Recents</span>
+        </div>
+        <a href="#" class="section-item section-item-no-icon" data-tooltip="User research analysis" onclick="navigateTo('chat', this, 'User research analysis')">
+          <span class="nav-link-text">User research analysis</span>
+        </a>
+        <a href="#" class="section-item section-item-no-icon" data-tooltip="Competitive analysis" onclick="navigateTo('chat', this, 'Competitive analysis')">
+          <span class="nav-link-text">Competitive analysis</span>
+        </a>
+        <a href="#" class="section-item section-item-no-icon" data-tooltip="Meeting notes" onclick="navigateTo('chat', this, 'Meeting notes')">
+          <span class="nav-link-text">Meeting notes</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- User Profile Footer -->
+    <div class="sidebar-footer">
+      <button type="button" class="user-profile" data-tooltip="James Brown" onclick="toggleProfileMenu(event)" aria-haspopup="true" aria-expanded="false" aria-label="Toggle profile menu">
+        <div class="user-avatar">JB</div>
+        <div class="user-info">
+          <div class="user-name">James Brown</div>
+          <div class="user-email">james@alignui.com</div>
+        </div>
+        <div class="user-chevron">
+          <i class="ph ph-bold ph-caret-up-down"></i>
+        </div>
+      </button>
+    </div>
+
+    <!-- Collapsed icon rail (overlay, fades in when collapsed) -->
+    <div class="sidebar-rail">
+      <div class="sidebar-rail__top">
+        <div class="sidebar-rail__logo-row">
+          <div class="sidebar-rail__toggle" onclick="toggleSidebar()" title="Expand sidebar">
+            <span class="rail-logo"><div class="sidebar-brand-icon"><i class="ph ph-fill ph-cube"></i></div></span>
+            <span class="rail-collapse"><i class="ph ph-bold ph-sidebar-simple"></i></span>
+          </div>
+        </div>
+        <div class="sidebar-rail__items">
+        <a class="sidebar-rail__item is-primary" href="#" onclick="navigateTo('chat', document.querySelector('.nav-link-new-chat')); return false;" title="New chat">
+          <i class="ph ph-bold ph-plus"></i>
+        </a>
+        <a class="sidebar-rail__item" href="#" onclick="navigateTo('projects', document.querySelector('.nav-link[data-tooltip=Projects]')); return false;" title="Projects">
+          <i class="ph ph-fill ph-folder"></i>
+        </a>
+        <a class="sidebar-rail__item" href="#" onclick="navigateTo('library', document.querySelector('.nav-link[data-tooltip=Library]')); return false;" title="Library">
+          <i class="ph ph-fill ph-books"></i>
+        </a>
+        </div>
+      </div>
+      <div class="sidebar-rail__bottom">
+        <div class="sidebar-rail__avatar" onclick="toggleProfileMenu(event)" title="James Brown">JB</div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ═══════════ PROFILE MENU (popover) ═══════════ -->
+  <div class="profile-menu is-hidden" id="profile-menu">
+    <div class="profile-menu__header">
+      <div class="profile-menu__avatar">JB</div>
+      <div class="profile-menu__info">
+        <div class="profile-menu__name">James Brown</div>
+        <div class="profile-menu__email">james@alignui.com</div>
+      </div>
+    </div>
+    <div class="profile-menu__divider"></div>
+    <div class="profile-menu__items">
+      <a href="#" class="profile-menu__item">
+        <i class="ph ph-bold ph-plug"></i>
+        Integrations
+      </a>
+      <a href="#" class="profile-menu__item" onclick="openSettings(event)">
+        <i class="ph ph-bold ph-gear"></i>
+        Settings
+      </a>
+      <a href="#" class="profile-menu__item profile-menu__item--danger">
+        <i class="ph ph-bold ph-sign-out"></i>
+        Logout
+      </a>
+    </div>
+    <div class="profile-menu__footer">
+      v1.0.0 &bull; <a href="#">Terms &amp; Conditions</a>
+    </div>
+  </div>
+
+  <!-- ═══════════ MAIN ═══════════ -->
+  <main class="main" id="main">
+    <div class="main__panel">
+
+      <!-- Topbar — locked, reusable across all pages -->
+      <header class="topbar" id="topbar">
+        <div class="topbar__left">
+          <div class="ui-breadcrumb" id="topbar-breadcrumb">
+            <span class="ui-breadcrumb__crumb">Design help</span>
+            <span class="ui-breadcrumb__sep">/</span>
+            <span class="ui-breadcrumb__crumb ui-breadcrumb__crumb--active">Typography discussion</span>
+            <button class="ui-btn ui-btn--icon-xs" type="button">
+              <i class="ph ph-bold ph-caret-down"></i>
+            </button>
+          </div>
+        </div>
+        <div class="topbar__right">
+          <button class="ui-btn ui-btn--icon-sm" type="button" title="More">
+            <i class="ph ph-bold ph-dots-three-vertical"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- ══ VIEW: Chat (New chat + Recents threads) ══ -->
+      <div class="view view--chat is-shown" id="view-chat">
+        <div class="chat__body">
+          <!-- Empty state (new chat) -->
+          <div class="chat__empty is-shown" id="chat-empty">
+            <div class="ui-empty">
+              <div class="ui-empty__logo">
+                <i class="ph ph-fill ph-cube"></i>
+              </div>
+              <div class="ui-empty__title" id="chat-greeting">Hello Gani</div>
+              <div class="ui-empty__subtitle">What can I help you with today?</div>
+            </div>
+          </div>
+          <!-- Messages (recent thread) -->
+          <div class="chat__messages is-hidden" id="chat-messages">
+            <div class="messages" id="messages-container">
+              <!-- Messages rendered by JS -->
+            </div>
+          </div>
+        </div>
+        <div class="chat__footer">
+          <div class="chat__composer-wrap">
+            <div class="ui-composer">
+              <div class="ui-composer__card">
+                <div class="ui-composer__field">
+                  <span class="ui-composer__placeholder" id="composer-placeholder">How can I help you today?</span>
+                  <div class="ui-composer__input" contenteditable="true" id="composer-input" role="textbox" aria-label="Message input"></div>
+                </div>
+                <div class="ui-composer__toolbar">
+                  <div class="ui-composer__toolbar-left">
+                    <button class="ui-btn ui-btn--icon" type="button" title="Add">
+                      <i class="ph ph-bold ph-plus"></i>
+                    </button>
+                    <button class="ui-btn ui-btn--mode" type="button">
+                      <i class="ph ph-fill ph-folder"></i>
+                      Enterprise Chat
+                      <i class="ph ph-bold ph-caret-down"></i>
+                    </button>
+                  </div>
+                  <div class="ui-composer__toolbar-right">
+                    <button class="ui-btn ui-btn--send" type="button" title="Send">
+                      <i class="ph ph-bold ph-arrow-up"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="chat__disclaimer">AI can make mistakes - please double-check</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ VIEW: Projects ══ -->
+      <div class="view view--placeholder is-hidden" id="view-projects">
+        <div class="view__body">
+          <div class="view__placeholder">
+            <div class="view__placeholder-icon">
+              <i class="ph ph-fill ph-folder"></i>
+            </div>
+            <div class="view__placeholder-title">Projects</div>
+            <div class="view__placeholder-subtitle">In development</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ VIEW: Library ══ -->
+      <div class="view view--placeholder is-hidden" id="view-library">
+        <div class="view__body">
+          <div class="view__placeholder">
+            <div class="view__placeholder-icon">
+              <i class="ph ph-fill ph-books"></i>
+            </div>
+            <div class="view__placeholder-title">Library</div>
+            <div class="view__placeholder-subtitle">In development</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ VIEW: Research & Analysis ══ -->
+      <div class="view view--placeholder is-hidden" id="view-research">
+        <div class="view__body">
+          <div class="view__placeholder">
+            <div class="view__placeholder-icon">
+              <i class="ph ph-fill ph-folder"></i>
+            </div>
+            <div class="view__placeholder-title">Research &amp; Analysis</div>
+            <div class="view__placeholder-subtitle">In development</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ VIEW: Web Search ══ -->
+      <div class="view view--placeholder is-hidden" id="view-websearch">
+        <div class="view__body">
+          <div class="view__placeholder">
+            <div class="view__placeholder-icon">
+              <i class="ph ph-fill ph-globe"></i>
+            </div>
+            <div class="view__placeholder-title">Web Search</div>
+            <div class="view__placeholder-subtitle">In development</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ VIEW: Knowledge Base ══ -->
+      <div class="view view--placeholder is-hidden" id="view-knowledge">
+        <div class="view__body">
+          <div class="view__placeholder">
+            <div class="view__placeholder-icon">
+              <i class="ph ph-fill ph-stack"></i>
+            </div>
+            <div class="view__placeholder-title">Knowledge Base</div>
+            <div class="view__placeholder-subtitle">In development</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+</div>
+
+  <!-- ═══════════ SETTINGS MODAL ═══════════ -->
+  <div class="settings-overlay is-hidden" id="settings-overlay" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+    <div class="settings-modal">
+
+      <!-- ══ Settings Sidebar ══ -->
+      <aside class="settings-sidebar">
+        <!-- Workspace switcher -->
+        <button type="button" class="settings-ws active" onclick="setSettingsTab(this,'overview')">
+          <div class="settings-ws__avatar">J</div>
+          <span class="settings-ws__name">James Brown</span>
+          <span class="settings-ws__badge">PRO</span>
+          <i class="ph ph-bold ph-caret-right settings-ws__chev"></i>
+        </button>
+
+        <nav class="settings-nav">
+          <div class="settings-nav__group">
+            <div class="settings-nav__label">Workspace</div>
+            <a class="settings-nav__item" onclick="setSettingsTab(this,'people')"><i class="ph ph-bold ph-users"></i><span>People</span></a>
+            <a class="settings-nav__item" onclick="setSettingsTab(this,'plans')"><i class="ph ph-bold ph-credit-card"></i><span>Plans &amp; Billing</span></a>
+          </div>
+
+          <div class="settings-nav__group">
+            <div class="settings-nav__label">Account</div>
+            <a class="settings-nav__item" onclick="setSettingsTab(this,'profile')"><i class="ph ph-bold ph-user"></i><span>Profile</span></a>
+            <a class="settings-nav__item" onclick="setSettingsTab(this,'preferences')"><i class="ph ph-bold ph-sliders"></i><span>Preferences</span></a>
+            <a class="settings-nav__item" onclick="setSettingsTab(this,'appearance')"><i class="ph ph-bold ph-sun"></i><span>Appearance</span></a>
+          </div>
+
+          <div class="settings-nav__group">
+            <div class="settings-nav__label">Security</div>
+            <a class="settings-nav__item" onclick="setSettingsTab(this,'security')"><i class="ph ph-bold ph-lock"></i><span>Security</span></a>
+            <a class="settings-nav__item" onclick="setSettingsTab(this,'privacy')"><i class="ph ph-bold ph-shield"></i><span>Privacy &amp; Data</span></a>
+          </div>
+
+          <div class="settings-nav__group">
+            <div class="settings-nav__label">Features</div>
+            <a class="settings-nav__item" onclick="setSettingsTab(this,'ai')"><i class="ph ph-bold ph-sparkle"></i><span>AI Settings</span></a>
+            <a class="settings-nav__item" onclick="setSettingsTab(this,'integrations')"><i class="ph ph-bold ph-plug"></i><span>Integrations</span></a>
+            <a class="settings-nav__item" onclick="setSettingsTab(this,'advanced')"><i class="ph ph-bold ph-wrench"></i><span>Advanced</span></a>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- ══ Settings Content ══ -->
+      <div class="settings-content">
+        <header class="settings-header">
+          <div class="settings-header__text">
+            <h2 class="settings-header__title" id="settings-title">Workspace overview</h2>
+            <p class="settings-header__sub" id="settings-subtitle">Manage your workspace ownership and settings.</p>
+          </div>
+          <button type="button" class="settings-close" onclick="closeSettings()" aria-label="Close" title="Close">
+            <i class="ph ph-bold ph-x"></i>
+          </button>
+        </header>
+
+        <div class="settings-body" id="settings-body">
+
+          <!-- ── OVERVIEW TAB ── -->
+          <div class="settings-tab" id="tab-overview">
+
+            <!-- Section: Overview -->
+            <section class="st-row">
+              <div class="st-row__left">
+                <h3 class="st-h3">Overview</h3>
+                <p class="st-p">Workspace summary and details.</p>
+              </div>
+              <div class="st-row__right">
+                <div class="st-usercard">
+                  <div class="st-usercard__avatar">JB</div>
+                  <div class="st-usercard__info">
+                    <span class="st-usercard__name">James Brown <span class="st-usercard__email">(james@gmail.com)</span></span>
+                    <span class="st-usercard__meta">Member since <span class="st-usercard__date">May 16, 2025</span></span>
+                  </div>
+                  <button class="st-btn">Manage</button>
+                </div>
+                <div class="st-details">
+                  <div class="st-detail"><span class="st-detail__label">Workspace</span><span class="st-detail__value">Spectrum™</span></div>
+                  <div class="st-detail"><span class="st-detail__label">Your role</span><span class="st-detail__value">Admin</span></div>
+                  <div class="st-detail"><span class="st-detail__label">Team members</span><span class="st-detail__value">3/10 seats</span></div>
+                  <div class="st-detail"><span class="st-detail__label">Plan renewal</span><span class="st-detail__value">June 20, 2025</span></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section: Activity -->
+            <section class="st-row st-row--border">
+              <div class="st-row__left">
+                <h3 class="st-h3">Activity</h3>
+                <p class="st-p">Usage analytics and metrics.</p>
+              </div>
+              <div class="st-row__right">
+                <div class="st-stats">
+                  <div class="st-stat"><span class="st-stat__label">Conversations</span><span class="st-stat__value">2,847</span></div>
+                  <div class="st-stat"><span class="st-stat__label">Active projects</span><span class="st-stat__value">59</span></div>
+                  <div class="st-stat"><span class="st-stat__label">Files uploaded</span><span class="st-stat__value">156</span></div>
+                  <div class="st-stat"><span class="st-stat__label">Storage used</span><span class="st-stat__value">24%</span></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section: Plan usage -->
+            <section class="st-row st-row--border">
+              <div class="st-row__left">
+                <h3 class="st-h3">Plan usage</h3>
+                <p class="st-p">Usage limits and current consumption.</p>
+              </div>
+              <div class="st-row__right">
+                <div class="st-bars">
+                  <div class="st-bar">
+                    <span class="st-bar__label">Team seats</span>
+                    <div class="st-bar__track" data-fill="12" data-color="#a855f7"></div>
+                    <span class="st-bar__pct">60%</span>
+                  </div>
+                  <div class="st-bar">
+                    <span class="st-bar__label">Storage</span>
+                    <div class="st-bar__track" data-fill="2" data-color="#14b8a6"></div>
+                    <span class="st-bar__pct">8%</span>
+                  </div>
+                  <div class="st-bar">
+                    <span class="st-bar__label">API</span>
+                    <div class="st-bar__track" data-fill="5" data-color="#f59e0b"></div>
+                    <span class="st-bar__pct">25%</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+          </div>
+
+          <!-- ── Placeholder tabs (title/subtitle only) ── -->
+          <div class="settings-tab is-hidden" id="tab-people">
+
+            <!-- Department Overview Section -->
+            <div class="st-row">
+              <div class="st-row__left">
+                <div class="st-h3">Team overview</div>
+                <div class="st-p">Workspace statistics &amp; details.</div>
+              </div>
+              <div class="st-row__right">
+                <!-- Team card -->
+                <div class="st-card-row">
+                  <div class="st-team-logo">
+                    <i class="ph ph-fill ph-cube"></i>
+                  </div>
+                  <div class="st-dept-info">
+                    <div class="st-dept-name">Lumen</div>
+                    <div class="st-dept-date">Team created date May 18, 2025</div>
+                  </div>
+                  <button class="ui-btn--outline">Manage</button>
+                </div>
+                <!-- Stats grid -->
+                <div class="st-stats">
+                  <div class="st-stat">
+                    <div class="st-stat__label">Used seats</div>
+                    <div class="st-stat__value">3/10 seats</div>
+                  </div>
+                  <div class="st-stat">
+                    <div class="st-stat__label">Admins</div>
+                    <div class="st-stat__value">2 members</div>
+                  </div>
+                  <div class="st-stat">
+                    <div class="st-stat__label">Pending invites</div>
+                    <div class="st-stat__value">1 invite</div>
+                  </div>
+                  <div class="st-stat">
+                    <div class="st-stat__label">Active today</div>
+                    <div class="st-stat__value">3 members</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Members Section -->
+            <div class="st-row st-row--border">
+              <div class="st-row__left">
+                <div class="st-h3">Members</div>
+                <div class="st-p">User roles and permissions.</div>
+              </div>
+              <div class="st-row__right">
+                <!-- Search + filter -->
+                <div class="st-members-toolbar">
+                  <div class="ui-search ui-search--settings">
+                    <i class="ph ph-bold ph-magnifying-glass"></i>
+                    <input type="text" placeholder="Search team members..." aria-label="Search team members">
+                  </div>
+                  <button class="ui-btn--filter">
+                    <div class="st-filter-avatar">S</div>
+                    Sophia Williams
+                    <i class="ph ph-bold ph-caret-down"></i>
+                  </button>
+                </div>
+                <!-- Member list — flat, no borders -->
+                <div class="st-members-list">
+                  <div class="st-member">
+                    <div class="st-member-avatar st-member-avatar--amber">S</div>
+                    <div class="st-member-name">Sophia Williams</div>
+                    <div class="st-member-email">sophia@gmail.com</div>
+                  </div>
+                  <div class="st-member">
+                    <div class="st-member-avatar st-member-avatar--gray">J</div>
+                    <div class="st-member-name">James Brown</div>
+                    <div class="st-member-email">james@gmail.com</div>
+                  </div>
+                  <div class="st-member">
+                    <div class="st-member-avatar st-member-avatar--indigo">A</div>
+                    <div class="st-member-name">Arthur Taylor</div>
+                    <div class="st-member-email">arthur@gmail.com</div>
+                  </div>
+                  <div class="st-member">
+                    <div class="st-member-avatar st-member-avatar--blue">E</div>
+                    <div class="st-member-name">Emma Wright</div>
+                    <div class="st-member-email">emma@gmail.com</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- ── PLANS & BILLING TAB ── -->
+          <div class="settings-tab is-hidden" id="tab-plans">
+
+            <!-- Section: Current plan -->
+            <section class="st-row">
+              <div class="st-row__left">
+                <div class="st-h3">Current plan</div>
+                <div class="st-p">Plan details and usage overview.</div>
+              </div>
+              <div class="st-row__right">
+                <div class="st-card-row">
+                  <div class="st-team-logo">
+                    <i class="ph ph-fill ph-cube"></i>
+                  </div>
+                  <div class="st-dept-info">
+                    <div class="st-dept-name">Professional Plan</div>
+                    <div class="st-dept-date">Team plan for up to 10 members</div>
+                  </div>
+                  <div class="st-plan-price">$49/month</div>
+                  <button class="ui-btn--outline">Manage</button>
+                </div>
+                <div class="st-stats">
+                  <div class="st-stat">
+                    <div class="st-stat__label">Used seats</div>
+                    <div class="st-stat__value">3/10 seats</div>
+                  </div>
+                  <div class="st-stat">
+                    <div class="st-stat__label">Plan renewal</div>
+                    <div class="st-stat__value">June 20, 2025</div>
+                  </div>
+                  <div class="st-stat">
+                    <div class="st-stat__label">Status</div>
+                    <div class="st-stat__value"><span class="st-badge st-badge--green">Active</span></div>
+                  </div>
+                  <div class="st-stat">
+                    <div class="st-stat__label">Active today</div>
+                    <div class="st-stat__value">3 members</div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section: Billing history -->
+            <section class="st-row st-row--border">
+              <div class="st-row__left">
+                <div class="st-h3">Billing history</div>
+                <div class="st-p">Invoice history and payments.</div>
+              </div>
+              <div class="st-row__right">
+                <div class="st-members-toolbar">
+                  <button class="ui-btn--filter">
+                    All status
+                    <i class="ph ph-bold ph-caret-down"></i>
+                  </button>
+                </div>
+                <div class="st-invoice-list">
+                  <div class="st-invoice">
+                    <div class="st-invoice__date">April 15, 2025</div>
+                    <div class="st-invoice__amount">$49.00</div>
+                    <div class="st-invoice__status"><span class="st-badge st-badge--green">Paid</span></div>
+                    <button class="st-invoice__action"><i class="ph ph-bold ph-download-simple"></i></button>
+                  </div>
+                  <div class="st-invoice">
+                    <div class="st-invoice__date">May 15, 2025</div>
+                    <div class="st-invoice__amount">$49.00</div>
+                    <div class="st-invoice__status"><span class="st-badge st-badge--green">Paid</span></div>
+                    <button class="st-invoice__action"><i class="ph ph-bold ph-download-simple"></i></button>
+                  </div>
+                  <div class="st-invoice">
+                    <div class="st-invoice__date">June 15, 2025</div>
+                    <div class="st-invoice__amount">$49.00</div>
+                    <div class="st-invoice__status"><span class="st-badge st-badge--green">Paid</span></div>
+                    <button class="st-invoice__action"><i class="ph ph-bold ph-download-simple"></i></button>
+                  </div>
+                  <div class="st-invoice">
+                    <div class="st-invoice__date">July 15, 2025</div>
+                    <div class="st-invoice__amount">$49.00</div>
+                    <div class="st-invoice__status"><span class="st-badge st-badge--green">Paid</span></div>
+                    <button class="st-invoice__action"><i class="ph ph-bold ph-download-simple"></i></button>
+                  </div>
+                  <div class="st-invoice">
+                    <div class="st-invoice__date">August 15, 2025</div>
+                    <div class="st-invoice__amount">$49.00</div>
+                    <div class="st-invoice__status"><span class="st-badge st-badge--green">Paid</span></div>
+                    <button class="st-invoice__action"><i class="ph ph-bold ph-download-simple"></i></button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+          </div>
+          <!-- ── PROFILE TAB ── -->
+          <div class="settings-tab is-hidden" id="tab-profile">
+
+            <!-- Section: Profile picture -->
+            <section class="st-row">
+              <div class="st-row__left">
+                <div class="st-h3">Profile picture</div>
+                <div class="st-p">Update your avatar image.</div>
+              </div>
+              <div class="st-row__right">
+                <div class="st-avatar-upload">
+                  <div class="st-usercard__avatar st-avatar-upload__img">JB</div>
+                  <div class="st-avatar-upload__info">
+                    <div class="st-setting-label">Upload image</div>
+                    <div class="st-setting-desc">Min 400x400px, PNG or JPEG formats.</div>
+                  </div>
+                  <button class="ui-btn--outline"><i class="ph ph-bold ph-upload-simple"></i>Upload</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section: Personal information -->
+            <section class="st-row st-row--border">
+              <div class="st-row__left">
+                <div class="st-h3">Personal information</div>
+                <div class="st-p">Edit your account details.</div>
+              </div>
+              <div class="st-row__right">
+                <div class="st-card-row">
+                  <div class="st-usercard__avatar">JB</div>
+                  <div class="st-dept-info">
+                    <div class="st-dept-name">James Brown</div>
+                    <div class="st-dept-date">Member since May 16, 2025</div>
+                  </div>
+                  <button class="ui-btn--outline">Edit profile</button>
+                </div>
+                <div class="st-details">
+                  <div class="st-detail"><span class="st-detail__label">Full name</span><span class="st-detail__value">James Brown</span></div>
+                  <div class="st-detail"><span class="st-detail__label">Email</span><span class="st-detail__value">james@alignui.com</span></div>
+                  <div class="st-detail"><span class="st-detail__label">Time zone</span><span class="st-detail__value">UTC-05:00</span></div>
+                  <div class="st-detail"><span class="st-detail__label">Language</span><span class="st-detail__value">English</span></div>
+                </div>
+              </div>
+            </section>
+
+          </div>
+          <!-- ── PREFERENCES TAB ── -->
+          <div class="settings-tab is-hidden" id="tab-preferences">
+
+            <!-- Section: General -->
+            <section class="st-row">
+              <div class="st-row__left">
+                <div class="st-h3">General</div>
+                <div class="st-p">Customize your experience.</div>
+              </div>
+              <div class="st-row__right">
+                <div class="st-setting-list">
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">Time zone</div>
+                      <div class="st-setting-desc">Used for dates and notifications</div>
+                    </div>
+                    <button class="ui-btn--select">UTC-05:00 Eastern <i class="ph ph-bold ph-caret-down"></i></button>
+                  </div>
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">Language</div>
+                      <div class="st-setting-desc">Interface display language</div>
+                    </div>
+                    <button class="ui-btn--select">English <i class="ph ph-bold ph-caret-down"></i></button>
+                  </div>
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">Date format</div>
+                      <div class="st-setting-desc">How dates are displayed</div>
+                    </div>
+                    <button class="ui-btn--select">MM/DD/YYYY <i class="ph ph-bold ph-caret-down"></i></button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section: Notifications -->
+            <section class="st-row st-row--border">
+              <div class="st-row__left">
+                <div class="st-h3">Notifications</div>
+                <div class="st-p">Manage notification preferences.</div>
+              </div>
+              <div class="st-row__right">
+                <div class="st-setting-list">
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">Email notifications</div>
+                      <div class="st-setting-desc">Receive updates via email</div>
+                    </div>
+                    <button class="st-toggle st-toggle--on" aria-label="Email notifications" onclick="this.classList.toggle('st-toggle--on')">
+                      <span class="st-toggle-knob"></span>
+                    </button>
+                  </div>
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">In-app notifications</div>
+                      <div class="st-setting-desc">Show notifications inside the app</div>
+                    </div>
+                    <button class="st-toggle st-toggle--on" aria-label="In-app notifications" onclick="this.classList.toggle('st-toggle--on')">
+                      <span class="st-toggle-knob"></span>
+                    </button>
+                  </div>
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">Desktop notifications</div>
+                      <div class="st-setting-desc">Show OS-level desktop alerts</div>
+                    </div>
+                    <button class="st-toggle" aria-label="Desktop notifications" onclick="this.classList.toggle('st-toggle--on')">
+                      <span class="st-toggle-knob"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+          </div>
+          <div class="settings-tab is-hidden" id="tab-appearance">
+
+            <!-- Theme Section -->
+            <div class="st-row">
+              <div class="st-row__left">
+                <div class="st-h3">Theme</div>
+                <div class="st-p">Color scheme and visual style.</div>
+              </div>
+              <div class="st-row__right">
+                <div class="st-setting-group">
+                  <div class="st-setting-label">Color theme</div>
+                  <div class="st-setting-desc">Choose your preferred color scheme</div>
+                  <div class="st-radio-group">
+                    <label class="st-radio">
+                      <input type="radio" name="theme" value="light" checked onchange="setTheme('light')">
+                      <span class="st-radio-mark"></span>
+                      <span class="st-radio-label">Light</span>
+                    </label>
+                    <label class="st-radio">
+                      <input type="radio" name="theme" value="dark" onchange="setTheme('dark')">
+                      <span class="st-radio-mark"></span>
+                      <span class="st-radio-label">Dark</span>
+                    </label>
+                    <label class="st-radio">
+                      <input type="radio" name="theme" value="system" onchange="setTheme('system')">
+                      <span class="st-radio-mark"></span>
+                      <span class="st-radio-label">System</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Display Section -->
+            <div class="st-row st-row--border">
+              <div class="st-row__left">
+                <div class="st-h3">Display</div>
+                <div class="st-p">Layout and typography options.</div>
+              </div>
+              <div class="st-row__right">
+                <div class="st-setting-list">
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">Font size</div>
+                      <div class="st-setting-desc">Adjust text size for better readability</div>
+                    </div>
+                    <button class="ui-btn--select">Medium <i class="ph ph-bold ph-caret-down"></i></button>
+                  </div>
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">Compact mode</div>
+                      <div class="st-setting-desc">Reduce spacing for more content on screen</div>
+                    </div>
+                    <button class="st-toggle" aria-label="Compact mode" onclick="this.classList.toggle('st-toggle--on')">
+                      <span class="st-toggle-knob"></span>
+                    </button>
+                  </div>
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">Animations</div>
+                      <div class="st-setting-desc">Enable smooth transitions and effects</div>
+                    </div>
+                    <button class="st-toggle st-toggle--on" aria-label="Animations" onclick="this.classList.toggle('st-toggle--on')">
+                      <span class="st-toggle-knob"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Accessibility Section -->
+            <div class="st-row st-row--border">
+              <div class="st-row__left">
+                <div class="st-h3">Accessibility</div>
+                <div class="st-p">Accessibility and readability options.</div>
+              </div>
+              <div class="st-row__right">
+                <div class="st-setting-list">
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">High contrast</div>
+                      <div class="st-setting-desc">Increase contrast for better visibility</div>
+                    </div>
+                    <button class="st-toggle" aria-label="High contrast" onclick="this.classList.toggle('st-toggle--on')">
+                      <span class="st-toggle-knob"></span>
+                    </button>
+                  </div>
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">Reduce motion</div>
+                      <div class="st-setting-desc">Minimize animations and transitions</div>
+                    </div>
+                    <button class="st-toggle st-toggle--on" aria-label="Reduce motion" onclick="this.classList.toggle('st-toggle--on')">
+                      <span class="st-toggle-knob"></span>
+                    </button>
+                  </div>
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">Focus indicators</div>
+                      <div class="st-setting-desc">Enhanced keyboard navigation</div>
+                    </div>
+                    <button class="st-toggle st-toggle--on" aria-label="Focus indicators" onclick="this.classList.toggle('st-toggle--on')">
+                      <span class="st-toggle-knob"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- ── SECURITY TAB ── -->
+          <div class="settings-tab is-hidden" id="tab-security">
+
+            <!-- Section: Password -->
+            <section class="st-row">
+              <div class="st-row__left">
+                <div class="st-h3">Password</div>
+                <div class="st-p">Manage your password.</div>
+              </div>
+              <div class="st-row__right">
+                <div class="st-card-row">
+                  <div class="st-dept-info">
+                    <div class="st-dept-name">Last changed: 3 months ago</div>
+                    <div class="st-dept-date">We recommend updating your password regularly</div>
+                  </div>
+                  <button class="ui-btn--outline">Change password</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section: Two-factor authentication -->
+            <section class="st-row st-row--border">
+              <div class="st-row__left">
+                <div class="st-h3">Two-factor authentication</div>
+                <div class="st-p">Add an extra layer of security.</div>
+              </div>
+              <div class="st-row__right">
+                <div class="st-setting-list">
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">2FA</div>
+                      <div class="st-setting-desc">Enable 2FA for enhanced security</div>
+                    </div>
+                    <button class="st-toggle" aria-label="Two-factor authentication" onclick="this.classList.toggle('st-toggle--on')">
+                      <span class="st-toggle-knob"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section: Active sessions -->
+            <section class="st-row st-row--border">
+              <div class="st-row__left">
+                <div class="st-h3">Active sessions</div>
+                <div class="st-p">Manage your active sessions.</div>
+              </div>
+              <div class="st-row__right">
+                <div class="st-session-list">
+                  <div class="st-session">
+                    <div class="st-session__icon"><i class="ph ph-fill ph-monitor"></i></div>
+                    <div class="st-session__info">
+                      <div class="st-session__name">Current session <span class="st-badge st-badge--blue">This device</span></div>
+                      <div class="st-session__meta">Chrome &middot; Windows</div>
+                    </div>
+                    <button class="ui-btn--outline">Revoke</button>
+                  </div>
+                  <div class="st-session">
+                    <div class="st-session__icon"><i class="ph ph-fill ph-device-mobile"></i></div>
+                    <div class="st-session__info">
+                      <div class="st-session__name">Mobile</div>
+                      <div class="st-session__meta">Safari &middot; iOS</div>
+                    </div>
+                    <button class="ui-btn--outline">Revoke</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+          </div>
+          <!-- ── PRIVACY & DATA TAB ── -->
+          <div class="settings-tab is-hidden" id="tab-privacy">
+
+            <!-- Section: Data visibility -->
+            <section class="st-row">
+              <div class="st-row__left">
+                <div class="st-h3">Data visibility</div>
+                <div class="st-p">Control who can see your data.</div>
+              </div>
+              <div class="st-row__right">
+                <div class="st-setting-list">
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">Profile visibility</div>
+                      <div class="st-setting-desc">Allow others to view your profile</div>
+                    </div>
+                    <button class="st-toggle st-toggle--on" aria-label="Profile visibility" onclick="this.classList.toggle('st-toggle--on')">
+                      <span class="st-toggle-knob"></span>
+                    </button>
+                  </div>
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">Activity status</div>
+                      <div class="st-setting-desc">Show your online status to others</div>
+                    </div>
+                    <button class="st-toggle" aria-label="Activity status" onclick="this.classList.toggle('st-toggle--on')">
+                      <span class="st-toggle-knob"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section: Data retention -->
+            <section class="st-row st-row--border">
+              <div class="st-row__left">
+                <div class="st-h3">Data retention</div>
+                <div class="st-p">Manage how long your data is stored.</div>
+              </div>
+              <div class="st-row__right">
+                <div class="st-setting-list">
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">Retention period</div>
+                      <div class="st-setting-desc">How long conversations are kept</div>
+                    </div>
+                    <button class="ui-btn--select">90 days <i class="ph ph-bold ph-caret-down"></i></button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section: Export & Delete -->
+            <section class="st-row st-row--border">
+              <div class="st-row__left">
+                <div class="st-h3">Export &amp; Delete</div>
+                <div class="st-p">Export or delete your data.</div>
+              </div>
+              <div class="st-row__right">
+                <div class="st-action-btns">
+                  <button class="ui-btn--outline"><i class="ph ph-bold ph-download-simple"></i>Export data</button>
+                  <button class="ui-btn--danger"><i class="ph ph-bold ph-trash"></i>Delete account</button>
+                </div>
+              </div>
+            </section>
+
+          </div>
+          <!-- ── AI SETTINGS TAB ── -->
+          <div class="settings-tab is-hidden" id="tab-ai">
+
+            <!-- Section: Model configuration -->
+            <section class="st-row">
+              <div class="st-row__left">
+                <div class="st-h3">Model configuration</div>
+                <div class="st-p">Configure AI model behavior.</div>
+              </div>
+              <div class="st-row__right">
+                <div class="st-setting-list">
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">Default model</div>
+                      <div class="st-setting-desc">AI model used for new conversations</div>
+                    </div>
+                    <button class="ui-btn--select">Deepseek V4 Pro <i class="ph ph-bold ph-caret-down"></i></button>
+                  </div>
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">Default mode</div>
+                      <div class="st-setting-desc">Conversation mode preset</div>
+                    </div>
+                    <button class="ui-btn--select">Enterprise Chat <i class="ph ph-bold ph-caret-down"></i></button>
+                  </div>
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">Temperature</div>
+                      <div class="st-setting-desc">Controls randomness (0 = precise, 1 = creative)</div>
+                    </div>
+                    <button class="ui-btn--select">0.7 <i class="ph ph-bold ph-caret-down"></i></button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section: Knowledge base -->
+            <section class="st-row st-row--border">
+              <div class="st-row__left">
+                <div class="st-h3">Knowledge base</div>
+                <div class="st-p">RAG and retrieval settings.</div>
+              </div>
+              <div class="st-row__right">
+                <div class="st-setting-list">
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">Auto-search KB</div>
+                      <div class="st-setting-desc">Automatically search knowledge base for answers</div>
+                    </div>
+                    <button class="st-toggle st-toggle--on" aria-label="Auto-search KB" onclick="this.classList.toggle('st-toggle--on')">
+                      <span class="st-toggle-knob"></span>
+                    </button>
+                  </div>
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">Context window</div>
+                      <div class="st-setting-desc">Amount of context included per query</div>
+                    </div>
+                    <button class="ui-btn--select">Large <i class="ph ph-bold ph-caret-down"></i></button>
+                  </div>
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">Streaming responses</div>
+                      <div class="st-setting-desc">Stream tokens as they are generated</div>
+                    </div>
+                    <button class="st-toggle st-toggle--on" aria-label="Streaming responses" onclick="this.classList.toggle('st-toggle--on')">
+                      <span class="st-toggle-knob"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+          </div>
+          <!-- ── INTEGRATIONS TAB ── -->
+          <div class="settings-tab is-hidden" id="tab-integrations">
+
+            <!-- Section: Connected services -->
+            <section class="st-row">
+              <div class="st-row__left">
+                <div class="st-h3">Connected services</div>
+                <div class="st-p">Manage your data integrations.</div>
+              </div>
+              <div class="st-row__right">
+                <div class="st-integration-list">
+                  <div class="st-integration">
+                    <div class="st-integration__icon st-integration__icon--blue"><i class="ph ph-fill ph-cloud"></i></div>
+                    <div class="st-integration__info">
+                      <div class="st-integration__name">Salesforce</div>
+                      <div class="st-integration__desc">CRM data integration</div>
+                    </div>
+                    <span class="st-badge st-badge--green">Connected</span>
+                    <button class="ui-btn--outline">Disconnect</button>
+                  </div>
+                  <div class="st-integration">
+                    <div class="st-integration__icon st-integration__icon--green"><i class="ph ph-fill ph-currency-circle-dollar"></i></div>
+                    <div class="st-integration__info">
+                      <div class="st-integration__name">NetSuite</div>
+                      <div class="st-integration__desc">ERP and financial data</div>
+                    </div>
+                    <span class="st-badge st-badge--green">Connected</span>
+                    <button class="ui-btn--outline">Disconnect</button>
+                  </div>
+                  <div class="st-integration">
+                    <div class="st-integration__icon st-integration__icon--amber"><i class="ph ph-fill ph-globe"></i></div>
+                    <div class="st-integration__info">
+                      <div class="st-integration__name">Web Search</div>
+                      <div class="st-integration__desc">Real-time web results</div>
+                    </div>
+                    <span class="st-badge st-badge--green">Connected</span>
+                    <button class="ui-btn--outline">Disconnect</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section: Available integrations -->
+            <section class="st-row st-row--border">
+              <div class="st-row__left">
+                <div class="st-h3">Available integrations</div>
+                <div class="st-p">Connect new services.</div>
+              </div>
+              <div class="st-row__right">
+                <div class="st-integration-list">
+                  <div class="st-integration">
+                    <div class="st-integration__icon st-integration__icon--purple"><i class="ph ph-fill ph-chat-circle"></i></div>
+                    <div class="st-integration__info">
+                      <div class="st-integration__name">Slack</div>
+                      <div class="st-integration__desc">Team messaging and alerts</div>
+                    </div>
+                    <button class="ui-btn--primary">Connect</button>
+                  </div>
+                  <div class="st-integration">
+                    <div class="st-integration__icon st-integration__icon--dark"><i class="ph ph-fill ph-github-logo"></i></div>
+                    <div class="st-integration__info">
+                      <div class="st-integration__name">GitHub</div>
+                      <div class="st-integration__desc">Code repositories and issues</div>
+                    </div>
+                    <button class="ui-btn--primary">Connect</button>
+                  </div>
+                  <div class="st-integration">
+                    <div class="st-integration__icon st-integration__icon--indigo"><i class="ph ph-fill ph-notebook"></i></div>
+                    <div class="st-integration__info">
+                      <div class="st-integration__name">Notion</div>
+                      <div class="st-integration__desc">Docs and knowledge base sync</div>
+                    </div>
+                    <button class="ui-btn--primary">Connect</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+          </div>
+          <!-- ── ADVANCED TAB ── -->
+          <div class="settings-tab is-hidden" id="tab-advanced">
+
+            <!-- Section: API access -->
+            <section class="st-row">
+              <div class="st-row__left">
+                <div class="st-h3">API access</div>
+                <div class="st-p">Manage API keys and webhooks.</div>
+              </div>
+              <div class="st-row__right">
+                <div class="st-setting-label">API key</div>
+                <div class="st-api-key">
+                  <code class="st-api-key__value">sk-lumen-9f2a4b8c6d1e7f3a2b5c8d9e0f1a2b3c</code>
+                  <button class="ui-btn--outline st-api-key__copy"><i class="ph ph-bold ph-copy"></i>Copy</button>
+                  <button class="ui-btn--primary">Generate new key</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section: Webhooks -->
+            <section class="st-row st-row--border">
+              <div class="st-row__left">
+                <div class="st-h3">Webhooks</div>
+                <div class="st-p">Configure webhook endpoints.</div>
+              </div>
+              <div class="st-row__right">
+                <div class="st-webhook-add">
+                  <div class="ui-search ui-search--settings st-webhook-input">
+                    <i class="ph ph-bold ph-link"></i>
+                    <input type="text" placeholder="https://example.com/webhook" aria-label="Webhook URL">
+                  </div>
+                  <button class="ui-btn--primary">Add webhook</button>
+                </div>
+                <div class="st-webhook-list">
+                  <div class="st-webhook">
+                    <div class="st-webhook__icon"><i class="ph ph-fill ph-link"></i></div>
+                    <div class="st-webhook__info">
+                      <div class="st-webhook__url">https://api.example.com/hooks/lumen</div>
+                      <div class="st-webhook__meta"><span class="st-badge st-badge--green">Active</span></div>
+                    </div>
+                    <button class="ui-btn--outline">Remove</button>
+                  </div>
+                  <div class="st-webhook">
+                    <div class="st-webhook__icon"><i class="ph ph-fill ph-link"></i></div>
+                    <div class="st-webhook__info">
+                      <div class="st-webhook__url">https://hooks.slack.com/services/T0/B0/XX</div>
+                      <div class="st-webhook__meta"><span class="st-badge st-badge--amber">Disabled</span></div>
+                    </div>
+                    <button class="ui-btn--outline">Remove</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section: Danger zone -->
+            <section class="st-row st-row--border">
+              <div class="st-row__left">
+                <div class="st-h3">Danger zone</div>
+                <div class="st-p">Irreversible actions.</div>
+              </div>
+              <div class="st-row__right">
+                <div class="st-danger-list">
+                  <div class="st-danger-item">
+                    <div class="st-dept-info">
+                      <div class="st-dept-name">Reset workspace</div>
+                      <div class="st-dept-date">Reset all settings to defaults. This cannot be undone.</div>
+                    </div>
+                    <button class="ui-btn--danger"><i class="ph ph-bold ph-arrow-counter-clockwise"></i>Reset workspace</button>
+                  </div>
+                  <div class="st-danger-item">
+                    <div class="st-dept-info">
+                      <div class="st-dept-name">Delete workspace</div>
+                      <div class="st-dept-date">Permanently delete this workspace and all its data.</div>
+                    </div>
+                    <button class="ui-btn--danger"><i class="ph ph-bold ph-trash"></i>Delete workspace</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('collapsed');
+}
+
+function setActiveNav(el) {
+  // Clear all active states across entire sidebar
+  document.querySelectorAll('.sidebar-nav .nav-link, .sidebar-sections .section-item').forEach(l => l.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function setActiveSection(el) {
+  // Clear all active states across entire sidebar
+  document.querySelectorAll('.sidebar-nav .nav-link, .sidebar-sections .section-item').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ── VIEW ROUTER ──
+// Routes: chat, projects, library, research, websearch, knowledge
+// Each route maps to a #view-<route> container inside .main__panel.
+// Topbar breadcrumb updates per-route for consistency.
+var ROUTE_CONFIG = {
+  chat:      { crumb: 'Design help', active: 'Typography discussion', showComposer: true },
+  projects:  { crumb: null,           active: 'Projects',              showComposer: false },
+  library:   { crumb: null,           active: 'Library',               showComposer: false },
+  research:  { crumb: 'Pinned',       active: 'Research & Analysis',   showComposer: false },
+  websearch: { crumb: 'Pinned',       active: 'Web Search',            showComposer: false },
+  knowledge: { crumb: 'Pinned',       active: 'Knowledge Base',        showComposer: false }
+};
+
+// ── THREAD DATA (recent conversations) ──
+var THREADS = {
+  'User research analysis': {
+    project: 'Design help',
+    messages: [
+      { type: 'user', text: 'Can you summarize the user research findings from our latest study?' },
+      { type: 'ai', text: 'Here are the key findings from the latest user research study:\n\n1. Navigation friction — 68% of users struggled to find the settings panel\n2. Onboarding drop-off — 42% abandoned during step 3 of onboarding\n3. Feature discovery — Most users never found the export feature\n\nWould you like me to elaborate on any of these points?' },
+      { type: 'user', text: 'What recommendations do you have for the navigation issue?' },
+      { type: 'ai', text: 'Based on the findings, I recommend:\n\n• Move settings to a more prominent location (e.g., top bar)\n• Add a contextual help tooltip on first visit\n• Simplify the IA by grouping related settings together\n\nThis should reduce navigation friction by an estimated 40-50%.' },
+      { type: 'user', file: 'user-research-report.pdf', fileType: 'PDF' }
+    ]
+  },
+  'Competitive analysis': {
+    project: 'Design help',
+    messages: [
+      { type: 'user', text: 'Who are our top 3 competitors in the AI knowledge base space?' },
+      { type: 'ai', text: 'Based on market analysis, your top 3 competitors are:\n\n1. Notion AI — Strong in document-centric workflows\n2. Glean — Enterprise search focus with deep integrations\n3. Mem.ai — Knowledge graph approach for personal notes\n\nEach has different strengths. Would you like a detailed feature comparison?' },
+      { type: 'user', text: 'Yes, please create a comparison table.' },
+      { type: 'ai', text: 'Here is a feature comparison:\n\n| Feature | Lumen | Notion AI | Glean | Mem.ai |\n|---------|-------|-----------|-------|--------|\n| Enterprise SSO | ✓ | ✓ | ✓ | ✗ |\n| Knowledge Base | ✓ | ✓ | ✓ | ✓ |\n| Web Search | ✓ | ✗ | ✗ | ✗ |\n| API Access | ✓ | ✓ | ✓ | ✗ |\n\nLumen has a unique advantage with built-in web search combined with knowledge base.' }
+    ]
+  },
+  'Meeting notes': {
+    project: 'Design help',
+    messages: [
+      { type: 'user', text: 'Summarize the key action items from yesterday\'s design review meeting.' },
+      { type: 'ai', text: 'Here are the key action items from the design review meeting:\n\n1. **Update sidebar navigation** — Remove chevron icons from active states (Owner: Design team, Due: This week)\n2. **Settings modal polish** — Align spacing in the 10-tab layout (Owner: Gani, Due: Friday)\n3. **Chat composer refinement** — Remove focus ring per design spec (Owner: Frontend, Due: Next sprint)\n4. **Token enforcement audit** — Run hex color + icon audit across all components (Owner: Design ops, Due: End of month)\n\nWould you like me to assign these to specific people in the project management tool?' },
+      { type: 'user', text: 'Which of these is the highest priority?' },
+      { type: 'ai', text: 'The sidebar navigation update is highest priority — it\'s a quick win that improves visual consistency immediately. The token enforcement audit is second, as it prevents future inconsistencies from compounding.' }
+    ]
+  }
+};
+
+function renderMessages(messages) {
+  var container = document.getElementById('messages-container');
+  if (!container) return;
+  container.innerHTML = '';
+
+  messages.forEach(function(msg) {
+    var msgEl = document.createElement('div');
+    msgEl.className = 'msg msg--' + msg.type;
+
+    if (msg.type === 'user') {
+      if (msg.file) {
+        msgEl.innerHTML =
+          '<div class="msg__file">' +
+            '<div class="msg__file-icon"><i class="ph ph-bold ph-paperclip"></i></div>' +
+            '<div>' +
+              '<div class="msg__file-name">' + msg.file + '</div>' +
+              '<div class="msg__file-type">' + (msg.fileType || 'FILE') + '</div>' +
+            '</div>' +
+          '</div>';
+      } else {
+        msgEl.innerHTML = '<div class="msg__bubble">' + escapeHtml(msg.text) + '</div>';
+      }
+    } else if (msg.type === 'ai') {
+      msgEl.innerHTML =
+        '<div class="msg__ai">' +
+          '<div class="msg__ai-text">' + escapeHtml(msg.text).replace(/\n/g, '<br>') + '</div>' +
+          '<div class="msg__actions">' +
+            '<button class="ui-btn ui-btn--icon-xs" type="button" title="Copy"><i class="ph ph-bold ph-copy"></i></button>' +
+            '<button class="ui-btn ui-btn--icon-xs" type="button" title="Good response"><i class="ph ph-bold ph-thumbs-up"></i></button>' +
+            '<button class="ui-btn ui-btn--icon-xs" type="button" title="Regenerate"><i class="ph ph-bold ph-arrows-clockwise"></i></button>' +
+          '</div>' +
+        '</div>';
+    }
+
+    container.appendChild(msgEl);
+  });
+
+  // Scroll to bottom
+  var msgArea = document.getElementById('chat-messages');
+  if (msgArea) msgArea.scrollTop = msgArea.scrollHeight;
+}
+
+function escapeHtml(str) {
+  var div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function navigateTo(route, el, threadTitle) {
+  // Clear all active states across entire sidebar
+  document.querySelectorAll('.sidebar-nav .nav-link, .sidebar-nav .nav-link-new-chat, .sidebar-sections .section-item').forEach(function(s) {
+    s.classList.remove('active');
+  });
+  if (el) el.classList.add('active');
+
+  // Hide all views
+  document.querySelectorAll('.view').forEach(function(v) {
+    v.classList.add('is-hidden');
+    v.classList.remove('is-shown');
+  });
+
+  // Show target view
+  var view = document.getElementById('view-' + route);
+  if (view) {
+    view.classList.remove('is-hidden');
+    view.classList.add('is-shown');
+  }
+
+  // Update topbar breadcrumb
+  var cfg = ROUTE_CONFIG[route] || ROUTE_CONFIG.chat;
+  var bc = document.getElementById('topbar-breadcrumb');
+  if (bc) {
+    var crumb = cfg.crumb;
+    // For recent threads, use the thread's project as crumb
+    if (route === 'chat' && threadTitle && THREADS[threadTitle]) {
+      crumb = THREADS[threadTitle].project;
+    }
+    if (crumb) {
+      bc.innerHTML =
+        '<span class="ui-breadcrumb__crumb">' + crumb + '</span>' +
+        '<span class="ui-breadcrumb__sep">/</span>' +
+        '<span class="ui-breadcrumb__crumb ui-breadcrumb__crumb--active">' + (threadTitle || cfg.active) + '</span>' +
+        '<button class="ui-btn ui-btn--icon-xs" type="button"><i class="ph ph-bold ph-caret-down"></i></button>';
+    } else {
+      bc.innerHTML =
+        '<span class="ui-breadcrumb__crumb ui-breadcrumb__crumb--active">' + (threadTitle || cfg.active) + '</span>' +
+        '<button class="ui-btn ui-btn--icon-xs" type="button"><i class="ph ph-bold ph-caret-down"></i></button>';
+    }
+  }
+
+  // Chat view: toggle empty vs messages
+  if (route === 'chat') {
+    var emptyEl = document.getElementById('chat-empty');
+    var msgEl = document.getElementById('chat-messages');
+
+    if (threadTitle && THREADS[threadTitle]) {
+      // Show conversation thread
+      if (emptyEl) { emptyEl.classList.add('is-hidden'); emptyEl.classList.remove('is-shown'); }
+      if (msgEl) { msgEl.classList.remove('is-hidden'); msgEl.classList.add('is-shown'); }
+      renderMessages(THREADS[threadTitle].messages);
+    } else {
+      // Show empty state (new chat)
+      if (emptyEl) { emptyEl.classList.remove('is-hidden'); emptyEl.classList.add('is-shown'); }
+      if (msgEl) { msgEl.classList.add('is-hidden'); msgEl.classList.remove('is-shown'); }
+      var g = document.getElementById('chat-greeting');
+      if (g) g.textContent = 'Hello Gani';
+    }
+  }
+}
+
+function toggleProfileMenu(e) {
+  var menu = document.getElementById('profile-menu');
+  var profileBtn = e ? e.currentTarget : null;
+  var isShown = menu.classList.contains('is-shown');
+  if (isShown) {
+    menu.classList.remove('is-shown');
+    menu.classList.add('is-hidden');
+    if (profileBtn) profileBtn.setAttribute('aria-expanded', 'false');
+    return;
+  }
+  // Position: bottom of menu aligns just above the profile bar, same horizontal position
+  var profile = document.querySelector('.sidebar-footer');
+  var rect = profile.getBoundingClientRect();
+  menu.classList.remove('is-hidden');
+  menu.classList.add('is-shown');
+  if (profileBtn) profileBtn.setAttribute('aria-expanded', 'true');
+  var menuRect = menu.getBoundingClientRect();
+  // Bottom of menu = top of profile bar, with small gap, growing upward
+  menu.style.bottom = (window.innerHeight - rect.top + 8) + 'px';
+  // Left aligned with profile content (avatar start)
+  menu.style.left = (rect.left + 12) + 'px';
+}
+
+// Close on outside click
+document.addEventListener('click', function(e) {
+  var menu = document.getElementById('profile-menu');
+  var profile = document.querySelector('.sidebar-footer');
+  if (menu && menu.classList.contains('is-shown')) {
+    if (!menu.contains(e.target) && !profile.contains(e.target)) {
+      menu.classList.remove('is-shown');
+      menu.classList.add('is-hidden');
+      var profileBtn = profile.querySelector('.user-profile');
+      if (profileBtn) profileBtn.setAttribute('aria-expanded', 'false');
+    }
+  }
+});
+
+// Close on escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    var menu = document.getElementById('profile-menu');
+    if (menu) { menu.classList.remove('is-shown'); menu.classList.add('is-hidden'); }
+    var profileBtn = document.querySelector('.user-profile');
+    if (profileBtn) profileBtn.setAttribute('aria-expanded', 'false');
+    closeSettings();
+  }
+});
+
+// Settings modal
+function openSettings(e) {
+  if (e) { e.preventDefault(); e.stopPropagation(); }
+  var pm = document.getElementById('profile-menu');
+  pm.classList.remove('is-shown');
+  pm.classList.add('is-hidden');
+  var profileBtn = document.querySelector('.user-profile');
+  if (profileBtn) profileBtn.setAttribute('aria-expanded', 'false');
+  var overlay = document.getElementById('settings-overlay');
+  overlay.classList.remove('is-hidden');
+  overlay.classList.add('is-shown');
+}
+
+function closeSettings() {
+  var overlay = document.getElementById('settings-overlay');
+  overlay.classList.remove('is-shown');
+  overlay.classList.add('is-hidden');
+}
+
+function setTheme(theme) {
+  if (theme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  } else if (theme === 'light') {
+    document.documentElement.setAttribute('data-theme', 'light');
+  } else {
+    // System: follow OS preference
+    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+  }
+}
+
+function setSettingsTab(el, tab) {
+  // Update nav active state (includes ws switcher)
+  document.querySelectorAll('.settings-nav__item, .settings-ws').forEach(function(item) {
+    item.classList.remove('active');
+  });
+  el.classList.add('active');
+
+  // Hide all tabs
+  document.querySelectorAll('.settings-tab').forEach(function(t) {
+    t.classList.add('is-hidden');
+    t.classList.remove('is-shown');
+  });
+
+  // Show selected tab
+  var tabEl = document.getElementById('tab-' + tab);
+  if (tabEl) {
+    tabEl.classList.remove('is-hidden');
+    tabEl.classList.add('is-shown');
+  }
+
+  // Update title
+  var titleEl = document.getElementById('settings-title');
+  var subEl = document.getElementById('settings-subtitle');
+  var titles = {
+    overview:     { title: 'Workspace overview', sub: 'Manage your workspace ownership and settings.' },
+    people:       { title: 'Team members',       sub: 'Manage workspace members, roles and permissions.' },
+    plans:        { title: 'Plans & Billing',    sub: 'Manage your subscription and billing details.' },
+    profile:      { title: 'Profile',            sub: 'Manage your personal account settings.' },
+    preferences:  { title: 'Preferences',        sub: 'Customize your experience.' },
+    appearance:   { title: 'Appearance',         sub: 'Customize how Lumen looks.' },
+    security:     { title: 'Security',           sub: 'Manage your account security.' },
+    privacy:      { title: 'Privacy & Data',     sub: 'Manage your privacy and data settings.' },
+    ai:           { title: 'AI Settings',        sub: 'Configure AI model behavior and defaults.' },
+    integrations: { title: 'Integrations',       sub: 'Manage your data integrations.' },
+    advanced:     { title: 'Advanced',           sub: 'Power-user configuration options.' }
+  };
+  var t = titles[tab] || titles.overview;
+  if (titleEl) titleEl.textContent = t.title;
+  if (subEl) subEl.textContent = t.sub;
+}
+
+// Close settings on overlay click
+document.addEventListener('DOMContentLoaded', function() {
+  var overlay = document.getElementById('settings-overlay');
+  if (overlay) {
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) closeSettings();
+    });
+  }
+
+  // Build segmented bars from data-fill / data-color attributes
+  // Each track gets 20 segments; data-fill = number of segments to light up
+  document.querySelectorAll('.st-bar__track').forEach(function(track) {
+    var fill = parseInt(track.getAttribute('data-fill') || '0', 10);
+    var color = track.getAttribute('data-color') || '#335cff';
+    track.style.setProperty('--seg-color', color);
+    for (var i = 0; i < 20; i++) {
+      var seg = document.createElement('span');
+      seg.className = 'seg' + (i < fill ? ' on' : '');
+      track.appendChild(seg);
+    }
+  });
+});
+
+// Composer placeholder hide on input
+document.addEventListener('DOMContentLoaded', function() {
+  var input = document.getElementById('composer-input');
+  var placeholder = document.getElementById('composer-placeholder');
+  if (input && placeholder) {
+    input.addEventListener('input', function() {
+      placeholder.style.display = input.textContent.trim() ? 'none' : 'block';
+    });
+  }
+});
+</script>
+</body>
+</html>
