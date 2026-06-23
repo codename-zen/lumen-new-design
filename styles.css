@@ -3022,6 +3022,27 @@
     color: var(--color-text-muted);
   }
 
+  /* Card meta (members, threads, docs counts) */
+  .proj-card__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3); /* 8px */
+  }
+
+  .proj-card__meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem; /* 4px */
+    font-size: var(--text-xs); /* 12px */
+    font-weight: var(--font-medium); /* 500 */
+    color: var(--color-text-muted);
+  }
+
+  .proj-card__meta-item .ph {
+    font-size: var(--text-sm); /* 14px */
+    color: var(--color-text-muted);
+  }
+
   .proj-card__updated {
     font-size: var(--text-xs); /* 12px */
     font-weight: var(--font-medium); /* 500 */
