@@ -2684,6 +2684,240 @@
     transition: transform 0.1s;
   }
 
+  /* ═══════════════════════════════════════════════════════════
+     PROJECTS PAGE — modular, reusable components
+     Ref: file:///I:/projects/lumen-design-md/revamp/index.html#/projects
+     ═══════════════════════════════════════════════════════════ */
+
+  /* ── Page scroll container (reusable for all list/dashboard pages) ── */
+  .page-scroll {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Page (centered, max-width 700px like chat messages) ── */
+  .page {
+    width: 100%;
+    max-width: 43.75rem; /* 700px */
+    margin: 0 auto;
+    padding: 4.5rem 0; /* 72px top/bottom */
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Create button (dark, reusable) ── */
+  .ui-btn--create {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem; /* 6px */
+    height: 2rem; /* 32px */
+    padding: 0 0.75rem 0 0.5rem; /* 0 12px 0 8px */
+    border: none;
+    border-radius: var(--radius-md); /* 10px */
+    background: #292929;
+    font-family: var(--font-family);
+    font-size: var(--text-sm); /* 14px */
+    font-weight: var(--font-medium); /* 500 */
+    color: #ffffff;
+    cursor: pointer;
+    transition: background 0.15s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .ui-btn--create:hover {
+    background: #1a1a1a;
+  }
+
+  .ui-btn--create:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .ui-btn--create .ph {
+    font-size: var(--text-xl); /* 20px */
+    color: #ffffff;
+  }
+
+  /* ── Projects page header ── */
+  .proj-head {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem; /* 20px */
+    margin-bottom: 1.25rem; /* 20px */
+  }
+
+  .proj-head__icon {
+    width: 3rem; /* 48px */
+    height: 3rem; /* 48px */
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(23, 23, 23, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .proj-head__icon .ph {
+    font-size: 1.5rem; /* 24px */
+    color: rgba(51, 92, 255, 0.56);
+  }
+
+  .proj-head__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .proj-head__title {
+    font-size: var(--text-lg); /* 18px */
+    font-weight: var(--font-medium); /* 500 */
+    color: var(--color-text-primary);
+  }
+
+  .proj-head__sub {
+    font-size: var(--text-sm); /* 14px */
+    font-weight: var(--font-medium); /* 500 */
+    color: var(--color-text-muted);
+    margin-top: 0.375rem; /* 6px */
+  }
+
+  /* ── Projects toolbar (search) ── */
+  .proj-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* 12px */
+    margin-bottom: 1.75rem; /* 28px */
+  }
+
+  .proj-toolbar .ui-search {
+    flex: 1;
+  }
+
+  /* ── Projects meta row (count + sort) ── */
+  .proj-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem; /* 16px */
+  }
+
+  .proj-meta__count {
+    font-size: var(--text-sm); /* 14px */
+    font-weight: var(--font-medium); /* 500 */
+    color: var(--color-text-primary);
+  }
+
+  .proj-meta__sort {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* 8px */
+    font-size: var(--text-sm); /* 14px */
+    font-weight: var(--font-medium); /* 500 */
+    color: var(--color-text-muted);
+  }
+
+  /* ── Sort select (native select, styled) ── */
+  .proj-select {
+    height: 2rem; /* 32px */
+    padding: 0 0.625rem; /* 0 10px */
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md); /* 10px */
+    background: var(--color-bg);
+    font-family: var(--font-family);
+    font-size: var(--text-sm); /* 14px */
+    font-weight: var(--font-medium); /* 500 */
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+
+  .proj-select:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .proj-select:hover {
+    border-color: var(--color-border-light);
+  }
+
+  /* ── Projects grid (2-column) ── */
+  .proj-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem; /* 16px */
+  }
+
+  /* ── Project card (reusable BEM block) ── */
+  .proj-card {
+    position: relative;
+    background: var(--color-bg);
+    border-radius: var(--radius-lg); /* 20px */
+    box-shadow: 0 0 0 1px rgba(10, 13, 20, 0.06),
+                0 1px 2px 0 rgba(10, 13, 20, 0.06);
+    transition: box-shadow 0.15s;
+    overflow: hidden;
+  }
+
+  .proj-card:hover {
+    box-shadow: 0 0 0 1px rgba(10, 13, 20, 0.1),
+                0 4px 12px 0 rgba(10, 13, 20, 0.08);
+  }
+
+  /* More button (top-right, absolute) — reuses .ui-btn--icon-sm */
+  .proj-card__more {
+    position: absolute;
+    top: 0.75rem; /* 12px */
+    right: 0.75rem; /* 12px */
+    z-index: 2;
+  }
+
+  /* Card link (fills entire card, clickable) */
+  .proj-card__link {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* 24px */
+    padding: 1.5rem; /* 24px */
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .proj-card__icon {
+    color: var(--color-text-muted);
+  }
+
+  .proj-card__icon .ph {
+    font-size: 1.5rem; /* 24px */
+  }
+
+  .proj-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem; /* 4px */
+  }
+
+  .proj-card__title {
+    font-size: var(--text-base); /* 16px */
+    font-weight: var(--font-medium); /* 500 */
+    color: var(--color-text-primary);
+  }
+
+  .proj-card__desc {
+    font-size: var(--text-sm); /* 14px */
+    font-weight: var(--font-medium); /* 500 */
+    color: var(--color-text-muted);
+  }
+
+  .proj-card__updated {
+    font-size: var(--text-xs); /* 12px */
+    font-weight: var(--font-medium); /* 500 */
+    color: var(--color-text-muted);
+    margin-top: auto;
+  }
+
 } /* end @layer components */
 
 /* ─────────────────────────────────────────── UTILITIES ─────────────────────────────────────────── */

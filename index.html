@@ -257,14 +257,120 @@
       </div>
 
       <!-- ══ VIEW: Projects ══ -->
-      <div class="view view--placeholder is-hidden" id="view-projects">
-        <div class="view__body">
-          <div class="view__placeholder">
-            <div class="view__placeholder-icon">
-              <i class="ph ph-fill ph-folder"></i>
+      <div class="view is-hidden" id="view-projects">
+        <div class="page-scroll">
+          <div class="page">
+            <div class="proj-head">
+              <div class="proj-head__icon">
+                <i class="ph ph-folder-open"></i>
+              </div>
+              <div class="proj-head__row">
+                <div>
+                  <h1 class="proj-head__title">Projects</h1>
+                  <p class="proj-head__sub">Easily manage and explore all your active projects in one place</p>
+                </div>
+                <button class="ui-btn--create" type="button" aria-label="Create project">
+                  <i class="ph ph-plus"></i>
+                  Create project
+                </button>
+              </div>
             </div>
-            <div class="view__placeholder-title">Projects</div>
-            <div class="view__placeholder-subtitle">In development</div>
+            <div class="proj-toolbar">
+              <div class="ui-search">
+                <i class="ph ph-magnifying-glass"></i>
+                <input type="text" placeholder="Search projects..." aria-label="Search projects">
+              </div>
+            </div>
+            <div class="proj-meta">
+              <span class="proj-meta__count">All projects (6)</span>
+              <span class="proj-meta__sort">Sort by
+                <select class="proj-select" aria-label="Sort by">
+                  <option>Recent activity</option>
+                  <option>Name</option>
+                  <option>Date created</option>
+                </select>
+              </span>
+            </div>
+            <div class="proj-grid">
+              <div class="proj-card">
+                <button class="proj-card__more ui-btn ui-btn--icon-sm" type="button" aria-label="More options">
+                  <i class="ph ph-dots-three-vertical"></i>
+                </button>
+                <a class="proj-card__link" href="#" onclick="navigateTo('chat', null); return false;">
+                  <div class="proj-card__icon"><i class="ph ph-folder"></i></div>
+                  <div class="proj-card__body">
+                    <h3 class="proj-card__title">Research &amp; Analysis</h3>
+                    <p class="proj-card__desc">User research insights &amp; data analysis</p>
+                  </div>
+                  <div class="proj-card__updated">Updated 12 days ago</div>
+                </a>
+              </div>
+              <div class="proj-card">
+                <button class="proj-card__more ui-btn ui-btn--icon-sm" type="button" aria-label="More options">
+                  <i class="ph ph-dots-three-vertical"></i>
+                </button>
+                <a class="proj-card__link" href="#" onclick="navigateTo('chat', null); return false;">
+                  <div class="proj-card__icon"><i class="ph ph-folder"></i></div>
+                  <div class="proj-card__body">
+                    <h3 class="proj-card__title">Web Search</h3>
+                    <p class="proj-card__desc">Search functionality and SEO optimization</p>
+                  </div>
+                  <div class="proj-card__updated">Updated 12 days ago</div>
+                </a>
+              </div>
+              <div class="proj-card">
+                <button class="proj-card__more ui-btn ui-btn--icon-sm" type="button" aria-label="More options">
+                  <i class="ph ph-dots-three-vertical"></i>
+                </button>
+                <a class="proj-card__link" href="#" onclick="navigateTo('chat', null); return false;">
+                  <div class="proj-card__icon"><i class="ph ph-folder"></i></div>
+                  <div class="proj-card__body">
+                    <h3 class="proj-card__title">API Documentation</h3>
+                    <p class="proj-card__desc">Rest API documentation and examples</p>
+                  </div>
+                  <div class="proj-card__updated">Updated 12 days ago</div>
+                </a>
+              </div>
+              <div class="proj-card">
+                <button class="proj-card__more ui-btn ui-btn--icon-sm" type="button" aria-label="More options">
+                  <i class="ph ph-dots-three-vertical"></i>
+                </button>
+                <a class="proj-card__link" href="#" onclick="navigateTo('chat', null); return false;">
+                  <div class="proj-card__icon"><i class="ph ph-folder"></i></div>
+                  <div class="proj-card__body">
+                    <h3 class="proj-card__title">Feature Overview</h3>
+                    <p class="proj-card__desc">Product feature planning and specifications</p>
+                  </div>
+                  <div class="proj-card__updated">Updated 12 days ago</div>
+                </a>
+              </div>
+              <div class="proj-card">
+                <button class="proj-card__more ui-btn ui-btn--icon-sm" type="button" aria-label="More options">
+                  <i class="ph ph-dots-three-vertical"></i>
+                </button>
+                <a class="proj-card__link" href="#" onclick="navigateTo('chat', null); return false;">
+                  <div class="proj-card__icon"><i class="ph ph-folder"></i></div>
+                  <div class="proj-card__body">
+                    <h3 class="proj-card__title">Knowledge Base</h3>
+                    <p class="proj-card__desc">Key tips for effective project management</p>
+                  </div>
+                  <div class="proj-card__updated">Updated 12 days ago</div>
+                </a>
+              </div>
+              <div class="proj-card">
+                <button class="proj-card__more ui-btn ui-btn--icon-sm" type="button" aria-label="More options">
+                  <i class="ph ph-dots-three-vertical"></i>
+                </button>
+                <a class="proj-card__link" href="#" onclick="navigateTo('chat', null); return false;">
+                  <div class="proj-card__icon"><i class="ph ph-folder"></i></div>
+                  <div class="proj-card__body">
+                    <h3 class="proj-card__title">User Guide</h3>
+                    <p class="proj-card__desc">User onboarding and guide creation</p>
+                  </div>
+                  <div class="proj-card__updated">Updated 12 days ago</div>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1268,7 +1374,7 @@ function setActiveSection(el) {
 // Topbar breadcrumb updates per-route for consistency.
 var ROUTE_CONFIG = {
   chat:      { crumb: 'Design help', active: 'Typography discussion', showComposer: true },
-  projects:  { crumb: null,           active: 'Projects',              showComposer: false },
+  projects:  { crumb: 'Home',           active: 'Projects',              showComposer: false },
   library:   { crumb: null,           active: 'Library',               showComposer: false },
   research:  { crumb: 'Pinned',       active: 'Research & Analysis',   showComposer: false },
   websearch: { crumb: 'Pinned',       active: 'Web Search',            showComposer: false },
