@@ -284,11 +284,17 @@
             <div class="proj-meta">
               <span class="proj-meta__count">All projects (6)</span>
               <span class="proj-meta__sort">Sort by
-                <select class="proj-select" aria-label="Sort by">
-                  <option>Recent activity</option>
-                  <option>Name</option>
-                  <option>Date created</option>
-                </select>
+                <div class="ui-select">
+                  <button class="ui-btn--select" type="button" onclick="toggleUiSelect(this)" aria-haspopup="listbox" aria-expanded="false">
+                    Recent activity
+                    <i class="ph ph-caret-down"></i>
+                  </button>
+                  <div class="ui-select__menu" role="listbox">
+                    <button class="ui-select__item ui-select__item--selected" type="button" role="option" aria-selected="true" onclick="selectUiItem(this)">Recent activity</button>
+                    <button class="ui-select__item" type="button" role="option" aria-selected="false" onclick="selectUiItem(this)">Name</button>
+                    <button class="ui-select__item" type="button" role="option" aria-selected="false" onclick="selectUiItem(this)">Date created</button>
+                  </div>
+                </div>
               </span>
             </div>
             <div class="proj-grid">
@@ -1673,6 +1679,57 @@ document.addEventListener('DOMContentLoaded', function() {
   if (input && placeholder) {
     input.addEventListener('input', function() {
       placeholder.style.display = input.textContent.trim() ? 'none' : 'block';
+    });
+  }
+});
+// ── UI SELECT DROPDOWN (reusable) ──
+function toggleUiSelect(btn) {
+  var sel = btn.closest('.ui-select');
+  if (!sel) return;
+  // Close all other selects
+  document.querySelectorAll('.ui-select--open').forEach(function(s) {
+    if (s !== sel) {
+      s.classList.remove('ui-select--open');
+      var b = s.querySelector('.ui-btn--select');
+      if (b) b.setAttribute('aria-expanded', 'false');
+    }
+  });
+  sel.classList.toggle('ui-select--open');
+  var isOpen = sel.classList.contains('ui-select--open');
+  btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+}
+
+function selectUiItem(btn) {
+  var sel = btn.closest('.ui-select');
+  if (!sel) return;
+  // Update selected state
+  sel.querySelectorAll('.ui-select__item').forEach(function(item) {
+    item.classList.remove('ui-select__item--selected');
+    item.setAttribute('aria-selected', 'false');
+  });
+  btn.classList.add('ui-select__item--selected');
+  btn.setAttribute('aria-selected', 'true');
+  // Update button label
+  var label = btn.textContent.trim();
+  var selectBtn = sel.querySelector('.ui-btn--select');
+  if (selectBtn) {
+    // Preserve caret icon
+    var caret = selectBtn.querySelector('.ph');
+    selectBtn.textContent = label;
+    if (caret) selectBtn.appendChild(caret);
+  }
+  // Close dropdown
+  sel.classList.remove('ui-select--open');
+  if (selectBtn) selectBtn.setAttribute('aria-expanded', 'false');
+}
+
+// Close dropdowns on outside click
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.ui-select')) {
+    document.querySelectorAll('.ui-select--open').forEach(function(s) {
+      s.classList.remove('ui-select--open');
+      var b = s.querySelector('.ui-btn--select');
+      if (b) b.setAttribute('aria-expanded', 'false');
     });
   }
 });
