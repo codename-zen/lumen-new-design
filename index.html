@@ -2069,17 +2069,25 @@
 
         <nav class="settings-nav">
           <div class="settings-nav__group">
-            <div class="settings-nav__label">Infrastructure</div>
-            <a class="settings-nav__item" onclick="setDeveloperModalTab(this,'providers')"><i class="ph ph-bold ph-brain"></i><span>LLM Providers</span></a>
+            <div class="settings-nav__label">System</div>
+            <a class="settings-nav__item" onclick="setDeveloperModalTab(this,'overview')"><i class="ph ph-bold ph-gauge"></i><span>Overview</span></a>
+            <a class="settings-nav__item" onclick="setDeveloperModalTab(this,'providers')"><i class="ph ph-bold ph-brain"></i><span>LLM providers</span></a>
             <a class="settings-nav__item" onclick="setDeveloperModalTab(this,'websearch')"><i class="ph ph-bold ph-globe"></i><span>Web Search</span></a>
             <a class="settings-nav__item" onclick="setDeveloperModalTab(this,'workers')"><i class="ph ph-bold ph-cpu"></i><span>Workers</span></a>
           </div>
           <div class="settings-nav__group">
-            <div class="settings-nav__label">System</div>
+            <div class="settings-nav__label">Integrations</div>
             <a class="settings-nav__item" onclick="setDeveloperModalTab(this,'connectors')"><i class="ph ph-bold ph-plug"></i><span>Connectors</span></a>
+            <a class="settings-nav__item" onclick="setDeveloperModalTab(this,'storage')"><i class="ph ph-bold ph-hard-drives"></i><span>Storage</span></a>
+          </div>
+          <div class="settings-nav__group">
+            <div class="settings-nav__label">Diagnostics</div>
             <a class="settings-nav__item" onclick="setDeveloperModalTab(this,'logs')"><i class="ph ph-bold ph-terminal"></i><span>Logs</span></a>
-            <a class="settings-nav__item" onclick="setDeveloperModalTab(this,'debug')"><i class="ph ph-bold ph-bug-beetle"></i><span>Debug Tools</span></a>
-            <a class="settings-nav__item" onclick="setDeveloperModalTab(this,'danger')"><i class="ph ph-bold ph-warning"></i><span>Danger Zone</span></a>
+            <a class="settings-nav__item" onclick="setDeveloperModalTab(this,'debug')"><i class="ph ph-bold ph-bug-beetle"></i><span>Debug tools</span></a>
+          </div>
+          <div class="settings-nav__group">
+            <div class="settings-nav__label">Superadmin</div>
+            <a class="settings-nav__item" onclick="setDeveloperModalTab(this,'danger')"><i class="ph ph-bold ph-warning"></i><span>Danger zone</span></a>
           </div>
         </nav>
       </aside>
@@ -2097,64 +2105,353 @@
         </header>
 
         <div class="settings-body" id="developer-body">
+
+          <!-- ── OVERVIEW TAB (full width) ── -->
           <div class="settings-tab" id="dtab-overview">
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+              <div class="stat-card"><div class="stat-card__icon"><i class="ph ph-fill ph-pulse"></i></div><div class="stat-card__value">100.00%</div><div class="stat-card__label">API uptime <span style="color: var(--color-text-muted);">last 30d</span></div></div>
+              <div class="stat-card"><div class="stat-card__icon"><i class="ph ph-fill ph-brain"></i></div><div class="stat-card__value">1</div><div class="stat-card__label">Active models <span style="color: var(--color-text-muted);">across 1 provider</span></div></div>
+              <div class="stat-card"><div class="stat-card__icon"><i class="ph ph-fill ph-stack"></i></div><div class="stat-card__value">0</div><div class="stat-card__label">Queue depth <span style="color: var(--color-text-muted);">in-flight runs</span></div></div>
+              <div class="stat-card"><div class="stat-card__icon"><i class="ph ph-fill ph-warning-circle"></i></div><div class="stat-card__value">0%</div><div class="stat-card__label">Error rate <span style="color: var(--color-text-muted);">last 24h</span></div></div>
+            </div>
+            <div class="dt-empty" style="margin-top: 1.5rem; border: 1px dashed var(--color-border); border-radius: var(--radius-lg);">
+              <div class="dt-empty__title">Service status, deployment info, and recent incidents will render here.</div>
+            </div>
+          </div>
+
+          <!-- ── PROVIDERS TAB (full width) ── -->
+          <div class="settings-tab is-hidden" id="dtab-providers">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
+              <div>
+                <h3 class="st-h3">LLM Providers</h3>
+                <p class="st-p">Configure AI model providers. All providers must be OpenAI-compatible.</p>
+              </div>
+              <button class="ui-btn--primary" type="button"><i class="ph ph-bold ph-plus"></i>Custom Provider</button>
+            </div>
+            <div class="st-h3" style="font-size: var(--text-xs); color: var(--color-text-muted); text-transform: uppercase; margin-bottom: 0.75rem;">Vision Model (Auxiliary)</div>
+            <div class="st-usercard" style="margin-bottom: 1.5rem;">
+              <div class="st-usercard__avatar" style="background: #f3e8ff; color: #6b21a8;">VM</div>
+              <div class="st-usercard__info">
+                <span class="st-usercard__name">kr/claude-sonnet-4.5 <span class="st-badge st-badge--green">Active</span></span>
+                <span class="st-usercard__meta">Router: 192.168.18.10:20128</span>
+              </div>
+              <button class="ui-btn--outline" type="button">Edit</button>
+            </div>
+            <div class="st-h3" style="font-size: var(--text-xs); color: var(--color-text-muted); text-transform: uppercase; margin-bottom: 0.75rem;">Configured</div>
+            <div class="st-usercard" style="margin-bottom: 1.5rem;">
+              <div class="st-usercard__avatar" style="background: #e0e7ff; color: #3730a3;">DS</div>
+              <div class="st-usercard__info">
+                <span class="st-usercard__name">DeepSeek</span>
+                <span class="st-usercard__meta">deepseek-v4-flash, deepseek-v4-pro</span>
+                <span class="st-usercard__meta" style="font-family: monospace;">sk-f54ef...a493</span>
+              </div>
+              <div style="display: flex; gap: 0.5rem;">
+                <button class="ui-btn ui-btn--icon-sm" type="button" aria-label="Set default"><i class="ph ph-bold ph-star"></i></button>
+                <button class="ui-btn ui-btn--icon-sm" type="button" aria-label="Edit"><i class="ph ph-bold ph-pencil-simple"></i></button>
+                <button class="ui-btn ui-btn--icon-sm" type="button" aria-label="Delete"><i class="ph ph-bold ph-trash"></i></button>
+              </div>
+            </div>
+            <div class="st-h3" style="font-size: var(--text-xs); color: var(--color-text-muted); text-transform: uppercase; margin-bottom: 0.75rem;">Add more providers</div>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+              <div class="st-usercard" style="padding: 1rem; border: 1px solid var(--color-border); border-radius: var(--radius-md);">
+                <div class="st-usercard__avatar" style="background: #dcfce7; color: #166534;">OA</div>
+                <div class="st-usercard__info"><span class="st-usercard__name">OpenAI</span><span class="st-usercard__meta">GPT-5, GPT-4.1, o4-mini, o3</span></div>
+              </div>
+              <div class="st-usercard" style="padding: 1rem; border: 1px solid var(--color-border); border-radius: var(--radius-md);">
+                <div class="st-usercard__avatar" style="background: #fef3c7; color: #92400e;">AN</div>
+                <div class="st-usercard__info"><span class="st-usercard__name">Anthropic</span><span class="st-usercard__meta">Opus 4.7, Sonnet 4.6, Haiku 4.5</span></div>
+              </div>
+              <div class="st-usercard" style="padding: 1rem; border: 1px solid var(--color-border); border-radius: var(--radius-md);">
+                <div class="st-usercard__avatar" style="background: #fed7aa; color: #9a3412;">MM</div>
+                <div class="st-usercard__info"><span class="st-usercard__name">MiniMax</span><span class="st-usercard__meta">MiniMax M2.7 &amp; M2.5 (200K context)</span></div>
+              </div>
+              <div class="st-usercard" style="padding: 1rem; border: 1px solid var(--color-border); border-radius: var(--radius-md);">
+                <div class="st-usercard__avatar" style="background: #f3e8ff; color: #6b21a8;">OR</div>
+                <div class="st-usercard__info"><span class="st-usercard__name">OpenRouter</span><span class="st-usercard__meta">Multi-model routing</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── WEB SEARCH TAB (left side content) ── -->
+          <div class="settings-tab is-hidden" id="dtab-websearch">
             <section class="st-row">
               <div class="st-row__left">
-                <h3 class="st-h3">Overview</h3>
-                <p class="st-p">System health and metrics.</p>
+                <h3 class="st-h3">Web Search</h3>
+                <p class="st-p">Configure web search provider, API keys, and search behavior for Web and Deep Research modes.</p>
               </div>
               <div class="st-row__right">
-                <div class="st-details">
-                  <div class="st-detail"><span class="st-detail__label">LLM providers</span><span class="st-detail__value">3</span></div>
-                  <div class="st-detail"><span class="st-detail__label">Active workers</span><span class="st-detail__value">4</span></div>
-                  <div class="st-detail"><span class="st-detail__label">Uptime</span><span class="st-detail__value">99.9%</span></div>
-                  <div class="st-detail"><span class="st-detail__label">Avg response</span><span class="st-detail__value">1.2s</span></div>
+                <div class="st-setting-list">
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">Provider</div>
+                      <div class="st-setting-desc">More providers (Brave, SearXNG) coming soon.</div>
+                    </div>
+                    <button class="ui-btn--select" type="button">Tavily <i class="ph ph-bold ph-caret-down"></i></button>
+                  </div>
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">API key</div>
+                      <div class="st-setting-desc">Get a free key at tavily.com (1000 searches/month free tier).</div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                      <code style="font-family: monospace; font-size: var(--text-sm); color: var(--color-text-secondary); background: var(--color-surface); padding: 0.25rem 0.5rem; border-radius: var(--radius-sm);">tvly-dev...ADKQ</code>
+                      <button class="ui-btn--outline" type="button">Change</button>
+                    </div>
+                  </div>
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">Web search enabled</div>
+                      <div class="st-setting-desc">Toggle web search on/off</div>
+                    </div>
+                    <button class="st-toggle st-toggle--on" aria-label="Web search enabled" onclick="this.classList.toggle('st-toggle--on')">
+                      <span class="st-toggle-knob"></span>
+                    </button>
+                  </div>
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">Max results per query</div>
+                      <div class="st-setting-desc">Results fetched per search query. With multi-query fusion (2-3 queries), total sources = this &times; queries, deduped. 5 recommended.</div>
+                    </div>
+                    <input type="number" value="8" style="width: 4rem; height: 2rem; text-align: center; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-family: var(--font-family); font-size: var(--text-sm); color: var(--color-text-primary);">
+                  </div>
+                </div>
+                <div class="st-action-btns" style="margin-top: 1.25rem;">
+                  <button class="ui-btn--primary" type="button">Save</button>
+                  <button class="ui-btn--outline" type="button">Test Connection</button>
                 </div>
               </div>
             </section>
           </div>
-          <div class="settings-tab is-hidden" id="dtab-providers">
-            <section class="st-row">
-              <div class="st-row__left"><h3 class="st-h3">LLM Providers</h3><p class="st-p">Configure AI model providers.</p></div>
-              <div class="st-row__right"><p class="st-p">Provider configuration content goes here.</p></div>
-            </section>
-          </div>
-          <div class="settings-tab is-hidden" id="dtab-websearch">
-            <section class="st-row">
-              <div class="st-row__left"><h3 class="st-h3">Web Search</h3><p class="st-p">Web search engine settings.</p></div>
-              <div class="st-row__right"><p class="st-p">Web search content goes here.</p></div>
-            </section>
-          </div>
+
+          <!-- ── WORKERS TAB (full width) ── -->
           <div class="settings-tab is-hidden" id="dtab-workers">
-            <section class="st-row">
-              <div class="st-row__left"><h3 class="st-h3">Workers</h3><p class="st-p">Background worker management.</p></div>
-              <div class="st-row__right"><p class="st-p">Workers content goes here.</p></div>
-            </section>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
+              <div>
+                <h3 class="st-h3">Workers</h3>
+                <p class="st-p">Hatchet workflows, workers, and run status.</p>
+              </div>
+              <button class="ui-btn--outline" type="button" disabled>Replay failed runs</button>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+              <div class="stat-card"><div class="stat-card__value">0</div><div class="stat-card__label">Queued runs <span style="color: var(--color-text-muted);">in flight</span></div></div>
+              <div class="stat-card"><div class="stat-card__value">0</div><div class="stat-card__label">Running <span style="color: var(--color-text-muted);">active now</span></div></div>
+              <div class="stat-card"><div class="stat-card__value">0</div><div class="stat-card__label">Failed <span style="color: var(--color-text-muted);">recent window</span></div></div>
+              <div class="stat-card"><div class="stat-card__value">0</div><div class="stat-card__label">Workers <span style="color: var(--color-text-muted);">0 total</span></div></div>
+            </div>
+            <h3 class="st-h3" style="margin-bottom: 0.75rem;">Active workers</h3>
+            <table class="data-table" style="margin-bottom: 1.5rem;">
+              <thead><tr><th>Worker</th><th>Queue</th><th>Status</th><th>CPU</th><th>Memory</th><th>Jobs</th><th>Uptime</th><th>Action</th></tr></thead>
+              <tbody><tr><td colspan="8" style="text-align: center; color: var(--color-text-muted);">No workers have checked in yet.</td></tr></tbody>
+            </table>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+              <h3 class="st-h3">Recent runs</h3>
+              <button class="ui-btn--select" type="button">All statuses <i class="ph ph-bold ph-caret-down"></i></button>
+            </div>
+            <table class="data-table">
+              <thead><tr><th>Run ID</th><th>Type</th><th>Status</th><th>Runtime</th><th>Attempts</th><th>Started</th><th>Actions</th></tr></thead>
+              <tbody><tr><td colspan="7" style="text-align: center; color: var(--color-text-muted);">No runs match this filter.</td></tr></tbody>
+            </table>
           </div>
+
+          <!-- ── CONNECTORS TAB (full width) ── -->
           <div class="settings-tab is-hidden" id="dtab-connectors">
+            <h3 class="st-h3" style="margin-bottom: 0.25rem;">Connectors</h3>
+            <p class="st-p" style="margin-bottom: 1.5rem;">Connect external data sources for deep research and RAG.</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+              <div style="border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                  <div style="width: 2.5rem; height: 2.5rem; border-radius: var(--radius-sm); background: #dbeafe; display: flex; align-items: center; justify-content: center;"><i class="ph ph-fill ph-cloud" style="font-size: var(--text-xl); color: #1e40af;"></i></div>
+                  <h3 class="st-h3">Salesforce</h3>
+                </div>
+                <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                  <button class="ui-btn--select" type="button">Production <i class="ph ph-bold ph-caret-down"></i></button>
+                  <button class="ui-btn--select" type="button">Sandbox <i class="ph ph-bold ph-caret-down"></i></button>
+                </div>
+                <button class="ui-btn--primary" type="button" disabled>Connect Salesforce</button>
+              </div>
+              <div style="border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                  <div style="width: 2.5rem; height: 2.5rem; border-radius: var(--radius-sm); background: #dcfce7; display: flex; align-items: center; justify-content: center;"><i class="ph ph-fill ph-currency-circle-dollar" style="font-size: var(--text-xl); color: #166534;"></i></div>
+                  <h3 class="st-h3">NetSuite</h3>
+                </div>
+                <button class="ui-btn--primary" type="button" disabled>Connect NetSuite</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── STORAGE TAB (left side content) ── -->
+          <div class="settings-tab is-hidden" id="dtab-storage">
             <section class="st-row">
-              <div class="st-row__left"><h3 class="st-h3">Connectors</h3><p class="st-p">Data connector configuration.</p></div>
-              <div class="st-row__right"><p class="st-p">Connectors content goes here.</p></div>
+              <div class="st-row__left">
+                <h3 class="st-h3">Storage</h3>
+                <p class="st-p">Configure file storage backend.</p>
+              </div>
+              <div class="st-row__right">
+                <div class="st-setting-list">
+                  <div class="st-setting-item">
+                    <div class="st-setting-info">
+                      <div class="st-setting-label">Storage backend</div>
+                      <div class="st-setting-desc">Choose where uploaded files are stored</div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                      <button class="ui-btn--outline" type="button" style="text-align: left; justify-content: flex-start;">Local Storage — Files stored on the server filesystem</button>
+                      <button class="ui-btn--outline" type="button" style="text-align: left; justify-content: flex-start; border-color: var(--color-accent); color: var(--color-accent);">Wasabi — S3-compatible object storage, no egress fees</button>
+                    </div>
+                  </div>
+                </div>
+                <h3 class="st-h3" style="margin-top: 1.5rem; margin-bottom: 0.75rem;">Wasabi Configuration</h3>
+                <div class="st-setting-list">
+                  <div class="st-setting-item">
+                    <div class="st-setting-info"><div class="st-setting-label">Region</div></div>
+                    <button class="ui-btn--select" type="button">AP Southeast 1 — Singapore <i class="ph ph-bold ph-caret-down"></i></button>
+                  </div>
+                  <div class="st-setting-item">
+                    <div class="st-setting-info"><div class="st-setting-label">Access key ID</div></div>
+                    <input type="text" value="UA2WHIIXCF56KS812GDX" style="width: 16rem; height: 2rem; padding: 0 0.5rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-family: monospace; font-size: var(--text-sm); color: var(--color-text-primary);">
+                  </div>
+                  <div class="st-setting-item">
+                    <div class="st-setting-info"><div class="st-setting-label">Secret access key</div></div>
+                    <input type="password" placeholder="••••••••••••" style="width: 16rem; height: 2rem; padding: 0 0.5rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: var(--text-sm);">
+                  </div>
+                  <div class="st-setting-item">
+                    <div class="st-setting-info"><div class="st-setting-label">Bucket</div></div>
+                    <input type="text" value="lumen-dev" placeholder="my-bucket" style="width: 16rem; height: 2rem; padding: 0 0.5rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: var(--text-sm); color: var(--color-text-primary);">
+                  </div>
+                  <div class="st-setting-item">
+                    <div class="st-setting-info"><div class="st-setting-label">Custom endpoint</div><div class="st-setting-desc">Optional — overrides the region's default endpoint</div></div>
+                    <input type="text" placeholder="Optional" style="width: 16rem; height: 2rem; padding: 0 0.5rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: var(--text-sm);">
+                  </div>
+                </div>
+                <div class="st-action-btns" style="margin-top: 1.25rem;">
+                  <button class="ui-btn--primary" type="button">Save</button>
+                  <button class="ui-btn--outline" type="button">Test Connection</button>
+                </div>
+              </div>
             </section>
           </div>
+
+          <!-- ── LOGS TAB (full width) ── -->
           <div class="settings-tab is-hidden" id="dtab-logs">
-            <section class="st-row">
-              <div class="st-row__left"><h3 class="st-h3">Logs</h3><p class="st-p">System logs and events.</p></div>
-              <div class="st-row__right"><p class="st-p">Logs content goes here.</p></div>
-            </section>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
+              <div>
+                <h3 class="st-h3">Logs</h3>
+                <p class="st-p">API, worker, and Hatchet logs merged with audit events.</p>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-size: var(--text-sm); color: var(--color-text-muted);">0 lines</span>
+                <span style="font-size: var(--text-sm); color: #991b1b;">0 errors</span>
+                <span style="font-size: var(--text-sm); color: #92400e;">0 warnings</span>
+                <button class="ui-btn--outline" type="button"><i class="ph ph-bold ph-pause"></i>Paused</button>
+              </div>
+            </div>
+            <div class="st-members-toolbar">
+              <div class="ui-search ui-search--settings">
+                <i class="ph ph-bold ph-magnifying-glass"></i>
+                <input type="text" placeholder="Search logs..." aria-label="Search logs">
+              </div>
+              <button class="ui-btn--select" type="button">All levels <i class="ph ph-bold ph-caret-down"></i></button>
+              <button class="ui-btn--select" type="button">All services <i class="ph ph-bold ph-caret-down"></i></button>
+            </div>
+            <div class="dt-empty" style="margin-top: 1rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); min-height: 20rem;">
+              <div class="dt-empty__icon"><i class="ph ph-terminal"></i></div>
+              <div class="dt-empty__title">Loading logs...</div>
+            </div>
           </div>
+
+          <!-- ── DEBUG TOOLS TAB (full width) ── -->
           <div class="settings-tab is-hidden" id="dtab-debug">
-            <section class="st-row">
-              <div class="st-row__left"><h3 class="st-h3">Debug Tools</h3><p class="st-p">Debugging and diagnostics.</p></div>
-              <div class="st-row__right"><p class="st-p">Debug tools content goes here.</p></div>
-            </section>
+            <div style="margin-bottom: 1.25rem;">
+              <h3 class="st-h3">Debug tools</h3>
+              <p class="st-p">Diagnostic actions for indexing, vectors, caches, and auth.</p>
+            </div>
+            <div class="st-members-toolbar" style="margin-bottom: 1.5rem;">
+              <div class="ui-search ui-search--settings">
+                <i class="ph ph-bold ph-magnifying-glass"></i>
+                <input type="text" placeholder="Find a tool..." aria-label="Find a tool">
+              </div>
+              <button class="ui-btn--select" type="button">All <i class="ph ph-bold ph-caret-down"></i></button>
+              <button class="ui-btn--select" type="button">Documents <i class="ph ph-bold ph-caret-down"></i></button>
+              <button class="ui-btn--select" type="button">Embeddings <i class="ph ph-bold ph-caret-down"></i></button>
+              <button class="ui-btn--select" type="button">Cache <i class="ph ph-bold ph-caret-down"></i></button>
+              <button class="ui-btn--select" type="button">Queue <i class="ph ph-bold ph-caret-down"></i></button>
+              <button class="ui-btn--select" type="button">Auth <i class="ph ph-bold ph-caret-down"></i></button>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div style="border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                <div style="flex: 1;"><div class="st-setting-label">Reindex document</div><div class="st-setting-desc">Re-run parsing, chunking, embedding for a single doc</div></div>
+                <input type="text" placeholder="doc_..." style="width: 8rem; height: 2rem; padding: 0 0.5rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: var(--text-sm);">
+                <input type="text" placeholder="proj_..." style="width: 8rem; height: 2rem; padding: 0 0.5rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: var(--text-sm);">
+                <button class="ui-btn--primary" type="button" disabled>Reindex</button>
+              </div>
+              <div style="border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                <div style="flex: 1;"><div class="st-setting-label">Inspect document</div><div class="st-setting-desc">Show chunks, embeddings, metadata for a doc</div></div>
+                <input type="text" placeholder="doc_..." style="width: 8rem; height: 2rem; padding: 0 0.5rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: var(--text-sm);">
+                <button class="ui-btn--primary" type="button" disabled>Inspect</button>
+              </div>
+              <div style="border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                <div style="flex: 1;"><div class="st-setting-label">Test embedding</div><div class="st-setting-desc">Run embedding pipeline on raw text</div></div>
+                <input type="text" placeholder="hello world" style="width: 10rem; height: 2rem; padding: 0 0.5rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: var(--text-sm);">
+                <button class="ui-btn--primary" type="button" disabled>Run test</button>
+              </div>
+              <div style="border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                <div style="flex: 1;"><div class="st-setting-label">Scan orphaned vectors</div><div class="st-setting-desc">Find chunk rows whose parent doc is deleted</div></div>
+                <button class="ui-btn--outline" type="button">Scan</button>
+              </div>
+              <div style="border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                <div style="flex: 1;"><div class="st-setting-label">Flush user cache</div><div class="st-setting-desc">Clear Redis cache for a specific user</div></div>
+                <input type="text" placeholder="usr_..." style="width: 8rem; height: 2rem; padding: 0 0.5rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: var(--text-sm);">
+                <button class="ui-btn--primary" type="button" disabled>Flush</button>
+              </div>
+              <div style="border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                <div style="flex: 1;"><div class="st-setting-label">Flush all cache</div><div class="st-setting-desc">Clear entire Redis cache (affects all users)</div></div>
+                <button class="ui-btn--danger" type="button">Flush all</button>
+              </div>
+              <div style="border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                <div style="flex: 1;"><div class="st-setting-label">Drain queue</div><div class="st-setting-desc">Cancel all in-flight and queued workflow runs</div></div>
+                <button class="ui-btn--danger" type="button">Drain</button>
+              </div>
+              <div style="border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                <div style="flex: 1;"><div class="st-setting-label">Replay all failed</div><div class="st-setting-desc">Retry all failed workflow runs</div></div>
+                <button class="ui-btn--outline" type="button">Replay all</button>
+              </div>
+              <div style="border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                <div style="flex: 1;"><div class="st-setting-label">Revoke user tokens</div><div class="st-setting-desc">Force logout for a user (invalidates all sessions)</div></div>
+                <input type="text" placeholder="usr_..." style="width: 8rem; height: 2rem; padding: 0 0.5rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: var(--text-sm);">
+                <button class="ui-btn--danger" type="button" disabled>Revoke</button>
+              </div>
+            </div>
           </div>
+
+          <!-- ── DANGER ZONE TAB (full width) ── -->
           <div class="settings-tab is-hidden" id="dtab-danger">
-            <section class="st-row">
-              <div class="st-row__left"><h3 class="st-h3">Danger Zone</h3><p class="st-p">Irreversible actions.</p></div>
-              <div class="st-row__right"><p class="st-p">Danger zone content goes here.</p></div>
-            </section>
+            <div style="margin-bottom: 1.25rem;">
+              <h3 class="st-h3">Danger zone</h3>
+              <p class="st-p">Destructive operations. Superadmin only.</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+              <div style="border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.25rem; display: flex; align-items: center; gap: 1rem;">
+                <div style="flex: 1;"><div class="st-setting-label">Purge queue</div><div class="st-setting-desc">Cancel every in-flight and queued workflow run. Running tasks are terminated. Use only after a bad deploy poisoned the queue.</div></div>
+                <button class="ui-btn--outline" type="button" style="border-color: #f59e0b; color: #92400e;">Purge queue</button>
+              </div>
+              <div style="border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.25rem; display: flex; align-items: center; gap: 1rem;">
+                <div style="flex: 1;"><div class="st-setting-label">Reindex all documents</div><div class="st-setting-desc">Re-runs parsing, chunking and embedding for every document. Takes hours on large datasets.</div></div>
+                <button class="ui-btn--outline" type="button" style="border-color: #f59e0b; color: #92400e;">Reindex</button>
+              </div>
+              <div style="border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.25rem; display: flex; align-items: center; gap: 1rem;">
+                <div style="flex: 1;"><div class="st-setting-label">Purge orphaned vectors</div><div class="st-setting-desc">Removes chunk rows whose parent document has been deleted. Dry-run first from Debug tools if unsure.</div></div>
+                <button class="ui-btn--outline" type="button" style="border-color: #f59e0b; color: #92400e;">Purge</button>
+              </div>
+              <div style="border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.25rem; display: flex; align-items: center; gap: 1rem;">
+                <div style="flex: 1;"><div class="st-setting-label">Reset system settings</div><div class="st-setting-desc">Restore provider and worker config to factory defaults. Keeps all user data.</div></div>
+                <button class="ui-btn--outline" type="button" style="border-color: #f59e0b; color: #92400e;">Reset config</button>
+              </div>
+              <div style="border: 1px solid #fecaca; border-radius: var(--radius-md); padding: 1.25rem; display: flex; align-items: center; gap: 1rem; background: #fef2f2;">
+                <div style="flex: 1;"><div class="st-setting-label" style="color: #991b1b;">Factory reset (wipe org)</div><div class="st-setting-desc" style="color: #991b1b;">Deletes all data including users, projects, documents, and grants. Irreversible. Type the confirmation string exactly to proceed.</div></div>
+                <button class="ui-btn--danger" type="button">Wipe everything</button>
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
 
@@ -2756,14 +3053,15 @@ function setDeveloperModalTab(el, tab) {
   var tabEl = document.getElementById('dtab-' + tab);
   if (tabEl) { tabEl.classList.remove('is-hidden'); tabEl.classList.add('is-shown'); }
   var titles = {
-    overview:   { title: 'Developer overview', sub: 'System health and infrastructure metrics.' },
-    providers:  { title: 'LLM Providers', sub: 'Configure AI model providers.' },
-    websearch:  { title: 'Web Search', sub: 'Web search engine settings.' },
-    workers:    { title: 'Workers', sub: 'Background worker management.' },
-    connectors: { title: 'Connectors', sub: 'Data connector configuration.' },
-    logs:       { title: 'Logs', sub: 'System logs and events.' },
-    debug:      { title: 'Debug Tools', sub: 'Debugging and diagnostics.' },
-    danger:     { title: 'Danger Zone', sub: 'Irreversible actions.' }
+    overview:   { title: 'Overview', sub: 'System status and operational health at a glance.' },
+    providers:  { title: 'LLM providers', sub: 'Configure chat model backends, API keys, and routing.' },
+    websearch:  { title: 'Web Search', sub: 'Configure web search provider, API keys, and search behavior.' },
+    workers:    { title: 'Workers', sub: 'Hatchet workflows, workers, and run status.' },
+    connectors: { title: 'Connectors', sub: 'Connect external data sources for deep research and RAG.' },
+    storage:    { title: 'Storage', sub: 'Configure file storage backend.' },
+    logs:       { title: 'Logs', sub: 'API, worker, and Hatchet logs merged with audit events.' },
+    debug:      { title: 'Debug tools', sub: 'Diagnostic actions for indexing, vectors, caches, and auth.' },
+    danger:     { title: 'Danger zone', sub: 'Destructive operations. Superadmin only.' }
   };
   var t = titles[tab] || titles.overview;
   var titleEl = document.getElementById('developer-title');
