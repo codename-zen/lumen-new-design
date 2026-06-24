@@ -178,6 +178,14 @@
         <i class="ph ph-bold ph-plug"></i>
         Integrations
       </a>
+      <a href="#" class="profile-menu__item" onclick="navigateTo('admin', null); closeProfileMenu();">
+        <i class="ph ph-bold ph-shield-star"></i>
+        Admin
+      </a>
+      <a href="#" class="profile-menu__item" onclick="navigateTo('engineer', null); closeProfileMenu();">
+        <i class="ph ph-bold ph-wrench"></i>
+        Developer
+      </a>
       <a href="#" class="profile-menu__item" onclick="openSettings(event)">
         <i class="ph ph-bold ph-gear"></i>
         Settings
@@ -2000,6 +2008,13 @@ function navigateTo(route, el, threadTitle) {
       if (g) g.textContent = 'Hello Gani';
     }
   }
+}
+
+function closeProfileMenu() {
+  var menu = document.getElementById('profile-menu');
+  if (menu) { menu.classList.remove('is-shown'); menu.classList.add('is-hidden'); }
+  var profileBtn = document.querySelector('.user-profile');
+  if (profileBtn) profileBtn.setAttribute('aria-expanded', 'false');
 }
 
 function toggleProfileMenu(e) {
