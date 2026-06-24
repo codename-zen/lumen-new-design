@@ -254,6 +254,13 @@
 - Hover: bg `--color-surface`, color `--color-text-primary`
 - Focus-visible: outline 2px `--color-accent`, offset 2px
 
+### Dropdown Menus (`.ui-select__menu`, `.profile-menu`, `.proj-card__menu`)
+- BG: `--color-bg` (white), border `1px solid --color-border`, NO box-shadow
+- Item default: `--text-secondary`, `--text-sm` (14px), `--font-medium` (500)
+- Item hover: bg `--color-surface`, color `--color-text-primary`
+- Item selected: bg `--color-surface`, color `--color-text-primary`
+- Item selected hover: bg `--color-border`, color `--color-text-primary`
+
 ---
 
 ## 8. ICONS

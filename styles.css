@@ -2038,13 +2038,13 @@
 }
 
 .ui-select__item--selected {
-  background: var(--color-accent);
-  color: #ffffff;
+  background: var(--color-surface);
+  color: var(--color-text-primary);
 }
 
 .ui-select__item--selected:hover {
-  background: var(--color-accent-hover);
-  color: #ffffff;
+  background: var(--color-border);
+  color: var(--color-text-primary);
 }
 
 /* Toggle switch */
