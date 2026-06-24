@@ -1824,16 +1824,15 @@
 
         <nav class="settings-nav">
           <div class="settings-nav__group">
-            <div class="settings-nav__label">Workspace</div>
+            <div class="settings-nav__label">Manage</div>
+            <a class="settings-nav__item" onclick="setAdminModalTab(this,'overview')"><i class="ph ph-bold ph-gauge"></i><span>Overview</span></a>
             <a class="settings-nav__item" onclick="setAdminModalTab(this,'users')"><i class="ph ph-bold ph-users"></i><span>Users</span></a>
-            <a class="settings-nav__item" onclick="setAdminModalTab(this,'org')"><i class="ph ph-bold ph-building"></i><span>Organization</span></a>
-            <a class="settings-nav__item" onclick="setAdminModalTab(this,'shares')"><i class="ph ph-bold ph-share-network"></i><span>Share Requests</span></a>
+            <a class="settings-nav__item" onclick="setAdminModalTab(this,'organization')"><i class="ph ph-bold ph-building"></i><span>Organization</span></a>
           </div>
           <div class="settings-nav__group">
-            <div class="settings-nav__label">System</div>
-            <a class="settings-nav__item" onclick="setAdminModalTab(this,'audit')"><i class="ph ph-bold ph-clipboard-text"></i><span>Audit Log</span></a>
-            <a class="settings-nav__item" onclick="setAdminModalTab(this,'usage')"><i class="ph ph-bold ph-chart-bar"></i><span>Usage Stats</span></a>
-            <a class="settings-nav__item" onclick="setAdminModalTab(this,'storage')"><i class="ph ph-bold ph-hard-drives"></i><span>Storage</span></a>
+            <div class="settings-nav__label">Insights</div>
+            <a class="settings-nav__item" onclick="setAdminModalTab(this,'audit')"><i class="ph ph-bold ph-clipboard-text"></i><span>Audit log</span></a>
+            <a class="settings-nav__item" onclick="setAdminModalTab(this,'usage')"><i class="ph ph-bold ph-chart-bar"></i><span>Usage stats</span></a>
           </div>
         </nav>
       </aside>
@@ -1851,58 +1850,234 @@
         </header>
 
         <div class="settings-body" id="admin-body">
+
+          <!-- ── OVERVIEW TAB ── -->
           <div class="settings-tab" id="atab-overview">
             <section class="st-row">
               <div class="st-row__left">
                 <h3 class="st-h3">Overview</h3>
-                <p class="st-p">Workspace admin summary and details.</p>
+                <p class="st-p">Monitor organization health and recent activity.</p>
               </div>
               <div class="st-row__right">
-                <div class="st-details">
-                  <div class="st-detail"><span class="st-detail__label">Total users</span><span class="st-detail__value">3</span></div>
-                  <div class="st-detail"><span class="st-detail__label">Projects</span><span class="st-detail__value">12</span></div>
-                  <div class="st-detail"><span class="st-detail__label">Conversations</span><span class="st-detail__value">2,847</span></div>
-                  <div class="st-detail"><span class="st-detail__label">Storage used</span><span class="st-detail__value">24%</span></div>
+                <div class="st-stats" style="grid-template-columns: repeat(4, 1fr); gap: 1rem; display: grid;">
+                  <div class="stat-card"><div class="stat-card__icon"><i class="ph ph-fill ph-users"></i></div><div class="stat-card__value">4</div><div class="stat-card__label">Active users</div></div>
+                  <div class="stat-card"><div class="stat-card__icon"><i class="ph ph-fill ph-building"></i></div><div class="stat-card__value">0</div><div class="stat-card__label">Departments</div></div>
+                  <div class="stat-card"><div class="stat-card__icon"><i class="ph ph-fill ph-folder"></i></div><div class="stat-card__value">0</div><div class="stat-card__label">Projects</div></div>
+                  <div class="stat-card"><div class="stat-card__icon"><i class="ph ph-fill ph-share-network"></i></div><div class="stat-card__value">0</div><div class="stat-card__label">Pending shares</div></div>
+                </div>
+                <div class="callout callout--yellow" style="margin-top: 1.25rem;">
+                  <i class="ph ph-fill ph-warning"></i>
+                  Finish setting up your organization. Create your first department.
+                  <a href="#" class="callout__link" onclick="setAdminModalTab(document.querySelector('#admin-overlay .settings-nav__item:nth-child(3)'), 'organization'); return false;">Create</a>
+                </div>
+              </div>
+            </section>
+            <section class="st-row st-row--border">
+              <div class="st-row__left">
+                <h3 class="st-h3">Chief Executive</h3>
+                <p class="st-p">Organization's top role.</p>
+              </div>
+              <div class="st-row__right">
+                <div class="st-usercard">
+                  <div class="st-usercard__avatar">AL</div>
+                  <div class="st-usercard__info">
+                    <span class="st-usercard__name">Alex <span class="st-badge st-badge--blue">CEO</span></span>
+                    <span class="st-usercard__meta">alex@company.com</span>
+                  </div>
+                </div>
+                <div class="st-p" style="margin-top: 0.75rem;">Read-only observer across all projects</div>
+              </div>
+            </section>
+            <section class="st-row st-row--border">
+              <div class="st-row__left">
+                <h3 class="st-h3">Departments</h3>
+                <p class="st-p">Organization departments.</p>
+              </div>
+              <div class="st-row__right">
+                <div class="dt-empty">
+                  <div class="dt-empty__icon"><i class="ph ph-building"></i></div>
+                  <div class="dt-empty__title">No departments yet</div>
+                </div>
+              </div>
+            </section>
+            <section class="st-row st-row--border">
+              <div class="st-row__left">
+                <h3 class="st-h3">Recent activity</h3>
+                <p class="st-p">Latest organization events.</p>
+              </div>
+              <div class="st-row__right">
+                <div class="activity-item">
+                  <div class="activity-item__avatar">GS</div>
+                  <div class="activity-item__body">
+                    <div class="activity-item__header"><span class="activity-item__name">Gani Sigit</span></div>
+                    <div class="activity-item__title">gk_document_upload</div>
+                    <div class="activity-item__time">5d ago</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-item__avatar">GS</div>
+                  <div class="activity-item__body">
+                    <div class="activity-item__header"><span class="activity-item__name">Gani Sigit</span></div>
+                    <div class="activity-item__title">gk_document_upload</div>
+                    <div class="activity-item__time">5d ago</div>
+                  </div>
                 </div>
               </div>
             </section>
           </div>
+
+          <!-- ── USERS TAB ── -->
           <div class="settings-tab is-hidden" id="atab-users">
             <section class="st-row">
-              <div class="st-row__left"><h3 class="st-h3">Users</h3><p class="st-p">Manage workspace users and roles.</p></div>
-              <div class="st-row__right"><p class="st-p">User management content goes here.</p></div>
+              <div class="st-row__left">
+                <h3 class="st-h3">Users</h3>
+                <p class="st-p">4 of 4 users</p>
+              </div>
+              <div class="st-row__right">
+                <div class="st-members-toolbar">
+                  <div class="ui-search ui-search--settings">
+                    <i class="ph ph-bold ph-magnifying-glass"></i>
+                    <input type="text" placeholder="Search name or email..." aria-label="Search users">
+                  </div>
+                  <button class="ui-btn--select" type="button">All positions <i class="ph ph-bold ph-caret-down"></i></button>
+                  <button class="ui-btn--select" type="button">All platform roles <i class="ph ph-bold ph-caret-down"></i></button>
+                  <button class="ui-btn--select" type="button">No department <i class="ph ph-bold ph-caret-down"></i></button>
+                  <button class="ui-btn--primary" type="button"><i class="ph ph-bold ph-plus"></i>Add user</button>
+                </div>
+                <table class="data-table" style="margin-top: 1rem;">
+                  <thead>
+                    <tr><th>Name</th><th>Position</th><th>Platform role</th><th>Department</th><th>Status</th><th>Last seen</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--blue">TE</span><span class="dt-avatar__name">Test Explorer</span></div></td>
+                      <td><span class="st-badge st-badge--blue">Member</span></td>
+                      <td>—</td><td>—</td>
+                      <td><span class="st-badge st-badge--green">Active</span></td>
+                      <td>—</td>
+                    </tr>
+                    <tr>
+                      <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--blue">EU</span><span class="dt-avatar__name">Editor User</span></div></td>
+                      <td><span class="st-badge st-badge--blue">Member</span></td>
+                      <td>—</td><td>—</td>
+                      <td><span class="st-badge st-badge--green">Active</span></td>
+                      <td>6/2/2026</td>
+                    </tr>
+                    <tr>
+                      <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--purple">AL</span><span class="dt-avatar__name">Alex</span></div></td>
+                      <td><span class="st-badge st-badge--amber">CEO</span></td>
+                      <td>—</td><td>—</td>
+                      <td><span class="st-badge st-badge--green">Active</span></td>
+                      <td>5/22/2026</td>
+                    </tr>
+                    <tr>
+                      <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--blue">GS</span><span class="dt-avatar__name">Gani Sigit</span></div></td>
+                      <td><span class="st-badge st-badge--blue">Member</span></td>
+                      <td><span class="st-badge st-badge--amber">Superadmin</span></td>
+                      <td>—</td>
+                      <td><span class="st-badge st-badge--green">Active</span></td>
+                      <td>just now</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </section>
           </div>
-          <div class="settings-tab is-hidden" id="atab-org">
+
+          <!-- ── ORGANIZATION TAB ── -->
+          <div class="settings-tab is-hidden" id="atab-organization">
             <section class="st-row">
-              <div class="st-row__left"><h3 class="st-h3">Organization</h3><p class="st-p">Organization settings.</p></div>
-              <div class="st-row__right"><p class="st-p">Organization content goes here.</p></div>
+              <div class="st-row__left">
+                <h3 class="st-h3">Organization</h3>
+                <p class="st-p">Departments, managers, and groups.</p>
+              </div>
+              <div class="st-row__right">
+                <div class="callout callout--yellow">
+                  <i class="ph ph-fill ph-warning"></i>
+                  Finish setting up your organization. Create your first department.
+                  <a href="#" class="callout__link">Create</a>
+                </div>
+                <div class="st-usercard" style="margin-top: 1.25rem;">
+                  <div class="st-usercard__avatar">AL</div>
+                  <div class="st-usercard__info">
+                    <span class="st-usercard__name" style="font-size: var(--text-xs); color: var(--color-text-muted); text-transform: uppercase;">Chief Executive</span>
+                    <span class="st-usercard__name">Alex</span>
+                  </div>
+                  <button class="ui-btn--outline" type="button">Manage</button>
+                </div>
+                <div class="status-tabs" style="margin-top: 1.25rem;">
+                  <button class="status-tab status-tab--active" type="button">Departments <span class="status-tab__count">0</span></button>
+                  <button class="status-tab" type="button">Groups <span class="status-tab__count">0</span></button>
+                  <button class="status-tab" type="button">Structure</button>
+                </div>
+                <div class="dt-empty" style="margin-top: 1rem;">
+                  <div class="dt-empty__icon"><i class="ph ph-building"></i></div>
+                  <div class="dt-empty__title">No departments yet</div>
+                </div>
+                <button class="ui-btn--primary" type="button" style="margin-top: 1rem;"><i class="ph ph-bold ph-plus"></i>New department</button>
+              </div>
             </section>
           </div>
-          <div class="settings-tab is-hidden" id="atab-shares">
-            <section class="st-row">
-              <div class="st-row__left"><h3 class="st-h3">Share Requests</h3><p class="st-p">Pending share requests.</p></div>
-              <div class="st-row__right"><p class="st-p">Share requests content goes here.</p></div>
-            </section>
-          </div>
+
+          <!-- ── AUDIT LOG TAB ── -->
           <div class="settings-tab is-hidden" id="atab-audit">
             <section class="st-row">
-              <div class="st-row__left"><h3 class="st-h3">Audit Log</h3><p class="st-p">Activity audit trail.</p></div>
-              <div class="st-row__right"><p class="st-p">Audit log content goes here.</p></div>
+              <div class="st-row__left">
+                <h3 class="st-h3">Audit log</h3>
+                <p class="st-p">0 of 0 entries</p>
+              </div>
+              <div class="st-row__right">
+                <div class="st-members-toolbar">
+                  <div class="ui-search ui-search--settings">
+                    <i class="ph ph-bold ph-magnifying-glass"></i>
+                    <input type="text" placeholder="Search action, user, project..." aria-label="Search audit log">
+                  </div>
+                  <button class="ui-btn--select" type="button">All actions <i class="ph ph-bold ph-caret-down"></i></button>
+                  <button class="ui-btn--outline" type="button"><i class="ph ph-bold ph-download-simple"></i>Export CSV</button>
+                </div>
+                <div class="dt-empty" style="margin-top: 1rem;">
+                  <div class="dt-empty__icon"><i class="ph ph-clipboard-text"></i></div>
+                  <div class="dt-empty__title">No audit entries recorded yet</div>
+                </div>
+              </div>
             </section>
           </div>
+
+          <!-- ── USAGE STATS TAB ── -->
           <div class="settings-tab is-hidden" id="atab-usage">
             <section class="st-row">
-              <div class="st-row__left"><h3 class="st-h3">Usage Stats</h3><p class="st-p">Usage statistics and metrics.</p></div>
-              <div class="st-row__right"><p class="st-p">Usage stats content goes here.</p></div>
+              <div class="st-row__left">
+                <h3 class="st-h3">Usage stats</h3>
+                <p class="st-p">Per-member usage metrics.</p>
+              </div>
+              <div class="st-row__right">
+                <table class="data-table">
+                  <thead>
+                    <tr><th>Member</th><th>Threads</th><th>Docs uploaded</th><th>Projects</th><th>Role</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--blue">TE</span><span class="dt-avatar__name">Test Explorer</span></div></td>
+                      <td>0</td><td>0</td><td>0</td><td>none</td>
+                    </tr>
+                    <tr>
+                      <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--blue">EU</span><span class="dt-avatar__name">Editor User</span></div></td>
+                      <td>0</td><td>0</td><td>0</td><td>none</td>
+                    </tr>
+                    <tr>
+                      <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--purple">AL</span><span class="dt-avatar__name">Alex</span></div></td>
+                      <td>0</td><td>0</td><td>0</td><td>none</td>
+                    </tr>
+                    <tr>
+                      <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--blue">GS</span><span class="dt-avatar__name">Gani Sigit</span></div></td>
+                      <td>0</td><td>0</td><td>0</td><td>superadmin</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </section>
           </div>
-          <div class="settings-tab is-hidden" id="atab-storage">
-            <section class="st-row">
-              <div class="st-row__left"><h3 class="st-h3">Storage</h3><p class="st-p">Storage management.</p></div>
-              <div class="st-row__right"><p class="st-p">Storage content goes here.</p></div>
-            </section>
-          </div>
+
         </div>
       </div>
 
@@ -2572,13 +2747,11 @@ function setAdminModalTab(el, tab) {
   var tabEl = document.getElementById('atab-' + tab);
   if (tabEl) { tabEl.classList.remove('is-hidden'); tabEl.classList.add('is-shown'); }
   var titles = {
-    overview: { title: 'Admin overview', sub: 'Workspace admin dashboard and settings.' },
-    users:    { title: 'Users', sub: 'Manage workspace users and roles.' },
-    org:      { title: 'Organization', sub: 'Organization settings.' },
-    shares:   { title: 'Share Requests', sub: 'Pending share requests.' },
-    audit:    { title: 'Audit Log', sub: 'Activity audit trail.' },
-    usage:    { title: 'Usage Stats', sub: 'Usage statistics and metrics.' },
-    storage:  { title: 'Storage', sub: 'Storage management.' }
+    overview:     { title: 'Admin overview', sub: 'Monitor organization health and recent activity.' },
+    users:        { title: 'Users', sub: '4 of 4 users' },
+    organization: { title: 'Organization', sub: 'Departments, managers, and groups.' },
+    audit:        { title: 'Audit log', sub: '0 of 0 entries' },
+    usage:        { title: 'Usage stats', sub: 'Per-member usage metrics.' }
   };
   var t = titles[tab] || titles.overview;
   var titleEl = document.getElementById('admin-title');
