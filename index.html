@@ -61,6 +61,11 @@
         <i class="ph ph-fill ph-books"></i>
         <span class="nav-link-text">Library</span>
       </a>
+      <!-- History — inactive -->
+      <a href="#" class="nav-link" data-tooltip="History" onclick="navigateTo('websearch', this)">
+        <i class="ph ph-fill ph-clock-counter-clockwise"></i>
+        <span class="nav-link-text">History</span>
+      </a>
       <!-- Search (icon-only in collapsed mode) -->
       <a href="#" class="nav-link nav-link-search" data-tooltip="Search" onclick="document.querySelector('.ui-search input').focus()">
         <i class="ph ph-bold ph-magnifying-glass"></i>
@@ -145,6 +150,9 @@
         </a>
         <a class="sidebar-rail__item" href="#" onclick="navigateTo('library', document.querySelector('.nav-link[data-tooltip=Library]')); return false;" title="Library">
           <i class="ph ph-fill ph-books"></i>
+        </a>
+        <a class="sidebar-rail__item" href="#" onclick="navigateTo('websearch', document.querySelector('.nav-link[data-tooltip=History]')); return false;" title="History">
+          <i class="ph ph-fill ph-clock-counter-clockwise"></i>
         </a>
         </div>
       </div>
