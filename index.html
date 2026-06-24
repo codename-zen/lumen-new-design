@@ -2007,61 +2007,45 @@
 
           <!-- ── AUDIT LOG TAB ── -->
           <div class="settings-tab is-hidden" id="atab-audit">
-            <section class="st-row">
-              <div class="st-row__left">
-                <h3 class="st-h3">Audit log</h3>
-                <p class="st-p">0 of 0 entries</p>
+            <div class="st-members-toolbar">
+              <div class="ui-search ui-search--settings">
+                <i class="ph ph-bold ph-magnifying-glass"></i>
+                <input type="text" placeholder="Search action, user, project..." aria-label="Search audit log">
               </div>
-              <div class="st-row__right">
-                <div class="st-members-toolbar">
-                  <div class="ui-search ui-search--settings">
-                    <i class="ph ph-bold ph-magnifying-glass"></i>
-                    <input type="text" placeholder="Search action, user, project..." aria-label="Search audit log">
-                  </div>
-                  <button class="ui-btn--select" type="button">All actions <i class="ph ph-bold ph-caret-down"></i></button>
-                  <button class="ui-btn--outline" type="button"><i class="ph ph-bold ph-download-simple"></i>Export CSV</button>
-                </div>
-                <div class="dt-empty" style="margin-top: 1rem;">
-                  <div class="dt-empty__icon"><i class="ph ph-clipboard-text"></i></div>
-                  <div class="dt-empty__title">No audit entries recorded yet</div>
-                </div>
-              </div>
-            </section>
+              <button class="ui-btn--select" type="button">All actions <i class="ph ph-bold ph-caret-down"></i></button>
+              <button class="ui-btn--outline" type="button"><i class="ph ph-bold ph-download-simple"></i>Export CSV</button>
+            </div>
+            <div class="dt-empty" style="margin-top: 1rem;">
+              <div class="dt-empty__icon"><i class="ph ph-clipboard-text"></i></div>
+              <div class="dt-empty__title">No audit entries recorded yet</div>
+            </div>
           </div>
 
           <!-- ── USAGE STATS TAB ── -->
           <div class="settings-tab is-hidden" id="atab-usage">
-            <section class="st-row">
-              <div class="st-row__left">
-                <h3 class="st-h3">Usage stats</h3>
-                <p class="st-p">Per-member usage metrics.</p>
-              </div>
-              <div class="st-row__right">
-                <table class="data-table">
-                  <thead>
-                    <tr><th>Member</th><th>Threads</th><th>Docs uploaded</th><th>Projects</th><th>Role</th></tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--blue">TE</span><span class="dt-avatar__name">Test Explorer</span></div></td>
-                      <td>0</td><td>0</td><td>0</td><td>none</td>
-                    </tr>
-                    <tr>
-                      <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--blue">EU</span><span class="dt-avatar__name">Editor User</span></div></td>
-                      <td>0</td><td>0</td><td>0</td><td>none</td>
-                    </tr>
-                    <tr>
-                      <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--purple">AL</span><span class="dt-avatar__name">Alex</span></div></td>
-                      <td>0</td><td>0</td><td>0</td><td>none</td>
-                    </tr>
-                    <tr>
-                      <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--blue">GS</span><span class="dt-avatar__name">Gani Sigit</span></div></td>
-                      <td>0</td><td>0</td><td>0</td><td>superadmin</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
+            <table class="data-table">
+              <thead>
+                <tr><th>Member</th><th>Threads</th><th>Docs uploaded</th><th>Projects</th><th>Role</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--blue">TE</span><span class="dt-avatar__name">Test Explorer</span></div></td>
+                  <td>0</td><td>0</td><td>0</td><td>none</td>
+                </tr>
+                <tr>
+                  <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--blue">EU</span><span class="dt-avatar__name">Editor User</span></div></td>
+                  <td>0</td><td>0</td><td>0</td><td>none</td>
+                </tr>
+                <tr>
+                  <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--purple">AL</span><span class="dt-avatar__name">Alex</span></div></td>
+                  <td>0</td><td>0</td><td>0</td><td>none</td>
+                </tr>
+                <tr>
+                  <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--blue">GS</span><span class="dt-avatar__name">Gani Sigit</span></div></td>
+                  <td>0</td><td>0</td><td>0</td><td>superadmin</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
         </div>
