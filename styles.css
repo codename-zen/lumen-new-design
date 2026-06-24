@@ -3686,12 +3686,13 @@
      STATUS TABS — tab bar with counts
      ═══════════════════════════════════════════════════════════ */
   .status-tabs {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 0.25rem; /* 4px */
     background: var(--color-surface);
     border-radius: var(--radius-sm);
     padding: 0.1875rem; /* 3px */
+    width: fit-content;
   }
 
   .status-tab {
