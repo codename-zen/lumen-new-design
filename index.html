@@ -249,10 +249,10 @@
                       <i class="ph ph-bold ph-plus"></i>
                     </button>
                     <div class="ui-select ui-select--up">
-                      <button class="ui-btn--select" type="button" onclick="toggleUiSelect(this)" aria-haspopup="listbox" aria-expanded="false">
+                      <button class="ui-btn--mode" type="button" onclick="toggleUiSelect(this)" aria-haspopup="listbox" aria-expanded="false">
                         <i class="ph ph-fill ph-folder"></i>
                         Enterprise Chat
-                        <i class="ph ph-caret-down"></i>
+                        <i class="ph ph-bold ph-caret-down"></i>
                       </button>
                       <div class="ui-select__menu" role="listbox">
                         <button class="ui-select__item ui-select__item--selected" type="button" role="option" aria-selected="true" onclick="selectUiItem(this)">
@@ -2203,7 +2203,7 @@ function selectUiItem(btn) {
   btn.classList.add('ui-select__item--selected');
   btn.setAttribute('aria-selected', 'true');
   // Update button label — clone icon + text from selected item
-  var selectBtn = sel.querySelector('.ui-btn--select');
+  var selectBtn = sel.querySelector('.ui-btn--select, .ui-btn--mode');
   if (selectBtn) {
     var itemIcon = btn.querySelector('.ph');
     var caret = selectBtn.querySelector('.ph-caret-down');
