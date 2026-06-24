@@ -134,11 +134,11 @@
 | search-focus | `0 0 0 1px rgba(10,13,20,0.06), 0 1px 2px 0 rgba(10,13,20,0.06)` | Search focus state |
 | composer | `0 20px 20px -10px rgba(23,23,23,0.04), ...` | Composer card |
 | modal | `0 0.5rem 1.5rem -0.25rem rgba(10,13,20,0.12), ...` | Settings modal |
-| profile-menu | `0 0.5rem 1.5rem -0.25rem rgba(10,13,20,0.08), ...` | Profile popover |
 
 ### Rules
 - Shadow values are the ONLY place px is allowed in non-border context.
 - Use rgba(10,13,20,N) for all shadows — consistent shadow color.
+- **Dropdown menus (`.ui-select__menu`, `.profile-menu`, `.proj-card__menu`, kebab menus): NO box-shadow. Use `1px solid var(--color-border)` only.**
 
 ---
 
