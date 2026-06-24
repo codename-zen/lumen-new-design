@@ -2287,16 +2287,23 @@
                 <p class="st-p">Configure file storage backend.</p>
               </div>
               <div class="st-row__right">
-                <div class="st-setting-list">
-                  <div class="st-setting-item">
-                    <div class="st-setting-info">
-                      <div class="st-setting-label">Storage backend</div>
-                      <div class="st-setting-desc">Choose where uploaded files are stored</div>
+                <div class="st-setting-label" style="margin-bottom: 0.75rem;">Storage backend</div>
+                <div class="st-setting-desc" style="margin-bottom: 1rem;">Choose where uploaded files are stored</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                  <div style="border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.25rem; cursor: pointer;">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+                      <i class="ph ph-fill ph-hard-drive" style="font-size: var(--text-xl); color: var(--color-text-muted);"></i>
+                      <span class="st-setting-label">Local Storage</span>
                     </div>
-                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                      <button class="ui-btn--outline" type="button" style="text-align: left; justify-content: flex-start;">Local Storage — Files stored on the server filesystem</button>
-                      <button class="ui-btn--outline" type="button" style="text-align: left; justify-content: flex-start; border-color: var(--color-accent); color: var(--color-accent);">Wasabi — S3-compatible object storage, no egress fees</button>
+                    <div class="st-setting-desc">Files stored on the server filesystem</div>
+                  </div>
+                  <div style="border: 2px solid var(--color-accent); border-radius: var(--radius-md); padding: 1.25rem; cursor: pointer; background: rgba(51, 92, 255, 0.02);">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+                      <i class="ph ph-fill ph-cloud" style="font-size: var(--text-xl); color: var(--color-accent);"></i>
+                      <span class="st-setting-label" style="color: var(--color-accent);">Wasabi</span>
+                      <i class="ph ph-fill ph-check-circle" style="font-size: var(--text-xl); color: var(--color-accent); margin-left: auto;"></i>
                     </div>
+                    <div class="st-setting-desc">S3-compatible object storage, no egress fees</div>
                   </div>
                 </div>
                 <h3 class="st-h3" style="margin-top: 1.5rem; margin-bottom: 0.75rem;">Wasabi Configuration</h3>
