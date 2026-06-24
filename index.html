@@ -178,11 +178,11 @@
         <i class="ph ph-bold ph-plug"></i>
         Integrations
       </a>
-      <a href="#" class="profile-menu__item" onclick="navigateTo('admin', null); closeProfileMenu();">
+      <a href="#" class="profile-menu__item" onclick="openAdminModal()">
         <i class="ph ph-bold ph-shield-star"></i>
         Admin
       </a>
-      <a href="#" class="profile-menu__item" onclick="navigateTo('engineer', null); closeProfileMenu();">
+      <a href="#" class="profile-menu__item" onclick="openDeveloperModal()">
         <i class="ph ph-bold ph-wrench"></i>
         Developer
       </a>
@@ -1809,6 +1809,213 @@
     </div>
   </div>
 
+  <!-- ═══════════ ADMIN MODAL ═══════════ -->
+  <div class="settings-overlay is-hidden" id="admin-overlay" role="dialog" aria-modal="true" aria-labelledby="admin-title">
+    <div class="settings-modal">
+
+      <!-- ══ Admin Sidebar ══ -->
+      <aside class="settings-sidebar">
+        <button type="button" class="settings-ws active" onclick="setAdminModalTab(this,'overview')">
+          <div class="settings-ws__avatar">J</div>
+          <span class="settings-ws__name">James Brown</span>
+          <span class="settings-ws__badge">ADMIN</span>
+          <i class="ph ph-bold ph-caret-right settings-ws__chev"></i>
+        </button>
+
+        <nav class="settings-nav">
+          <div class="settings-nav__group">
+            <div class="settings-nav__label">Workspace</div>
+            <a class="settings-nav__item" onclick="setAdminModalTab(this,'users')"><i class="ph ph-bold ph-users"></i><span>Users</span></a>
+            <a class="settings-nav__item" onclick="setAdminModalTab(this,'org')"><i class="ph ph-bold ph-building"></i><span>Organization</span></a>
+            <a class="settings-nav__item" onclick="setAdminModalTab(this,'shares')"><i class="ph ph-bold ph-share-network"></i><span>Share Requests</span></a>
+          </div>
+          <div class="settings-nav__group">
+            <div class="settings-nav__label">System</div>
+            <a class="settings-nav__item" onclick="setAdminModalTab(this,'audit')"><i class="ph ph-bold ph-clipboard-text"></i><span>Audit Log</span></a>
+            <a class="settings-nav__item" onclick="setAdminModalTab(this,'usage')"><i class="ph ph-bold ph-chart-bar"></i><span>Usage Stats</span></a>
+            <a class="settings-nav__item" onclick="setAdminModalTab(this,'storage')"><i class="ph ph-bold ph-hard-drives"></i><span>Storage</span></a>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- ══ Admin Content ══ -->
+      <div class="settings-content">
+        <header class="settings-header">
+          <div class="settings-header__text">
+            <h2 class="settings-header__title" id="admin-title">Admin overview</h2>
+            <p class="settings-header__sub" id="admin-subtitle">Workspace admin dashboard and settings.</p>
+          </div>
+          <button type="button" class="settings-close" onclick="closeAdminModal()" aria-label="Close" title="Close">
+            <i class="ph ph-bold ph-x"></i>
+          </button>
+        </header>
+
+        <div class="settings-body" id="admin-body">
+          <div class="settings-tab" id="atab-overview">
+            <section class="st-row">
+              <div class="st-row__left">
+                <h3 class="st-h3">Overview</h3>
+                <p class="st-p">Workspace admin summary and details.</p>
+              </div>
+              <div class="st-row__right">
+                <div class="st-details">
+                  <div class="st-detail"><span class="st-detail__label">Total users</span><span class="st-detail__value">3</span></div>
+                  <div class="st-detail"><span class="st-detail__label">Projects</span><span class="st-detail__value">12</span></div>
+                  <div class="st-detail"><span class="st-detail__label">Conversations</span><span class="st-detail__value">2,847</span></div>
+                  <div class="st-detail"><span class="st-detail__label">Storage used</span><span class="st-detail__value">24%</span></div>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div class="settings-tab is-hidden" id="atab-users">
+            <section class="st-row">
+              <div class="st-row__left"><h3 class="st-h3">Users</h3><p class="st-p">Manage workspace users and roles.</p></div>
+              <div class="st-row__right"><p class="st-p">User management content goes here.</p></div>
+            </section>
+          </div>
+          <div class="settings-tab is-hidden" id="atab-org">
+            <section class="st-row">
+              <div class="st-row__left"><h3 class="st-h3">Organization</h3><p class="st-p">Organization settings.</p></div>
+              <div class="st-row__right"><p class="st-p">Organization content goes here.</p></div>
+            </section>
+          </div>
+          <div class="settings-tab is-hidden" id="atab-shares">
+            <section class="st-row">
+              <div class="st-row__left"><h3 class="st-h3">Share Requests</h3><p class="st-p">Pending share requests.</p></div>
+              <div class="st-row__right"><p class="st-p">Share requests content goes here.</p></div>
+            </section>
+          </div>
+          <div class="settings-tab is-hidden" id="atab-audit">
+            <section class="st-row">
+              <div class="st-row__left"><h3 class="st-h3">Audit Log</h3><p class="st-p">Activity audit trail.</p></div>
+              <div class="st-row__right"><p class="st-p">Audit log content goes here.</p></div>
+            </section>
+          </div>
+          <div class="settings-tab is-hidden" id="atab-usage">
+            <section class="st-row">
+              <div class="st-row__left"><h3 class="st-h3">Usage Stats</h3><p class="st-p">Usage statistics and metrics.</p></div>
+              <div class="st-row__right"><p class="st-p">Usage stats content goes here.</p></div>
+            </section>
+          </div>
+          <div class="settings-tab is-hidden" id="atab-storage">
+            <section class="st-row">
+              <div class="st-row__left"><h3 class="st-h3">Storage</h3><p class="st-p">Storage management.</p></div>
+              <div class="st-row__right"><p class="st-p">Storage content goes here.</p></div>
+            </section>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ DEVELOPER MODAL ═══════════ -->
+  <div class="settings-overlay is-hidden" id="developer-overlay" role="dialog" aria-modal="true" aria-labelledby="developer-title">
+    <div class="settings-modal">
+
+      <!-- ══ Developer Sidebar ══ -->
+      <aside class="settings-sidebar">
+        <button type="button" class="settings-ws active" onclick="setDeveloperModalTab(this,'overview')">
+          <div class="settings-ws__avatar">J</div>
+          <span class="settings-ws__name">James Brown</span>
+          <span class="settings-ws__badge">DEV</span>
+          <i class="ph ph-bold ph-caret-right settings-ws__chev"></i>
+        </button>
+
+        <nav class="settings-nav">
+          <div class="settings-nav__group">
+            <div class="settings-nav__label">Infrastructure</div>
+            <a class="settings-nav__item" onclick="setDeveloperModalTab(this,'providers')"><i class="ph ph-bold ph-brain"></i><span>LLM Providers</span></a>
+            <a class="settings-nav__item" onclick="setDeveloperModalTab(this,'websearch')"><i class="ph ph-bold ph-globe"></i><span>Web Search</span></a>
+            <a class="settings-nav__item" onclick="setDeveloperModalTab(this,'workers')"><i class="ph ph-bold ph-cpu"></i><span>Workers</span></a>
+          </div>
+          <div class="settings-nav__group">
+            <div class="settings-nav__label">System</div>
+            <a class="settings-nav__item" onclick="setDeveloperModalTab(this,'connectors')"><i class="ph ph-bold ph-plug"></i><span>Connectors</span></a>
+            <a class="settings-nav__item" onclick="setDeveloperModalTab(this,'logs')"><i class="ph ph-bold ph-terminal"></i><span>Logs</span></a>
+            <a class="settings-nav__item" onclick="setDeveloperModalTab(this,'debug')"><i class="ph ph-bold ph-bug-beetle"></i><span>Debug Tools</span></a>
+            <a class="settings-nav__item" onclick="setDeveloperModalTab(this,'danger')"><i class="ph ph-bold ph-warning"></i><span>Danger Zone</span></a>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- ══ Developer Content ══ -->
+      <div class="settings-content">
+        <header class="settings-header">
+          <div class="settings-header__text">
+            <h2 class="settings-header__title" id="developer-title">Developer overview</h2>
+            <p class="settings-header__sub" id="developer-subtitle">System health and infrastructure metrics.</p>
+          </div>
+          <button type="button" class="settings-close" onclick="closeDeveloperModal()" aria-label="Close" title="Close">
+            <i class="ph ph-bold ph-x"></i>
+          </button>
+        </header>
+
+        <div class="settings-body" id="developer-body">
+          <div class="settings-tab" id="dtab-overview">
+            <section class="st-row">
+              <div class="st-row__left">
+                <h3 class="st-h3">Overview</h3>
+                <p class="st-p">System health and metrics.</p>
+              </div>
+              <div class="st-row__right">
+                <div class="st-details">
+                  <div class="st-detail"><span class="st-detail__label">LLM providers</span><span class="st-detail__value">3</span></div>
+                  <div class="st-detail"><span class="st-detail__label">Active workers</span><span class="st-detail__value">4</span></div>
+                  <div class="st-detail"><span class="st-detail__label">Uptime</span><span class="st-detail__value">99.9%</span></div>
+                  <div class="st-detail"><span class="st-detail__label">Avg response</span><span class="st-detail__value">1.2s</span></div>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div class="settings-tab is-hidden" id="dtab-providers">
+            <section class="st-row">
+              <div class="st-row__left"><h3 class="st-h3">LLM Providers</h3><p class="st-p">Configure AI model providers.</p></div>
+              <div class="st-row__right"><p class="st-p">Provider configuration content goes here.</p></div>
+            </section>
+          </div>
+          <div class="settings-tab is-hidden" id="dtab-websearch">
+            <section class="st-row">
+              <div class="st-row__left"><h3 class="st-h3">Web Search</h3><p class="st-p">Web search engine settings.</p></div>
+              <div class="st-row__right"><p class="st-p">Web search content goes here.</p></div>
+            </section>
+          </div>
+          <div class="settings-tab is-hidden" id="dtab-workers">
+            <section class="st-row">
+              <div class="st-row__left"><h3 class="st-h3">Workers</h3><p class="st-p">Background worker management.</p></div>
+              <div class="st-row__right"><p class="st-p">Workers content goes here.</p></div>
+            </section>
+          </div>
+          <div class="settings-tab is-hidden" id="dtab-connectors">
+            <section class="st-row">
+              <div class="st-row__left"><h3 class="st-h3">Connectors</h3><p class="st-p">Data connector configuration.</p></div>
+              <div class="st-row__right"><p class="st-p">Connectors content goes here.</p></div>
+            </section>
+          </div>
+          <div class="settings-tab is-hidden" id="dtab-logs">
+            <section class="st-row">
+              <div class="st-row__left"><h3 class="st-h3">Logs</h3><p class="st-p">System logs and events.</p></div>
+              <div class="st-row__right"><p class="st-p">Logs content goes here.</p></div>
+            </section>
+          </div>
+          <div class="settings-tab is-hidden" id="dtab-debug">
+            <section class="st-row">
+              <div class="st-row__left"><h3 class="st-h3">Debug Tools</h3><p class="st-p">Debugging and diagnostics.</p></div>
+              <div class="st-row__right"><p class="st-p">Debug tools content goes here.</p></div>
+            </section>
+          </div>
+          <div class="settings-tab is-hidden" id="dtab-danger">
+            <section class="st-row">
+              <div class="st-row__left"><h3 class="st-h3">Danger Zone</h3><p class="st-p">Irreversible actions.</p></div>
+              <div class="st-row__right"><p class="st-p">Danger zone content goes here.</p></div>
+            </section>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 <script>
 function toggleSidebar() {
   document.getElementById('sidebar').classList.toggle('collapsed');
@@ -2062,6 +2269,8 @@ document.addEventListener('keydown', function(e) {
     var profileBtn = document.querySelector('.user-profile');
     if (profileBtn) profileBtn.setAttribute('aria-expanded', 'false');
     closeSettings();
+    closeAdminModal();
+    closeDeveloperModal();
   }
 });
 
@@ -2337,6 +2546,100 @@ function filterLibraryTable() {
     }
   }
 }
+// ── ADMIN MODAL ──
+function openAdminModal() {
+  closeProfileMenu();
+  var overlay = document.getElementById('admin-overlay');
+  overlay.classList.remove('is-hidden');
+  overlay.classList.add('is-shown');
+}
+
+function closeAdminModal() {
+  var overlay = document.getElementById('admin-overlay');
+  overlay.classList.remove('is-shown');
+  overlay.classList.add('is-hidden');
+}
+
+function setAdminModalTab(el, tab) {
+  document.querySelectorAll('#admin-overlay .settings-nav__item, #admin-overlay .settings-ws').forEach(function(item) {
+    item.classList.remove('active');
+  });
+  el.classList.add('active');
+  document.querySelectorAll('#admin-overlay .settings-tab').forEach(function(t) {
+    t.classList.add('is-hidden');
+    t.classList.remove('is-shown');
+  });
+  var tabEl = document.getElementById('atab-' + tab);
+  if (tabEl) { tabEl.classList.remove('is-hidden'); tabEl.classList.add('is-shown'); }
+  var titles = {
+    overview: { title: 'Admin overview', sub: 'Workspace admin dashboard and settings.' },
+    users:    { title: 'Users', sub: 'Manage workspace users and roles.' },
+    org:      { title: 'Organization', sub: 'Organization settings.' },
+    shares:   { title: 'Share Requests', sub: 'Pending share requests.' },
+    audit:    { title: 'Audit Log', sub: 'Activity audit trail.' },
+    usage:    { title: 'Usage Stats', sub: 'Usage statistics and metrics.' },
+    storage:  { title: 'Storage', sub: 'Storage management.' }
+  };
+  var t = titles[tab] || titles.overview;
+  var titleEl = document.getElementById('admin-title');
+  var subEl = document.getElementById('admin-subtitle');
+  if (titleEl) titleEl.textContent = t.title;
+  if (subEl) subEl.textContent = t.sub;
+}
+
+// ── DEVELOPER MODAL ──
+function openDeveloperModal() {
+  closeProfileMenu();
+  var overlay = document.getElementById('developer-overlay');
+  overlay.classList.remove('is-hidden');
+  overlay.classList.add('is-shown');
+}
+
+function closeDeveloperModal() {
+  var overlay = document.getElementById('developer-overlay');
+  overlay.classList.remove('is-shown');
+  overlay.classList.add('is-hidden');
+}
+
+function setDeveloperModalTab(el, tab) {
+  document.querySelectorAll('#developer-overlay .settings-nav__item, #developer-overlay .settings-ws').forEach(function(item) {
+    item.classList.remove('active');
+  });
+  el.classList.add('active');
+  document.querySelectorAll('#developer-overlay .settings-tab').forEach(function(t) {
+    t.classList.add('is-hidden');
+    t.classList.remove('is-shown');
+  });
+  var tabEl = document.getElementById('dtab-' + tab);
+  if (tabEl) { tabEl.classList.remove('is-hidden'); tabEl.classList.add('is-shown'); }
+  var titles = {
+    overview:   { title: 'Developer overview', sub: 'System health and infrastructure metrics.' },
+    providers:  { title: 'LLM Providers', sub: 'Configure AI model providers.' },
+    websearch:  { title: 'Web Search', sub: 'Web search engine settings.' },
+    workers:    { title: 'Workers', sub: 'Background worker management.' },
+    connectors: { title: 'Connectors', sub: 'Data connector configuration.' },
+    logs:       { title: 'Logs', sub: 'System logs and events.' },
+    debug:      { title: 'Debug Tools', sub: 'Debugging and diagnostics.' },
+    danger:     { title: 'Danger Zone', sub: 'Irreversible actions.' }
+  };
+  var t = titles[tab] || titles.overview;
+  var titleEl = document.getElementById('developer-title');
+  var subEl = document.getElementById('developer-subtitle');
+  if (titleEl) titleEl.textContent = t.title;
+  if (subEl) subEl.textContent = t.sub;
+}
+
+// Close admin/developer modals on overlay click
+document.addEventListener('DOMContentLoaded', function() {
+  var adminOverlay = document.getElementById('admin-overlay');
+  if (adminOverlay) {
+    adminOverlay.addEventListener('click', function(e) { if (e.target === adminOverlay) closeAdminModal(); });
+  }
+  var devOverlay = document.getElementById('developer-overlay');
+  if (devOverlay) {
+    devOverlay.addEventListener('click', function(e) { if (e.target === devOverlay) closeDeveloperModal(); });
+  }
+});
 </script>
 </body>
 </html>
