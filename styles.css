@@ -4005,7 +4005,7 @@
   }
 
   .msg__md li {
-    margin-bottom: 0;
+    margin-bottom: 0.125rem; /* 2px */
     line-height: 1.25rem; /* 20px */
   }
 
