@@ -1198,6 +1198,10 @@
     color: var(--color-icon-default);
   }
 
+  .ui-btn--mode .ph-caret-down {
+    font-size: var(--text-sm); /* 14px */
+  }
+
   /* Send button */
   .ui-btn--send {
     width: 2rem;  /* 32px */
