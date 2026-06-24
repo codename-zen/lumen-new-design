@@ -2774,6 +2774,12 @@
     flex-direction: column;
   }
 
+  /* Wide page variant (library, data table pages) */
+  .page--wide {
+    max-width: none;
+    padding: 4.5rem 1.25rem; /* 72px top/bottom, 20px left/right */
+  }
+
   /* ── Create button (dark, reusable) ── */
   .ui-btn--create {
     display: inline-flex;
@@ -2888,6 +2894,365 @@
   }
 
   /* ── Sort select — uses .ui-btn--select + .ui-select dropdown (reusable) ── */
+
+  /* ═══════════════════════════════════════════════════════════
+     DATA TABLE — modular, reusable component
+     Ref: library page layout from user screenshot
+     ═══════════════════════════════════════════════════════════ */
+
+  /* ── Table toolbar (search + filters + count + view toggle) ── */
+  .dt-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* 12px */
+    margin-bottom: 1.75rem; /* 28px */
+    flex-wrap: wrap;
+  }
+
+  .dt-toolbar .ui-search {
+    flex: 1;
+    min-width: 12rem;
+  }
+
+  .dt-toolbar__filters {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* 8px */
+    flex-wrap: wrap;
+  }
+
+  .dt-toolbar__right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* 12px */
+    margin-left: auto;
+  }
+
+  .dt-count {
+    font-size: var(--text-sm); /* 14px */
+    font-weight: var(--font-medium); /* 500 */
+    color: var(--color-text-muted);
+    white-space: nowrap;
+  }
+
+  /* ── View toggle (list/grid) ── */
+  .dt-view-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.125rem;
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+    padding: 0.125rem;
+  }
+
+  .dt-view-toggle__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem; /* 28px */
+    height: 1.75rem; /* 28px */
+    border-radius: var(--radius-sm);
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .dt-view-toggle__btn .ph {
+    font-size: var(--text-base); /* 16px */
+  }
+
+  .dt-view-toggle__btn:hover {
+    color: var(--color-text-secondary);
+  }
+
+  .dt-view-toggle__btn--active {
+    background: var(--color-bg);
+    color: var(--color-text-primary);
+    box-shadow: 0 1px 2px 0 rgba(10,13,20,0.06);
+  }
+
+  /* ── Data table ── */
+  .dt {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .dt th {
+    text-align: left;
+    font-size: var(--text-xs); /* 12px */
+    font-weight: var(--font-semibold); /* 600 */
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.03125rem; /* 0.5px */
+    padding: 0.5rem 0.75rem; /* 8px 12px */
+    border-bottom: 1px solid var(--color-border);
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  /* Sortable header */
+  .dt th.dt-th--sortable {
+    cursor: pointer;
+    transition: color 0.15s;
+  }
+
+  .dt th.dt-th--sortable:hover {
+    color: var(--color-text-secondary);
+  }
+
+  .dt th.dt-th--sorted {
+    color: var(--color-text-primary);
+  }
+
+  .dt-th__sort {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .dt-th__icon {
+    display: flex;
+    align-items: center;
+    color: var(--color-text-muted);
+    transition: color 0.15s;
+  }
+
+  .dt-th__icon .ph {
+    font-size: var(--text-sm); /* 14px */
+  }
+
+  .dt-th--sorted .dt-th__icon {
+    color: var(--color-accent);
+  }
+
+  /* Right-align numeric columns */
+  .dt th.dt-th--num,
+  .dt td.dt-td--num {
+    text-align: right;
+  }
+
+  .dt td {
+    font-size: var(--text-sm); /* 14px */
+    font-weight: var(--font-regular); /* 400 */
+    color: var(--color-text-secondary);
+    padding: 0.75rem; /* 12px */
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: middle;
+  }
+
+  .dt tbody tr {
+    transition: background 0.15s;
+    cursor: pointer;
+  }
+
+  .dt tbody tr:hover {
+    background: var(--color-surface);
+  }
+
+  .dt tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* Row selected state */
+  .dt tbody tr.dt-row--selected {
+    background: rgba(51, 92, 255, 0.04);
+  }
+
+  /* ── Cell content components ── */
+
+  /* File name cell (icon + name) */
+  .dt-file {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* 8px */
+    min-width: 0;
+  }
+
+  .dt-file__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--color-text-muted);
+  }
+
+  .dt-file__icon .ph {
+    font-size: var(--text-xl); /* 20px */
+  }
+
+  .dt-file__name {
+    font-size: var(--text-sm); /* 14px */
+    font-weight: var(--font-medium); /* 500 */
+    color: var(--color-text-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* File type badge */
+  .dt-badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: var(--text-xs); /* 12px */
+    font-weight: var(--font-semibold); /* 600 */
+    padding: 0.125rem 0.375rem; /* 2px 6px */
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+    line-height: 1.5;
+  }
+
+  .dt-badge--pdf {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+
+  .dt-badge--md {
+    background: #ccfbf1;
+    color: #115e59;
+  }
+
+  .dt-badge--docx {
+    background: #dbeafe;
+    color: #1e40af;
+  }
+
+  .dt-badge--xlsx {
+    background: #dcfce7;
+    color: #166534;
+  }
+
+  .dt-badge--png {
+    background: #f3e8ff;
+    color: #6b21a8;
+  }
+
+  /* Source badge */
+  .dt-source {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem; /* 4px */
+    font-size: var(--text-xs); /* 12px */
+    font-weight: var(--font-medium); /* 500 */
+    padding: 0.125rem 0.5rem; /* 2px 8px */
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+  }
+
+  .dt-source .ph {
+    font-size: var(--text-sm); /* 14px */
+  }
+
+  .dt-source--purple {
+    background: #f3e8ff;
+    color: #6b21a8;
+  }
+
+  .dt-source--blue {
+    background: #dbeafe;
+    color: #1e40af;
+  }
+
+  .dt-source--green {
+    background: #dcfce7;
+    color: #166534;
+  }
+
+  .dt-source--amber {
+    background: #fef3c7;
+    color: #92400e;
+  }
+
+  /* Uploader avatar */
+  .dt-avatar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* 8px */
+  }
+
+  .dt-avatar__circle {
+    width: 1.5rem; /* 24px */
+    height: 1.5rem; /* 24px */
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.625rem; /* 10px */
+    font-weight: var(--font-semibold); /* 600 */
+  }
+
+  .dt-avatar__circle--blue {
+    background: #dbeafe;
+    color: #1e40af;
+  }
+
+  .dt-avatar__circle--purple {
+    background: #f3e8ff;
+    color: #6b21a8;
+  }
+
+  .dt-avatar__name {
+    font-size: var(--text-sm); /* 14px */
+    font-weight: var(--font-medium); /* 500 */
+    color: var(--color-text-secondary);
+  }
+
+  /* ── Pagination ── */
+  .dt-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem; /* 16px */
+    padding-top: 1rem; /* 16px */
+  }
+
+  .dt-pagination__info {
+    font-size: var(--text-sm); /* 14px */
+    font-weight: var(--font-medium); /* 500 */
+    color: var(--color-text-muted);
+  }
+
+  .dt-pagination__controls {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem; /* 4px */
+  }
+
+  /* ── Empty state ── */
+  .dt-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem; /* 12px */
+    padding: 3rem 1rem; /* 48px 16px */
+    text-align: center;
+  }
+
+  .dt-empty__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+  }
+
+  .dt-empty__icon .ph {
+    font-size: 2rem; /* 32px */
+  }
+
+  .dt-empty__title {
+    font-size: var(--text-sm); /* 14px */
+    font-weight: var(--font-medium); /* 500 */
+    color: var(--color-text-primary);
+  }
+
+  .dt-empty__desc {
+    font-size: var(--text-xs); /* 12px */
+    font-weight: var(--font-regular); /* 400 */
+    color: var(--color-text-muted);
+  }
 
   /* ── Projects grid (2-column) ── */
   .proj-grid {

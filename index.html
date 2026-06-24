@@ -442,14 +442,226 @@
       </div>
 
       <!-- ══ VIEW: Library ══ -->
-      <div class="view view--placeholder is-hidden" id="view-library">
-        <div class="view__body">
-          <div class="view__placeholder">
-            <div class="view__placeholder-icon">
-              <i class="ph ph-fill ph-books"></i>
+      <div class="view is-hidden" id="view-library">
+        <div class="page-scroll">
+          <div class="page page--wide">
+            <div class="proj-head">
+              <div class="proj-head__icon">
+                <i class="ph ph-books"></i>
+              </div>
+              <div class="proj-head__row">
+                <div>
+                  <h1 class="proj-head__title">Library</h1>
+                  <p class="proj-head__sub">Manage and search your documents and files</p>
+                </div>
+                <button class="ui-btn--primary" type="button" aria-label="Upload">
+                  <i class="ph ph-plus"></i>
+                  Upload
+                </button>
+              </div>
             </div>
-            <div class="view__placeholder-title">Library</div>
-            <div class="view__placeholder-subtitle">In development</div>
+            <div class="dt-toolbar">
+              <div class="ui-search">
+                <i class="ph ph-magnifying-glass"></i>
+                <input type="text" placeholder="Search documents..." aria-label="Search documents" id="dt-search" oninput="filterLibraryTable()">
+              </div>
+              <div class="dt-toolbar__filters">
+                <div class="ui-select">
+                  <button class="ui-btn--select" type="button" onclick="toggleUiSelect(this)" aria-haspopup="listbox" aria-expanded="false">All Sources <i class="ph ph-caret-down"></i></button>
+                  <div class="ui-select__menu" role="listbox">
+                    <button class="ui-select__item ui-select__item--selected" type="button" role="option" aria-selected="true" onclick="selectUiItem(this)">All Sources</button>
+                    <button class="ui-select__item" type="button" role="option" aria-selected="false" onclick="selectUiItem(this)">Company Knowledge</button>
+                    <button class="ui-select__item" type="button" role="option" aria-selected="false" onclick="selectUiItem(this)">Customer Success Knowledge Base</button>
+                    <button class="ui-select__item" type="button" role="option" aria-selected="false" onclick="selectUiItem(this)">Sales Playbook</button>
+                    <button class="ui-select__item" type="button" role="option" aria-selected="false" onclick="selectUiItem(this)">Company Handbook</button>
+                  </div>
+                </div>
+                <div class="ui-select">
+                  <button class="ui-btn--select" type="button" onclick="toggleUiSelect(this)" aria-haspopup="listbox" aria-expanded="false">All Projects <i class="ph ph-caret-down"></i></button>
+                  <div class="ui-select__menu" role="listbox">
+                    <button class="ui-select__item ui-select__item--selected" type="button" role="option" aria-selected="true" onclick="selectUiItem(this)">All Projects</button>
+                    <button class="ui-select__item" type="button" role="option" aria-selected="false" onclick="selectUiItem(this)">Research &amp; Analysis</button>
+                    <button class="ui-select__item" type="button" role="option" aria-selected="false" onclick="selectUiItem(this)">Web Search</button>
+                    <button class="ui-select__item" type="button" role="option" aria-selected="false" onclick="selectUiItem(this)">Knowledge Base</button>
+                  </div>
+                </div>
+                <div class="ui-select">
+                  <button class="ui-btn--select" type="button" onclick="toggleUiSelect(this)" aria-haspopup="listbox" aria-expanded="false">All Types <i class="ph ph-caret-down"></i></button>
+                  <div class="ui-select__menu" role="listbox">
+                    <button class="ui-select__item ui-select__item--selected" type="button" role="option" aria-selected="true" onclick="selectUiItem(this)">All Types</button>
+                    <button class="ui-select__item" type="button" role="option" aria-selected="false" onclick="selectUiItem(this)">PDF</button>
+                    <button class="ui-select__item" type="button" role="option" aria-selected="false" onclick="selectUiItem(this)">MD</button>
+                    <button class="ui-select__item" type="button" role="option" aria-selected="false" onclick="selectUiItem(this)">DOCX</button>
+                    <button class="ui-select__item" type="button" role="option" aria-selected="false" onclick="selectUiItem(this)">XLSX</button>
+                  </div>
+                </div>
+                <div class="ui-select">
+                  <button class="ui-btn--select" type="button" onclick="toggleUiSelect(this)" aria-haspopup="listbox" aria-expanded="false">All Members <i class="ph ph-caret-down"></i></button>
+                  <div class="ui-select__menu" role="listbox">
+                    <button class="ui-select__item ui-select__item--selected" type="button" role="option" aria-selected="true" onclick="selectUiItem(this)">All Members</button>
+                    <button class="ui-select__item" type="button" role="option" aria-selected="false" onclick="selectUiItem(this)">Gani Sigit</button>
+                    <button class="ui-select__item" type="button" role="option" aria-selected="false" onclick="selectUiItem(this)">Unknown</button>
+                  </div>
+                </div>
+              </div>
+              <div class="dt-toolbar__right">
+                <span class="dt-count" id="dt-count">12 documents</span>
+                <div class="dt-view-toggle">
+                  <button class="dt-view-toggle__btn dt-view-toggle__btn--active" type="button" aria-label="List view"><i class="ph ph-list"></i></button>
+                  <button class="dt-view-toggle__btn" type="button" aria-label="Grid view"><i class="ph ph-squares-four"></i></button>
+                </div>
+              </div>
+            </div>
+            <table class="dt" id="library-table">
+              <thead>
+                <tr>
+                  <th class="dt-th--sortable dt-th--sorted" onclick="sortLibraryTable('name')">
+                    <span class="dt-th__sort">Name <span class="dt-th__icon"><i class="ph ph-caret-down"></i></span></span>
+                  </th>
+                  <th class="dt-th--sortable" onclick="sortLibraryTable('source')">
+                    <span class="dt-th__sort">Source</span>
+                  </th>
+                  <th class="dt-th--sortable" onclick="sortLibraryTable('type')">
+                    <span class="dt-th__sort">Type</span>
+                  </th>
+                  <th class="dt-th--sortable" onclick="sortLibraryTable('uploader')">
+                    <span class="dt-th__sort">Uploaded by</span>
+                  </th>
+                  <th class="dt-th--sortable" onclick="sortLibraryTable('date')">
+                    <span class="dt-th__sort">Date</span>
+                  </th>
+                  <th class="dt-th--sortable" onclick="sortLibraryTable('status')">
+                    <span class="dt-th__sort">Status</span>
+                  </th>
+                  <th class="dt-th--sortable dt-th--num" onclick="sortLibraryTable('size')">
+                    <span class="dt-th__sort">Size</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="library-tbody">
+                <tr>
+                  <td><div class="dt-file"><span class="dt-file__icon"><i class="ph ph-file-pdf"></i></span><span class="dt-file__name">NetSuite-to-Salesforce_Alignment_Report.pdf</span></div></td>
+                  <td><span class="dt-source dt-source--purple"><i class="ph ph-stack"></i>Company Knowledge</span></td>
+                  <td><span class="dt-badge dt-badge--pdf">PDF</span></td>
+                  <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--purple">UN</span><span class="dt-avatar__name">Unknown</span></div></td>
+                  <td>Jun 19, 2026</td>
+                  <td><span class="st-badge st-badge--green">Indexed</span></td>
+                  <td class="dt-td--num">61.4 KB</td>
+                </tr>
+                <tr>
+                  <td><div class="dt-file"><span class="dt-file__icon"><i class="ph ph-file-pdf"></i></span><span class="dt-file__name">Sales_Performance_Snapshot_Q3_2026.pdf</span></div></td>
+                  <td><span class="dt-source dt-source--purple"><i class="ph ph-stack"></i>Company Knowledge</span></td>
+                  <td><span class="dt-badge dt-badge--pdf">PDF</span></td>
+                  <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--purple">UN</span><span class="dt-avatar__name">Unknown</span></div></td>
+                  <td>Jun 19, 2026</td>
+                  <td><span class="st-badge st-badge--green">Indexed</span></td>
+                  <td class="dt-td--num">46.5 KB</td>
+                </tr>
+                <tr>
+                  <td><div class="dt-file"><span class="dt-file__icon"><i class="ph ph-file-pdf"></i></span><span class="dt-file__name">Q3_2026_Revenue_Growth_Review.pdf</span></div></td>
+                  <td><span class="dt-source dt-source--blue"><i class="ph ph-stack"></i>Customer Success KB</span></td>
+                  <td><span class="dt-badge dt-badge--pdf">PDF</span></td>
+                  <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--blue">GS</span><span class="dt-avatar__name">Gani Sigit</span></div></td>
+                  <td>Jun 11, 2026</td>
+                  <td><span class="st-badge st-badge--green">Indexed</span></td>
+                  <td class="dt-td--num">76.2 KB</td>
+                </tr>
+                <tr>
+                  <td><div class="dt-file"><span class="dt-file__icon"><i class="ph ph-file-pdf"></i></span><span class="dt-file__name">NetSuite_Customer_Master_Data_Report.pdf</span></div></td>
+                  <td><span class="dt-source dt-source--blue"><i class="ph ph-stack"></i>Customer Success KB</span></td>
+                  <td><span class="dt-badge dt-badge--pdf">PDF</span></td>
+                  <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--blue">GS</span><span class="dt-avatar__name">Gani Sigit</span></div></td>
+                  <td>Jun 10, 2026</td>
+                  <td><span class="st-badge st-badge--green">Indexed</span></td>
+                  <td class="dt-td--num">42.4 KB</td>
+                </tr>
+                <tr>
+                  <td><div class="dt-file"><span class="dt-file__icon"><i class="ph ph-file-text"></i></span><span class="dt-file__name">customer-onboarding-playbook.md</span></div></td>
+                  <td><span class="dt-source dt-source--blue"><i class="ph ph-stack"></i>Customer Success KB</span></td>
+                  <td><span class="dt-badge dt-badge--md">MD</span></td>
+                  <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--blue">GS</span><span class="dt-avatar__name">Gani Sigit</span></div></td>
+                  <td>Jun 01, 2026</td>
+                  <td><span class="st-badge st-badge--green">Indexed</span></td>
+                  <td class="dt-td--num">1.3 KB</td>
+                </tr>
+                <tr>
+                  <td><div class="dt-file"><span class="dt-file__icon"><i class="ph ph-file-pdf"></i></span><span class="dt-file__name">competitive-intelligence.pdf</span></div></td>
+                  <td><span class="dt-source dt-source--blue"><i class="ph ph-stack"></i>Sales Playbook</span></td>
+                  <td><span class="dt-badge dt-badge--pdf">PDF</span></td>
+                  <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--blue">GS</span><span class="dt-avatar__name">Gani Sigit</span></div></td>
+                  <td>May 28, 2026</td>
+                  <td><span class="st-badge st-badge--green">Indexed</span></td>
+                  <td class="dt-td--num">19.6 KB</td>
+                </tr>
+                <tr>
+                  <td><div class="dt-file"><span class="dt-file__icon"><i class="ph ph-file-text"></i></span><span class="dt-file__name">objection-handling.md</span></div></td>
+                  <td><span class="dt-source dt-source--blue"><i class="ph ph-stack"></i>Sales Playbook</span></td>
+                  <td><span class="dt-badge dt-badge--md">MD</span></td>
+                  <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--blue">GS</span><span class="dt-avatar__name">Gani Sigit</span></div></td>
+                  <td>May 22, 2026</td>
+                  <td><span class="st-badge st-badge--green">Indexed</span></td>
+                  <td class="dt-td--num">3.3 KB</td>
+                </tr>
+                <tr>
+                  <td><div class="dt-file"><span class="dt-file__icon"><i class="ph ph-file-text"></i></span><span class="dt-file__name">account-pacific-retail.md</span></div></td>
+                  <td><span class="dt-source dt-source--blue"><i class="ph ph-stack"></i>Sales Playbook</span></td>
+                  <td><span class="dt-badge dt-badge--md">MD</span></td>
+                  <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--blue">GS</span><span class="dt-avatar__name">Gani Sigit</span></div></td>
+                  <td>May 22, 2026</td>
+                  <td><span class="st-badge st-badge--green">Indexed</span></td>
+                  <td class="dt-td--num">1.7 KB</td>
+                </tr>
+                <tr>
+                  <td><div class="dt-file"><span class="dt-file__icon"><i class="ph ph-file-text"></i></span><span class="dt-file__name">pricing-guide.md</span></div></td>
+                  <td><span class="dt-source dt-source--blue"><i class="ph ph-stack"></i>Sales Playbook</span></td>
+                  <td><span class="dt-badge dt-badge--md">MD</span></td>
+                  <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--blue">GS</span><span class="dt-avatar__name">Gani Sigit</span></div></td>
+                  <td>May 22, 2026</td>
+                  <td><span class="st-badge st-badge--green">Indexed</span></td>
+                  <td class="dt-td--num">1.7 KB</td>
+                </tr>
+                <tr>
+                  <td><div class="dt-file"><span class="dt-file__icon"><i class="ph ph-file-text"></i></span><span class="dt-file__name">competitive.md</span></div></td>
+                  <td><span class="dt-source dt-source--blue"><i class="ph ph-stack"></i>Sales Playbook</span></td>
+                  <td><span class="dt-badge dt-badge--md">MD</span></td>
+                  <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--blue">GS</span><span class="dt-avatar__name">Gani Sigit</span></div></td>
+                  <td>May 22, 2026</td>
+                  <td><span class="st-badge st-badge--green">Indexed</span></td>
+                  <td class="dt-td--num">2.3 KB</td>
+                </tr>
+                <tr>
+                  <td><div class="dt-file"><span class="dt-file__icon"><i class="ph ph-file-text"></i></span><span class="dt-file__name">meddic.md</span></div></td>
+                  <td><span class="dt-source dt-source--blue"><i class="ph ph-stack"></i>Sales Playbook</span></td>
+                  <td><span class="dt-badge dt-badge--md">MD</span></td>
+                  <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--blue">GS</span><span class="dt-avatar__name">Gani Sigit</span></div></td>
+                  <td>May 22, 2026</td>
+                  <td><span class="st-badge st-badge--green">Indexed</span></td>
+                  <td class="dt-td--num">1.4 KB</td>
+                </tr>
+                <tr>
+                  <td><div class="dt-file"><span class="dt-file__icon"><i class="ph ph-file-pdf"></i></span><span class="dt-file__name">NetSuite-to-Salesforce_Alignment_Report.pdf</span></div></td>
+                  <td><span class="dt-source dt-source--purple"><i class="ph ph-stack"></i>Company Handbook</span></td>
+                  <td><span class="dt-badge dt-badge--pdf">PDF</span></td>
+                  <td><div class="dt-avatar"><span class="dt-avatar__circle dt-avatar__circle--purple">UN</span><span class="dt-avatar__name">Unknown</span></div></td>
+                  <td>Jun 19, 2026</td>
+                  <td><span class="st-badge st-badge--green">Indexed</span></td>
+                  <td class="dt-td--num">61.4 KB</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="dt-empty" id="dt-empty" style="display: none;">
+              <div class="dt-empty__icon"><i class="ph ph-magnifying-glass"></i></div>
+              <div class="dt-empty__title">No documents found</div>
+              <div class="dt-empty__desc">Try adjusting your search or filters</div>
+            </div>
+            <div class="dt-pagination">
+              <span class="dt-pagination__info" id="dt-pagination-info">Showing 1-12 of 12</span>
+              <div class="dt-pagination__controls">
+                <button class="ui-btn ui-btn--icon-sm" type="button" aria-label="Previous page" disabled><i class="ph ph-caret-left"></i></button>
+                <button class="ui-btn ui-btn--icon-sm" type="button" aria-label="Page 1" style="background: var(--color-surface); color: var(--color-text-primary); font-weight: 600;">1</button>
+                <button class="ui-btn ui-btn--icon-sm" type="button" aria-label="Next page" disabled><i class="ph ph-caret-right"></i></button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1441,7 +1653,7 @@ function setActiveSection(el) {
 var ROUTE_CONFIG = {
   chat:      { crumb: 'Design help', active: 'Typography discussion', showComposer: true },
   projects:  { crumb: 'Home',           active: 'Projects',              showComposer: false },
-  library:   { crumb: null,           active: 'Library',               showComposer: false },
+  library:   { crumb: 'Home',           active: 'Library',               showComposer: false },
   research:  { crumb: 'Pinned',       active: 'Research & Analysis',   showComposer: false },
   websearch: { crumb: 'Pinned',       active: 'Web Search',            showComposer: false },
   knowledge: { crumb: 'Pinned',       active: 'Knowledge Base',        showComposer: false }
@@ -1814,6 +2026,92 @@ document.addEventListener('click', function(e) {
     });
   }
 });
+// ── DATA TABLE: sorting + search filter ──
+var dtSortCol = 'name';
+var dtSortDir = 'asc';
+
+function sortLibraryTable(col, thEl) {
+  if (dtSortCol === col) {
+    dtSortDir = dtSortDir === 'asc' ? 'desc' : 'asc';
+  } else {
+    dtSortCol = col;
+    dtSortDir = 'asc';
+  }
+  // Find the th element
+  var clickedTh = thEl || (window.event && window.event.currentTarget);
+  if (!clickedTh) return;
+
+  // Update header sort indicators
+  document.querySelectorAll('#library-table th').forEach(function(th) {
+    th.classList.remove('dt-th--sorted');
+    var icon = th.querySelector('.dt-th__icon');
+    if (icon) icon.innerHTML = '';
+  });
+  clickedTh.classList.add('dt-th--sorted');
+  var icon = clickedTh.querySelector('.dt-th__icon');
+  if (icon) icon.innerHTML = '<i class="ph ph-caret-' + (dtSortDir === 'asc' ? 'up' : 'down') + '"></i>';
+
+  // Get rows and sort
+  var tbody = document.getElementById('library-tbody');
+  var rows = Array.from(tbody.querySelectorAll('tr'));
+  var colIndex = Array.from(clickedTh.parentElement.children).indexOf(clickedTh);
+
+  rows.sort(function(a, b) {
+    var aText = a.cells[colIndex].textContent.trim();
+    var bText = b.cells[colIndex].textContent.trim();
+    // Try numeric sort for size column
+    if (col === 'size') {
+      var aNum = parseFloat(aText);
+      var bNum = parseFloat(bText);
+      if (!isNaN(aNum) && !isNaN(bNum)) {
+        return dtSortDir === 'asc' ? aNum - bNum : bNum - aNum;
+      }
+    }
+    // String sort
+    if (aText < bText) return dtSortDir === 'asc' ? -1 : 1;
+    if (aText > bText) return dtSortDir === 'asc' ? 1 : -1;
+    return 0;
+  });
+
+  // Re-append sorted rows
+  rows.forEach(function(row) { tbody.appendChild(row); });
+}
+
+function filterLibraryTable() {
+  var query = (document.getElementById('dt-search').value || '').toLowerCase();
+  var rows = document.querySelectorAll('#library-tbody tr');
+  var visibleCount = 0;
+
+  rows.forEach(function(row) {
+    var text = row.textContent.toLowerCase();
+    if (text.indexOf(query) > -1) {
+      row.style.display = '';
+      visibleCount++;
+    } else {
+      row.style.display = 'none';
+    }
+  });
+
+  // Update count
+  var countEl = document.getElementById('dt-count');
+  if (countEl) countEl.textContent = visibleCount + (visibleCount === 1 ? ' document' : ' documents');
+
+  var pagInfo = document.getElementById('dt-pagination-info');
+  if (pagInfo) pagInfo.textContent = 'Showing 1-' + visibleCount + ' of ' + visibleCount;
+
+  // Show/hide empty state
+  var empty = document.getElementById('dt-empty');
+  var table = document.getElementById('library-table');
+  if (empty && table) {
+    if (visibleCount > 0) {
+      empty.style.display = 'none';
+      table.style.display = '';
+    } else {
+      empty.style.display = 'flex';
+      table.style.display = 'none';
+    }
+  }
+}
 </script>
 </body>
 </html>
