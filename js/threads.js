@@ -31,7 +31,7 @@ var THREADS = {
     project: 'Design help',
     messages: [
       { type: 'user', text: 'Get a detailed project workflow' },
-      { type: 'ai', thinking: 'The user wants a detailed project workflow based on the onboarding demo. I should analyze the demo content and structure it into key phases with actionable steps.', status: [{ type: 'viewed', label: 'Onboarding Demo' }, { type: 'generating', label: 'Generating project workflow...' }], text: '### Shaping the AI Chat Experience\n\n- During the session, the team presented the overall product vision focused on building a modern AI chat experience that feels intuitive and easy to use for end users.\n- Key emphasis was placed on clarity of interaction, reducing cognitive load, and ensuring responses feel helpful, contextual, and trustworthy.\n\n### Key Takeaways\n\n1. The experience should scale from onboarding demos to advanced workflows without increasing complexity for the user.\n2. The AI chat should serve as a primary interface for user interaction, prioritizing simplicity and clear intent recognition.', sources: [{ type: 'document', title: 'Customer Feedback: Aggregated Insights and Key Pain Points' }, { type: 'document', title: 'Sales Performance: Pipeline Health and Conversion Metrics' }, { type: 'video', title: 'Product Overview Session' }] },
+      { type: 'ai', steps: [{ type: 'search', label: 'Searching knowledge base', detail: 'Queried "project workflow onboarding demo" across 2 collections' }, { type: 'read', label: 'Reading document', detail: 'Customer Feedback: Aggregated Insights and Key Pain Points' }, { type: 'read', label: 'Reading document', detail: 'Sales Performance: Pipeline Health and Conversion Metrics' }, { type: 'analyze', label: 'Analyzing demo content', detail: 'Extracted key themes: AI chat experience, clarity, cognitive load' }, { type: 'synthesize', label: 'Synthesizing workflow', detail: 'Structured into phases with actionable takeaways' }], thinking: 'The user wants a detailed project workflow based on the onboarding demo. I should analyze the demo content and structure it into key phases with actionable steps.', status: [{ type: 'viewed', label: 'Onboarding Demo' }, { type: 'generating', label: 'Generating project workflow...' }], text: '### Shaping the AI Chat Experience\n\n- During the session, the team presented the overall product vision focused on building a modern AI chat experience that feels intuitive and easy to use for end users.\n- Key emphasis was placed on clarity of interaction, reducing cognitive load, and ensuring responses feel helpful, contextual, and trustworthy.\n\n### Key Takeaways\n\n1. The experience should scale from onboarding demos to advanced workflows without increasing complexity for the user.\n2. The AI chat should serve as a primary interface for user interaction, prioritizing simplicity and clear intent recognition.', sources: [{ type: 'document', title: 'Customer Feedback: Aggregated Insights and Key Pain Points' }, { type: 'document', title: 'Sales Performance: Pipeline Health and Conversion Metrics' }, { type: 'video', title: 'Product Overview Session' }] },
       { type: 'user', text: 'Hey Spectrum, I have a question for you.' },
       { type: 'ai', thinking: 'The user is greeting me and wants to ask a question. I should respond warmly and invite them to share their question.', text: 'Of course, I\'m listening, how can I help you?' },
       { type: 'user', image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=400&fit=crop' },
@@ -135,9 +135,30 @@ function renderMessages(messages) {
         msgEl.innerHTML = '<div class="msg__bubble">' + escapeHtml(msg.text) + '</div>';
       }
     } else if (msg.type === 'ai') {
-      // Build thought expander
+      // Build thought expander with optional steps
       var thoughtHtml = '';
-      if (msg.thinking) {
+      if (msg.thinking || (msg.steps && msg.steps.length)) {
+        var stepsHtml = '';
+        if (msg.steps && msg.steps.length) {
+          var stepIcons = {
+            'search': 'ph-magnifying-glass',
+            'read': 'ph-file-text',
+            'analyze': 'ph-brain',
+            'plan': 'ph-list-checks',
+            'synthesize': 'ph-stack'
+          };
+          stepsHtml = msg.steps.map(function(step, i) {
+            var icon = stepIcons[step.type] || 'ph-circle';
+            var labelHtml = step.label ? '<span class="msg__step-label">' + escapeHtml(step.label) + '</span>' : '';
+            var detailHtml = step.detail ? '<span class="msg__step-detail">' + escapeHtml(step.detail) + '</span>' : '';
+            return '<div class="msg__step">' +
+              '<div class="msg__step-num">' + (i + 1) + '</div>' +
+              '<div class="msg__step-icon"><i class="ph ph-bold ' + icon + '"></i></div>' +
+              '<div class="msg__step-content">' + labelHtml + detailHtml + '</div>' +
+            '</div>';
+          }).join('');
+        }
+        var thinkingHtml = msg.thinking ? '<div class="msg__thought-body">' + escapeHtml(msg.thinking) + '</div>' : '';
         thoughtHtml =
           '<div class="msg__thought">' +
             '<button class="msg__thought-header" type="button" onclick="toggleThought(this)" aria-expanded="false">' +
@@ -145,7 +166,10 @@ function renderMessages(messages) {
               '<span class="msg__thought-label">Thought</span>' +
               '<span class="msg__thought-chevron"><i class="ph ph-bold ph-caret-right"></i></span>' +
             '</button>' +
-            '<div class="msg__thought-body">' + escapeHtml(msg.thinking) + '</div>' +
+            '<div class="msg__thought-body">' +
+              (stepsHtml ? '<div class="msg__steps">' + stepsHtml + '</div>' : '') +
+              thinkingHtml +
+            '</div>' +
           '</div>';
       }
 

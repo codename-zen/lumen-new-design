@@ -3921,6 +3921,67 @@
     display: block;
   }
 
+  /* ── Reasoning steps (inside thought body) ── */
+  .msg__steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* 8px */
+    margin-bottom: 0.75rem;
+  }
+
+  .msg__step {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem; /* 8px */
+  }
+
+  .msg__step-num {
+    width: 1.25rem; /* 20px */
+    height: 1.25rem; /* 20px */
+    border-radius: var(--radius-full);
+    background: var(--color-surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.625rem; /* 10px */
+    font-weight: var(--font-semibold);
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+  }
+
+  .msg__step-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+    padding-top: 0.0625rem; /* 1px */
+  }
+
+  .msg__step-icon .ph {
+    font-size: var(--text-base); /* 16px */
+  }
+
+  .msg__step-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem; /* 2px */
+  }
+
+  .msg__step-label {
+    font-size: var(--text-sm); /* 14px */
+    font-weight: var(--font-medium);
+    color: var(--color-text-secondary);
+  }
+
+  .msg__step-detail {
+    font-size: var(--text-xs); /* 12px */
+    font-weight: var(--font-regular);
+    color: var(--color-text-muted);
+  }
+
   /* ── Status item (viewed, generating, etc) ── */
   .msg__status {
     display: flex;
