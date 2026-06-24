@@ -106,6 +106,9 @@
         <a href="#" class="section-item section-item-no-icon" data-tooltip="Meeting notes" onclick="navigateTo('chat', this, 'Meeting notes')">
           <span class="nav-link-text">Meeting notes</span>
         </a>
+        <a href="#" class="section-item section-item-no-icon" data-tooltip="Typography discussion" onclick="navigateTo('chat', this, 'Typography discussion')">
+          <span class="nav-link-text">Typography discussion</span>
+        </a>
       </div>
 
     </div>
@@ -1688,6 +1691,21 @@ var THREADS = {
       { type: 'user', text: 'Which of these is the highest priority?' },
       { type: 'ai', text: 'The sidebar navigation update is highest priority — it\'s a quick win that improves visual consistency immediately. The token enforcement audit is second, as it prevents future inconsistencies from compounding.' }
     ]
+  },
+  'Typography discussion': {
+    project: 'Design help',
+    messages: [
+      { type: 'user', text: 'Hey Spectrum, I have a question for you.' },
+      { type: 'ai', text: 'Of course, I\'m listening, how can I help you?' },
+      { type: 'user', image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=400&fit=crop' },
+      { type: 'user', text: 'What\'s the difference between serif and sans-serif fonts?' },
+      { type: 'ai', text: 'Serif fonts have strokes (Times New Roman); sans-serif are clean (Arial). Serif feels traditional for print, sans-serif modern for screens.' },
+      { type: 'user', file: 'license-agreement.pdf', fileType: 'PDF' },
+      { type: 'user', text: 'What\'s the difference between serif and sans-serif fonts?' },
+      { type: 'user', file: 'brand-guidelines.docx', fileType: 'DOCX' },
+      { type: 'user', file: 'quarterly-report.pptx', fileType: 'PPTX' },
+      { type: 'ai', text: 'I\'ve reviewed the uploaded files. Here\'s what I found:\n\n- **license-agreement.pdf** — Standard license agreement with terms for software usage\n- **brand-guidelines.docx** — Brand guidelines document with typography specs\n- **quarterly-report.pptx** — Q3 quarterly presentation with revenue data\n\nThe brand guidelines recommend using sans-serif for digital interfaces, which aligns with your current Lumen design system.' }
+    ]
   }
 };
 
@@ -1696,15 +1714,28 @@ function renderMessages(messages) {
   if (!container) return;
   container.innerHTML = '';
 
+  var fileTypeIcons = {
+    'PDF': 'ph-file-pdf',
+    'DOCX': 'ph-file-doc',
+    'PPTX': 'ph-file-powerpoint',
+    'XLSX': 'ph-file-xls',
+    'MD': 'ph-file-text',
+    'PNG': 'ph-file-image',
+    'JPG': 'ph-file-image'
+  };
+
   messages.forEach(function(msg) {
     var msgEl = document.createElement('div');
     msgEl.className = 'msg msg--' + msg.type;
 
     if (msg.type === 'user') {
-      if (msg.file) {
+      if (msg.image) {
+        msgEl.innerHTML = '<div class="msg__img"><img src="' + msg.image + '" alt="Uploaded image"></div>';
+      } else if (msg.file) {
+        var iconClass = fileTypeIcons[msg.fileType] || 'ph-paperclip';
         msgEl.innerHTML =
           '<div class="msg__file">' +
-            '<div class="msg__file-icon"><i class="ph ph-bold ph-paperclip"></i></div>' +
+            '<div class="msg__file-icon"><i class="ph ph-bold ' + iconClass + '"></i></div>' +
             '<div>' +
               '<div class="msg__file-name">' + msg.file + '</div>' +
               '<div class="msg__file-type">' + (msg.fileType || 'FILE') + '</div>' +
@@ -1720,6 +1751,7 @@ function renderMessages(messages) {
           '<div class="msg__actions">' +
             '<button class="ui-btn ui-btn--icon-xs" type="button" title="Copy"><i class="ph ph-bold ph-copy"></i></button>' +
             '<button class="ui-btn ui-btn--icon-xs" type="button" title="Good response"><i class="ph ph-bold ph-thumbs-up"></i></button>' +
+            '<button class="ui-btn ui-btn--icon-xs" type="button" title="Bad response"><i class="ph ph-bold ph-thumbs-down"></i></button>' +
             '<button class="ui-btn ui-btn--icon-xs" type="button" title="Regenerate"><i class="ph ph-bold ph-arrows-clockwise"></i></button>' +
           '</div>' +
         '</div>';

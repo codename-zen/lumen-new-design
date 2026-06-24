@@ -384,6 +384,30 @@
     font-weight: var(--font-medium);
   }
 
+  /* Image attachment (user uploaded image) */
+  .msg__img {
+    border-radius: 1rem; /* 16px */
+    width: 9.25rem; /* 148px */
+    height: 9.25rem; /* 148px */
+    object-fit: cover;
+    background: var(--color-surface);
+    overflow: hidden;
+  }
+
+  .msg__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* File type icon variants */
+  .msg__file-icon--pdf { color: #991b1b; }
+  .msg__file-icon--docx { color: #1e40af; }
+  .msg__file-icon--pptx { color: #9a3412; }
+  .msg__file-icon--xlsx { color: #166534; }
+  .msg__file-icon--md { color: #115e59; }
+
   /* ─── SETTINGS MODAL ─── */
   .settings-overlay {
     position: fixed;
