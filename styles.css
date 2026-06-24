@@ -4005,7 +4005,7 @@
   }
 
   .msg__md li {
-    margin-bottom: var(--space-1); /* 4px */
+    margin-bottom: 0;
   }
 
   .msg__md li:last-child {
