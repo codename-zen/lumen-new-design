@@ -153,7 +153,7 @@ function renderMessages(messages) {
             var labelHtml = step.label ? '<span class="msg__step-label">' + escapeHtml(step.label) + '</span>' : '';
             var detailHtml = step.detail ? '<span class="msg__step-detail">' + escapeHtml(step.detail) + '</span>' : '';
             return '<div class="msg__step">' +
-              '<div class="msg__step-num">' + (i + 1) + '</div>' +
+              '<div class="msg__step-dot"></div>' +
               '<div class="msg__step-content">' + labelHtml + detailHtml + '</div>' +
             '</div>';
           }).join('');
