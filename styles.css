@@ -4006,7 +4006,7 @@
 
   .msg__md li {
     margin-bottom: 0;
-    line-height: 1.375rem; /* 22px */
+    line-height: 1.25rem; /* 20px */
   }
 
   .msg__md li:last-child {
