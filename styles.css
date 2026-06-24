@@ -1989,6 +1989,12 @@
   position: relative;
 }
 
+/* Upward variant (for composer mode selector — menu opens upward) */
+.ui-select--up .ui-select__menu {
+  top: auto;
+  bottom: calc(100% + 0.25rem);
+}
+
 /* Select dropdown menu */
 .ui-select__menu {
   position: absolute;
