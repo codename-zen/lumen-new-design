@@ -192,7 +192,7 @@
 
 ### New Chat (`.nav-link-new-chat`)
 - Color: `--color-accent` (blue)
-- Icon circle: 1.25rem (20px), bg `--color-accent`, icon white
+- Icon circle: 1.25rem (20px), bg `rgba(51, 92, 255, 0.1)` (subtle blue), icon `--color-accent`
 - Hover: bg `--color-surface`
 
 ### Section Items (`.section-item`)
