@@ -1928,23 +1928,17 @@
 
           <!-- ── USERS TAB ── -->
           <div class="settings-tab is-hidden" id="atab-users">
-            <section class="st-row">
-              <div class="st-row__left">
-                <h3 class="st-h3">Users</h3>
-                <p class="st-p">4 of 4 users</p>
+            <div class="st-members-toolbar">
+              <div class="ui-search ui-search--settings">
+                <i class="ph ph-bold ph-magnifying-glass"></i>
+                <input type="text" placeholder="Search name or email..." aria-label="Search users">
               </div>
-              <div class="st-row__right">
-                <div class="st-members-toolbar">
-                  <div class="ui-search ui-search--settings">
-                    <i class="ph ph-bold ph-magnifying-glass"></i>
-                    <input type="text" placeholder="Search name or email..." aria-label="Search users">
-                  </div>
-                  <button class="ui-btn--select" type="button">All positions <i class="ph ph-bold ph-caret-down"></i></button>
-                  <button class="ui-btn--select" type="button">All platform roles <i class="ph ph-bold ph-caret-down"></i></button>
-                  <button class="ui-btn--select" type="button">No department <i class="ph ph-bold ph-caret-down"></i></button>
-                  <button class="ui-btn--primary" type="button"><i class="ph ph-bold ph-plus"></i>Add user</button>
-                </div>
-                <table class="data-table" style="margin-top: 1rem;">
+              <button class="ui-btn--select" type="button">All positions <i class="ph ph-bold ph-caret-down"></i></button>
+              <button class="ui-btn--select" type="button">All platform roles <i class="ph ph-bold ph-caret-down"></i></button>
+              <button class="ui-btn--select" type="button">No department <i class="ph ph-bold ph-caret-down"></i></button>
+              <button class="ui-btn--primary" type="button"><i class="ph ph-bold ph-plus"></i>Add user</button>
+            </div>
+            <table class="data-table" style="margin-top: 1rem;">
                   <thead>
                     <tr><th>Name</th><th>Position</th><th>Platform role</th><th>Department</th><th>Status</th><th>Last seen</th></tr>
                   </thead>
@@ -1979,9 +1973,7 @@
                       <td>just now</td>
                     </tr>
                   </tbody>
-                </table>
-              </div>
-            </section>
+              </table>
           </div>
 
           <!-- ── ORGANIZATION TAB ── -->
