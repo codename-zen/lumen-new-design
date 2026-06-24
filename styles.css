@@ -3439,6 +3439,105 @@
     margin-top: auto;
   }
 
+  /* ═══════════════════════════════════════════════════════════
+     HISTORY PAGE — thread list
+     ═══════════════════════════════════════════════════════════ */
+
+  /* History toolbar (filters left, sort right) */
+  .hist-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* 8px */
+    margin-bottom: 1.25rem; /* 20px */
+    flex-wrap: wrap;
+  }
+
+  .hist-toolbar__right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+  }
+
+  /* History thread list */
+  .hist-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* History thread row */
+  .hist-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* 12px */
+    padding: 0.75rem 0; /* 12px 0 */
+    border-bottom: 1px solid var(--color-border);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .hist-row:hover {
+    background: var(--color-surface);
+  }
+
+  .hist-row:last-child {
+    border-bottom: none;
+  }
+
+  /* Type cell (icon + label) */
+  .hist-row__type {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* 8px */
+    flex-shrink: 0;
+    min-width: 8rem; /* 128px */
+  }
+
+  .hist-row__type-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+  }
+
+  .hist-row__type-icon .ph {
+    font-size: var(--text-xl); /* 20px */
+  }
+
+  .hist-row__type-label {
+    font-size: var(--text-sm); /* 14px */
+    font-weight: var(--font-medium); /* 500 */
+    color: var(--color-text-muted);
+    white-space: nowrap;
+  }
+
+  /* Title cell (truncated) */
+  .hist-row__title {
+    flex: 1;
+    min-width: 0;
+    font-size: var(--text-sm); /* 14px */
+    font-weight: var(--font-medium); /* 500 */
+    color: var(--color-text-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Knowledge base badge (reuses .dt-source pattern) */
+  .hist-row__badge {
+    flex-shrink: 0;
+  }
+
+  /* Timestamp */
+  .hist-row__time {
+    flex-shrink: 0;
+    font-size: var(--text-xs); /* 12px */
+    font-weight: var(--font-medium); /* 500 */
+    color: var(--color-text-muted);
+    white-space: nowrap;
+  }
+
 } /* end @layer components */
 
 /* ─────────────────────────────────────────── UTILITIES ─────────────────────────────────────────── */
