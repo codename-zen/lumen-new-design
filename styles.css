@@ -4008,9 +4008,9 @@
   .msg__step:not(:last-child)::before {
     content: '';
     position: absolute;
-    left: 0.1875rem; /* 3px — center of dot */
-    top: 0.6875rem; /* 11px — below dot center (7 + 4) */
-    bottom: -0.5625rem; /* -9px — to next dot center */
+    left: 0.1875rem; /* 3px — center of 6px dot */
+    top: 0.75rem; /* 12px — below dot center (dot top 7px + half dot 3px + 2px gap) */
+    bottom: -0.5rem; /* -8px — to next dot center area */
     width: 1px;
     background: var(--color-border);
   }
@@ -4021,9 +4021,12 @@
     border-radius: var(--radius-full);
     background: var(--color-border-light);
     flex-shrink: 0;
-    margin-top: 0.4375rem; /* 7px — center on 20px line-height */
+    margin-top: 0.4375rem; /* 7px — center on first line of text */
     position: relative;
     z-index: 1;
+    /* Force crisp rendering — prevents subpixel anti-aliasing that makes dot look tilted */
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   .msg__step-icon {
