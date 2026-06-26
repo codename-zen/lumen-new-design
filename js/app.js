@@ -19,12 +19,13 @@ function setActiveSection(el) {
 // Each route maps to a #view-<route> container inside .main__panel.
 // Topbar breadcrumb updates per-route for consistency.
 var ROUTE_CONFIG = {
-  chat:      { crumb: 'Design help', active: 'Typography discussion', showComposer: true },
-  projects:  { crumb: 'Home',           active: 'Projects',              showComposer: false },
-  library:   { crumb: 'Home',           active: 'Library',               showComposer: false },
-  research:  { crumb: 'Pinned',       active: 'Research & Analysis',   showComposer: false },
-  websearch: { crumb: 'Home',           active: 'History',               showComposer: false },
-  knowledge: { crumb: 'Pinned',       active: 'Knowledge Base',        showComposer: false }
+  chat:          { crumb: 'Design help', active: 'Typography discussion', showComposer: true },
+  projects:      { crumb: 'Home',         active: 'Projects',              showComposer: false },
+  projectdetail: { crumb: 'Projects',     active: 'Project 1',             showComposer: false },
+  library:       { crumb: 'Home',         active: 'Library',               showComposer: false },
+  research:      { crumb: 'Pinned',       active: 'Research & Analysis',   showComposer: false },
+  websearch:     { crumb: 'Home',         active: 'History',               showComposer: false },
+  knowledge:     { crumb: 'Pinned',       active: 'Knowledge Base',        showComposer: false }
 };
 
 // ── THREAD DATA (recent conversations) ──
@@ -513,3 +514,55 @@ document.addEventListener('DOMContentLoaded', function() {
     devOverlay.addEventListener('click', function(e) { if (e.target === devOverlay) closeDeveloperModal(); });
   }
 });
+
+// ── PROJECT DETAIL ──
+// Open the project detail view from a project card. Pulls the project title
+// from the card's .proj-card__title so the header + breadcrumb stay in sync.
+function openProjectDetail(linkEl) {
+  var card = linkEl.closest('.proj-card');
+  var titleEl = card ? card.querySelector('.proj-card__title') : null;
+  var name = titleEl ? titleEl.textContent.trim() : 'Project';
+
+  // Update header title for this project
+  var pdTitle = document.getElementById('pd-title');
+  if (pdTitle) pdTitle.textContent = name;
+
+  // Reset to Threads tab on open (clean state)
+  var tabs = document.querySelectorAll('#view-projectdetail .pd-tabs__tab');
+  tabs.forEach(function(t, i) {
+    if (i === 0) {
+      t.classList.add('pd-tabs__tab--active');
+      t.setAttribute('aria-selected', 'true');
+    } else {
+      t.classList.remove('pd-tabs__tab--active');
+      t.setAttribute('aria-selected', 'false');
+    }
+  });
+  document.querySelectorAll('#view-projectdetail .pd-panel').forEach(function(p, i) {
+    if (i === 0) p.classList.remove('is-hidden');
+    else p.classList.add('is-hidden');
+  });
+
+  // Use the existing router so sidebar active states + breadcrumb update
+  // consistently. Pass projectName so breadcrumb shows "Projects / {name}".
+  // The Projects sidebar nav-link is the closest semantic active state.
+  var projectsNav = document.querySelector('.nav-link[data-tooltip="Projects"]');
+  navigateTo('projectdetail', projectsNav, name);
+}
+
+// Switch tabs inside the Project Detail view.
+function switchPdTab(btn, key) {
+  var view = document.getElementById('view-projectdetail');
+  if (!view) return;
+
+  view.querySelectorAll('.pd-tabs__tab').forEach(function(t) {
+    t.classList.remove('pd-tabs__tab--active');
+    t.setAttribute('aria-selected', 'false');
+  });
+  btn.classList.add('pd-tabs__tab--active');
+  btn.setAttribute('aria-selected', 'true');
+
+  view.querySelectorAll('.pd-panel').forEach(function(p) { p.classList.add('is-hidden'); });
+  var panel = document.getElementById('pd-panel-' + key);
+  if (panel) panel.classList.remove('is-hidden');
+}

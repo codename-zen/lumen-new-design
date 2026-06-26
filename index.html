@@ -350,7 +350,7 @@
                                   <button class="proj-card__menu-item" type="button"><i class="ph ph-push-pin"></i>Pin project</button>
                                   <button class="proj-card__menu-item proj-card__menu-item--danger" type="button"><i class="ph ph-trash"></i>Delete project</button>
                                 </div>
-                                <a class="proj-card__link" href="#" onclick="navigateTo('chat', null); return false;">
+                                <a class="proj-card__link" href="#" onclick="openProjectDetail(this); return false;">
                                   <div class="proj-card__icon"><i class="ph ph-folder"></i></div>
                                   <div class="proj-card__body">
                                     <h3 class="proj-card__title">Research &amp; Analysis</h3>
@@ -373,7 +373,7 @@
                                   <button class="proj-card__menu-item" type="button"><i class="ph ph-push-pin"></i>Pin project</button>
                                   <button class="proj-card__menu-item proj-card__menu-item--danger" type="button"><i class="ph ph-trash"></i>Delete project</button>
                                 </div>
-                                <a class="proj-card__link" href="#" onclick="navigateTo('chat', null); return false;">
+                                <a class="proj-card__link" href="#" onclick="openProjectDetail(this); return false;">
                                   <div class="proj-card__icon"><i class="ph ph-folder"></i></div>
                                   <div class="proj-card__body">
                                     <h3 class="proj-card__title">Web Search</h3>
@@ -396,7 +396,7 @@
                                   <button class="proj-card__menu-item" type="button"><i class="ph ph-push-pin"></i>Pin project</button>
                                   <button class="proj-card__menu-item proj-card__menu-item--danger" type="button"><i class="ph ph-trash"></i>Delete project</button>
                                 </div>
-                                <a class="proj-card__link" href="#" onclick="navigateTo('chat', null); return false;">
+                                <a class="proj-card__link" href="#" onclick="openProjectDetail(this); return false;">
                                   <div class="proj-card__icon"><i class="ph ph-folder"></i></div>
                                   <div class="proj-card__body">
                                     <h3 class="proj-card__title">API Documentation</h3>
@@ -419,7 +419,7 @@
                                   <button class="proj-card__menu-item" type="button"><i class="ph ph-push-pin"></i>Pin project</button>
                                   <button class="proj-card__menu-item proj-card__menu-item--danger" type="button"><i class="ph ph-trash"></i>Delete project</button>
                                 </div>
-                                <a class="proj-card__link" href="#" onclick="navigateTo('chat', null); return false;">
+                                <a class="proj-card__link" href="#" onclick="openProjectDetail(this); return false;">
                                   <div class="proj-card__icon"><i class="ph ph-folder"></i></div>
                                   <div class="proj-card__body">
                                     <h3 class="proj-card__title">Feature Overview</h3>
@@ -442,7 +442,7 @@
                                   <button class="proj-card__menu-item" type="button"><i class="ph ph-push-pin-slash"></i>Unpin project</button>
                                   <button class="proj-card__menu-item proj-card__menu-item--danger" type="button"><i class="ph ph-trash"></i>Delete project</button>
                                 </div>
-                                <a class="proj-card__link" href="#" onclick="navigateTo('chat', null); return false;">
+                                <a class="proj-card__link" href="#" onclick="openProjectDetail(this); return false;">
                                   <div class="proj-card__icon"><i class="ph ph-folder"></i></div>
                                   <div class="proj-card__body">
                                     <h3 class="proj-card__title">Knowledge Base</h3>
@@ -465,7 +465,7 @@
                                   <button class="proj-card__menu-item" type="button"><i class="ph ph-push-pin"></i>Pin project</button>
                                   <button class="proj-card__menu-item proj-card__menu-item--danger" type="button"><i class="ph ph-trash"></i>Delete project</button>
                                 </div>
-                                <a class="proj-card__link" href="#" onclick="navigateTo('chat', null); return false;">
+                                <a class="proj-card__link" href="#" onclick="openProjectDetail(this); return false;">
                                   <div class="proj-card__icon"><i class="ph ph-folder"></i></div>
                                   <div class="proj-card__body">
                                     <h3 class="proj-card__title">User Guide</h3>
@@ -480,6 +480,114 @@
                 </a>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ VIEW: Project Detail ══ -->
+      <div class="view is-hidden" id="view-projectdetail">
+        <div class="page-scroll">
+          <div class="page page--with-rail">
+            <div class="pd-main">
+              <!-- Header -->
+              <div class="pd-header">
+                <div class="pd-header__icon" aria-hidden="true">
+                  <i class="ph ph-folder"></i>
+                </div>
+                <div class="pd-header__title-row">
+                  <h1 class="pd-header__title" id="pd-title">Project 1</h1>
+                  <span class="pd-header__badge" id="pd-badge">
+                    <i class="ph ph-globe" aria-hidden="true"></i>
+                    <span>Public</span>
+                  </span>
+                </div>
+                <div class="pd-header__actions">
+                  <button class="ui-btn ui-btn--icon-sm" type="button" aria-label="More options" onclick="toggleCardMenu(this)">
+                    <i class="ph ph-dots-three-vertical"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Tab bar + filter -->
+              <div class="pd-tabs">
+                <div class="pd-tabs__list" role="tablist" aria-label="Project sections">
+                  <button class="pd-tabs__tab pd-tabs__tab--active" type="button" role="tab" aria-selected="true" onclick="switchPdTab(this, 'threads')">
+                    Threads
+                    <span class="pd-tabs__count pd-tabs__count--active">1</span>
+                  </button>
+                  <button class="pd-tabs__tab" type="button" role="tab" aria-selected="false" onclick="switchPdTab(this, 'files')">
+                    Files
+                    <span class="pd-tabs__count">0</span>
+                  </button>
+                  <button class="pd-tabs__tab" type="button" role="tab" aria-selected="false" onclick="switchPdTab(this, 'access')">
+                    Access
+                  </button>
+                </div>
+                <div class="pd-tabs__filter">
+                  <div class="ui-search ui-search--compact">
+                    <i class="ph ph-magnifying-glass" aria-hidden="true"></i>
+                    <input type="text" placeholder="Filter threads..." aria-label="Filter threads">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab panel: Threads -->
+              <div class="pd-panel" role="tabpanel" id="pd-panel-threads">
+                <ul class="pd-list" role="list">
+                  <li class="pd-list__item">
+                    <a class="pd-list__link" href="#" onclick="navigateTo('chat', null, 'Typography discussion'); return false;">
+                      <i class="ph ph-folder pd-list__mode-icon" aria-hidden="true"></i>
+                      <span class="pd-list__mode-label">Document only</span>
+                      <span class="pd-list__title">gey</span>
+                      <span class="pd-list__meta">
+                        <span class="pd-list__meta-item"><i class="ph ph-image" aria-hidden="true"></i>2 files</span>
+                        <span class="pd-list__meta-item pd-list__meta-item--time">0m ago</span>
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Tab panel: Files (empty state) -->
+              <div class="pd-panel is-hidden" role="tabpanel" id="pd-panel-files">
+                <div class="pd-empty">
+                  <i class="ph ph-file-dashed pd-empty__icon" aria-hidden="true"></i>
+                  <p class="pd-empty__title">No files yet</p>
+                  <p class="pd-empty__desc">Upload documents to ground answers in your project knowledge.</p>
+                </div>
+              </div>
+
+              <!-- Tab panel: Access (placeholder) -->
+              <div class="pd-panel is-hidden" role="tabpanel" id="pd-panel-access">
+                <div class="pd-empty">
+                  <i class="ph ph-users pd-empty__icon" aria-hidden="true"></i>
+                  <p class="pd-empty__title">Just you</p>
+                  <p class="pd-empty__desc">Invite teammates to collaborate on this project.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right rail: Instructions + Memory -->
+            <aside class="pd-rail" aria-label="Project settings">
+              <section class="pd-rail__section">
+                <h2 class="pd-rail__heading">Project instructions</h2>
+                <p class="pd-rail__desc">Give the assistant guidance specific to this project.</p>
+                <button class="pd-link-add" type="button">
+                  <i class="ph ph-plus" aria-hidden="true"></i>
+                  Add instructions...
+                </button>
+              </section>
+
+              <section class="pd-rail__section">
+                <h2 class="pd-rail__heading">Memory</h2>
+                <p class="pd-rail__desc">Persistent facts the AI always remembers for this project.</p>
+                <p class="pd-rail__empty">No memories yet. Add facts the AI should always remember about this project.</p>
+                <button class="pd-link-add" type="button">
+                  <i class="ph ph-plus" aria-hidden="true"></i>
+                  Add memory...
+                </button>
+              </section>
+            </aside>
           </div>
         </div>
       </div>

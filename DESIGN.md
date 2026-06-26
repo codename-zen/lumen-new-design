@@ -139,6 +139,7 @@
 - Shadow values are the ONLY place px is allowed in non-border context.
 - Use rgba(10,13,20,N) for all shadows — consistent shadow color.
 - **Dropdown menus (`.ui-select__menu`, `.profile-menu`, `.proj-card__menu`, kebab menus): NO box-shadow. Use `1px solid var(--color-border)` only.**
+- **1px hairline dividers on white bg MUST use `--color-border-light` (#d1d1d1), NOT `--color-border` (#e5e5e5).** `#e5e5e5` at 1px is nearly invisible against `#ffffff`. Reserve `--color-border` for `2px+` borders, card outlines (where surrounding contrast carries), and dropdown menu borders. Applies to: vertical rail dividers, timeline connector lines, list separators, tab underline bars below text rows.
 
 ---
 
@@ -152,6 +153,7 @@
 | Messages max-width | 43.75rem (700px) | Chat messages container |
 | Message bubble max-width | 28rem (448px) | User bubble max |
 | Composer max-width | 43.75rem (700px) | Composer wrapper |
+| Project-detail rail width | 18.75rem (300px) | Right rail on project detail page |
 
 ### App Shell
 ```
@@ -260,6 +262,46 @@
 - Item hover: bg `--color-surface`, color `--color-text-primary`
 - Item selected: bg `--color-surface`, color `--color-text-primary`
 - Item selected hover: bg `--color-border`, color `--color-text-primary`
+
+### Project Detail Page (`.pd-*`)
+Two-column layout. Container: `.page--with-rail` — CSS grid `1fr 18.75rem`, gap `2rem`, `align-items: stretch` (rail divider stretches full height).
+
+**Header (`.pd-header`)**
+- Icon: 36x36, bg `--color-surface`, radius `--radius-md`, icon `--color-accent` 20px
+- Title: `--text-base` (16px) / `--font-semibold` (600) / `--color-text-primary`
+- Badge: `--text-xs` (12px) / `--font-medium` (500) / `--color-text-muted`, 14px icon
+- Actions (right): `.ui-btn--icon-sm` kebab menu
+
+**Tabs (`.pd-tabs`, `.pd-tabs__tab`)**
+- Tab bar border-bottom: `1px solid --color-border`
+- Tab: `--text-sm` / `--font-medium`, color `--color-text-muted`, padding `10px 12px`, border-bottom `2px transparent`
+- Tab hover: color `--color-text-primary`
+- Tab active: color `--color-text-primary`, border-bottom `2px --color-accent`
+- Tab focus-visible: `2px outline --color-accent`
+- Filter search (right): `.ui-search--compact` (32px height), 280px width
+- Count chip (`.pd-tabs__count`): 18x18, bg `--color-surface`, color `--color-text-muted`, radius `--radius-sm`
+- Count chip active (`--active`): bg `rgba(51,92,255,0.1)`, color `--color-accent`
+
+**Thread list (`.pd-list`, `.pd-list__link`)**
+- Row: flex, gap 10px, padding `12px 8px`, radius `--radius-sm`, hover bg `--color-surface`
+- Mode icon: 20px, `--color-text-muted`
+- Mode label: `--text-sm` / `--font-medium` / `--color-text-muted`
+- Title: `--text-sm` / `--font-medium` / `--color-text-primary`, truncates
+- Meta items: `--text-xs` / `--font-medium` / `--color-text-muted`, gap 14px
+
+**Right rail (`.pd-rail`, `.pd-rail__section`)**
+- Border-left: `1px solid --color-border-light` (#d1d1d1 — visible at 1px on white bg)
+- Padding-left: `24px`, sections gap `24px`
+- Heading: `--text-sm` / `--font-semibold` / `--color-text-primary`
+- Description: `--text-xs` / `--font-regular` / `--color-text-muted`, line-height 1.5
+- Empty state line: same as description style
+- Add link (`.pd-link-add`): text-only button, `--text-xs` / `--font-medium` / `--color-accent`, `+` icon prefix, hover → `--color-accent-hover`
+
+**Empty state (`.pd-empty`)**
+- Centered, padding `48px 16px`, gap 8px
+- Icon: 32px, `--color-icon-default`
+- Title: `--text-sm` / `--font-medium` / `--color-text-secondary`
+- Desc: `--text-xs` / `--font-regular` / `--color-text-muted`, max-width 18rem
 
 ---
 

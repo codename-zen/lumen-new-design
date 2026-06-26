@@ -123,6 +123,22 @@ Dark mode is **NOT** automatic. It only activates when user selects it in Appear
 
 **NEVER** use `@media (prefers-color-scheme: dark)` for auto-dark. Use `[data-theme="dark"]` only.
 
+## 10b. HAIRLINE DIVIDERS — Use `--color-border-light` at 1px
+
+For **1px** vertical or horizontal dividers on white background, use `--color-border-light` (#d1d1d1), NOT `--color-border` (#e5e5e5).
+
+`#e5e5e5` at 1px is functionally invisible against `#ffffff`. Computed-style verification will pass but the user sees nothing. Reserve `--color-border` for:
+- Borders 2px or thicker
+- Card outlines (where the surrounding fill carries contrast)
+- Dropdown menu borders (already required by Rule §5)
+- Borders separating already-colored surfaces
+
+Applies to:
+- Right-rail vertical dividers (`.pd-rail`)
+- Timeline connector lines (`.msg__step::before`)
+- Tab underline guide rows (`.pd-tabs` border-bottom — exception: this stays `--color-border` because the active 2px underline carries the eye)
+- List row separators on white
+
 ## 11. PERFORMANCE
 
 - `prefers-reduced-motion` media query required at end of CSS
