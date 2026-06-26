@@ -134,7 +134,6 @@ For **1px** vertical or horizontal dividers on white background, use `--color-bo
 - Borders separating already-colored surfaces
 
 Applies to:
-- Right-rail vertical dividers (`.pd-rail`)
 - Timeline connector lines (`.msg__step::before`)
 - Tab underline guide rows (`.pd-tabs` border-bottom — exception: this stays `--color-border` because the active 2px underline carries the eye)
 - List row separators on white

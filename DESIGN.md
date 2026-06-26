@@ -290,8 +290,8 @@ Two-column layout. Container: `.page--with-rail` — CSS grid `1fr 18.75rem`, ga
 - Meta items: `--text-xs` / `--font-medium` / `--color-text-muted`, gap 14px
 
 **Right rail (`.pd-rail`, `.pd-rail__section`)**
-- Border-left: `1px solid --color-border-light` (#d1d1d1 — visible at 1px on white bg)
-- Padding-left: `24px`, sections gap `24px`
+- Rail container: flex column, gap `12px` between cards, NO vertical divider
+- Section card: padding `16px`, bg `--color-bg`, `1px solid --color-border`, radius `--radius-md` (10px), NO shadow (consistent with dropdown menu rule §5)
 - Heading: `--text-sm` / `--font-semibold` / `--color-text-primary`
 - Description: `--text-xs` / `--font-regular` / `--color-text-muted`, line-height 1.5
 - Empty state line: same as description style
